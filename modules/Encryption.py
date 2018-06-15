@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import base64
 
 class Encryption:
 
@@ -7,8 +8,11 @@ class Encryption:
         self.bot = bot
 
     @commands.command()
-    async def encode(self, *ctx):
-        return
+    async def encode(self, ctx, target, message):
+        if "base64".lower() in target:
+            crypto = str(base64.b64encode(bytes(message, 'utf-8')))
+            print(crypto)
+            await ctx.send(crypto)
 
 def setup(bot):
     bot.add_cog(Encryption(bot))
