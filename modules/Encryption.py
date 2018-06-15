@@ -13,6 +13,10 @@ class Encryption:
             crypto = str(base64.b64encode(bytes(message, 'utf-8')))
             print(crypto)
             await ctx.send(crypto)
+        elif "binary".lower() in target:
+            crypto = ' '.join(format(ord(x), 'b') for x in message)
+            print(crypto)
+            await ctx.send(crypto)
 
 def setup(bot):
     bot.add_cog(Encryption(bot))
