@@ -1,13 +1,23 @@
 import discord
 from discord.ext import commands
-import asyncio
 import json
+import os
 
 class WeirdnessBot(commands.Bot):
 
     def __init__(self):
         self._prefix = '$'
         super().__init__(command_prefix=self._prefix)
+        self.remove_command('help')
+
+        for file in os.listdir("modules"):
+            if file.endswith(".py"):
+                name = file[:-3]
+                try:
+                    self.load_extension(f"modules.{name}")
+                except:
+                    print(f"Oops! I broke the {file} module...")
+
 
     async def on_ready(self):
         print('Logged in as')
@@ -21,15 +31,7 @@ class WeirdnessBot(commands.Bot):
             return
         await self.process_commands(message)
 
-    @commands.command(name='help')
-    async def _help(self, beep):
-        embed = discord.Embed(title="Hi! I am a bot being built!", description="I am currently being built by my creator, so feel free to ignore me right now. :(")
-        await beep.send(embed=embed)
-    
-    @commands.command(name='test')
-    async def test(self, beep):
-        await beep.send('Testing, testing...')
-    
+
 client = WeirdnessBot()
 config = json.loads(open('config.json', 'r').read())
 client.run(config.get('discordtoken'))
