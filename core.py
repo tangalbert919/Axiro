@@ -31,6 +31,10 @@ class WeirdnessBot(commands.Bot):
             return
         await self.process_commands(message)
 
+    async def on_command_error(self, context, exception):
+        if isinstance(exception, discord.ext.commands.errors.MissingRequiredArgument):
+            await context.send("You're missing one or more required arguments.")
+
 
 client = WeirdnessBot()
 config = json.loads(open('config.json', 'r').read())
