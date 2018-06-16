@@ -4,30 +4,25 @@ from pybooru import Danbooru
 from pybooru import Moebooru
 import json
 import random
+import requests
 
 class Anime:
 
     def __init__(self, bot):
         self.bot = bot
 
-    def repairJSON(self, temp):
-        temp = temp.replace("{\'", "{\"")
-        temp = temp.replace("\': ", "\": ")
-        temp = temp.replace("\": \'", "\": \"")
-        temp = temp.replace("\', \'", "\", \"")
-        temp = temp.replace(", \'", ", \"")
-        temp = temp.replace("\'}", "\"}")
-        temp = temp.replace("True", "\"True\"")
-        temp = temp.replace("False", "\"False\"")
-        temp = temp.replace("None", "\"None\"")
-        temp = temp[1:-1]
-        print(temp)
-        return temp
+    @commands.command()
+    async def neko(self, ctx):
+        url = ('https://nekos.life/api/v2/img/neko')
+        response = requests.get(url)
+        print(response.json())
+        image = response.json()
+        await ctx.send(image['url'])
 
     @commands.command()
     async def danbooru(self, context):
         """Posts an image directly from Project Danbooru."""
-        client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorukey'])
+        client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorutoken'])
         if context.message.channel.is_nsfw():
             image_found = False
             while not image_found:
@@ -43,7 +38,7 @@ class Anime:
         if context.message.guild is not None:
             color = context.message.guild.me.color
         else:
-            color = discord.Colour.red()
+            color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
                               description="Here's your image, {}~".format(context.message.author.name))
         embed.set_image(url=url)
@@ -53,7 +48,7 @@ class Anime:
     @commands.command()
     async def safebooru(self, context):
         """Same as danbooru, but looks for safe images."""
-        client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorukey'])
+        client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorutoken'])
         image_found = False
         while not image_found:
             temp = self.repairJSON(str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted")))
