@@ -84,7 +84,7 @@ class Anime:
                 if 'file_url' in data:
                     image_found = True
         else:
-            await context.send("Sorry, but I can't load anything from Konachan unless you're in a NSFW channel.")
+            await context.send("You need to be in a NSFW channel for this.")
             return
         url = data['file_url']
         if context.message.guild is not None:
@@ -96,6 +96,19 @@ class Anime:
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Konachan.")
         await context.send(embed=embed)
+
+    def repairJSON(self, temp):
+        temp = temp.replace("{\'", "{\"")
+        temp = temp.replace("\': ", "\": ")
+        temp = temp.replace("\": \'", "\": \"")
+        temp = temp.replace("\', \'", "\", \"")
+        temp = temp.replace(", \'", ", \"")
+        temp = temp.replace("\'}", "\"}")
+        temp = temp.replace("True", "\"True\"")
+        temp = temp.replace("False", "\"False\"")
+        temp = temp.replace("None", "\"None\"")
+        temp = temp[1:-1]
+        return temp
 
 def setup(bot):
     bot.add_cog(Anime(bot))
