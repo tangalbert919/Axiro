@@ -24,7 +24,7 @@ class Encryption:
         if "base64".lower() in target:
             decoded = str(base64.b64decode(bytes(message, 'utf-8')))
             print(decoded)
-            await ctx.send(decoded)
+            await ctx.send(decoded[2:-1])
 
 
 def setup(bot):
