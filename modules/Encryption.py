@@ -12,7 +12,7 @@ class Encryption:
         if "base64".lower() in target:
             crypto = str(base64.b64encode(bytes(message, 'utf-8')))
             print(crypto)
-            await ctx.send(crypto)
+            await ctx.send(crypto[2:-1])
         elif "binary".lower() in target:
             crypto = ' '.join(format(ord(x), 'b') for x in message)
             print(crypto)
