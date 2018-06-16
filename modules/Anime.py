@@ -13,7 +13,10 @@ class Anime:
 
     @commands.command()
     async def neko(self, ctx):
-        url = ('https://nekos.life/api/v2/img/neko')
+        if ctx.message.channel.is_nsfw():
+            url = 'https://nekos.life/api/v2/img/nsfw_neko_gif'
+        else:
+            url = 'https://nekos.life/api/v2/img/neko'
         response = requests.get(url)
         print(response.json())
         image = response.json()

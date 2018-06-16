@@ -10,6 +10,8 @@ class WeirdnessBot(commands.Bot):
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 
+        self.config = json.loads(open('config.json', 'r').read())
+
         for file in os.listdir("modules"):
             if file.endswith(".py"):
                 name = file[:-3]
