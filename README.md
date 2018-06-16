@@ -4,7 +4,7 @@ This bot is currently a work in progress, but very soon, it'll be a full-fledged
 
 ##Features:
 
-[*] Basic encryption and decryption (base64 and sha512).
+[*] Basic encryption and decryption (base64 and binary).
 [*] Access Project Danbooru and Konachan (for the weebs).
 
 ##Installation:
