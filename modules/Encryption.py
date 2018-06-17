@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import base64
+import binascii
 
 
 class Encryption:
@@ -18,6 +19,8 @@ class Encryption:
             crypto = ' '.join(format(ord(x), 'b') for x in message)
             print(crypto)
             await ctx.send(crypto)
+        else:
+            await ctx.send('That is not a valid target.')
 
     @commands.command()
     async def decode(self, ctx, target, message):
@@ -25,6 +28,45 @@ class Encryption:
             decoded = str(base64.b64decode(bytes(message, 'utf-8')))
             print(decoded)
             await ctx.send(decoded[2:-1])
+        elif "binary".lower() in target:
+            """This currently does not work."""
+            #decoded = ''.join(chr(int(message[i*8:i*8+8],2)) for i in range(len(message)//8))
+            decoded = binascii.b2a_qp(message)
+            print(decoded)
+            await ctx.send(decoded)
+        else:
+            await ctx.send('That is not a valid target.')
+
+    @commands.command()
+    async def cipher(self, ctx, target, enorde, message):
+        if "caesar".lower() in target:
+            # Thanks jameslyons (GitHub Gist)
+            # The code has been modified to work with this command.
+            L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
+            I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
+            key = 3
+            if "cipher" in enorde:
+                ciphertext = ""
+                for c in message.upper():
+                    if c.isalpha():
+                        ciphertext += I2L[(L2I[c] + key) % 26]
+                    else:
+                        ciphertext += c
+                await ctx.send(ciphertext)
+            # Deciphering doesn't work
+            elif "decipher" in enorde:
+                plaintext = ""
+                for c in message.upper():
+                    if c.isalpha():
+                        plaintext += I2L[(L2I[c] - key) % 26]
+                    else:
+                        plaintext += c
+                await ctx.send(plaintext)
+            else:
+                await ctx.send('You have to choose to cipher or decipher the text.')
+        else:
+            await ctx.send('That\'s not a valid cipher option.')
 
 
 def setup(bot):
