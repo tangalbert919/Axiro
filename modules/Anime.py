@@ -18,7 +18,6 @@ class Anime:
         else:
             url = 'https://nekos.life/api/v2/img/neko'
         response = requests.get(url)
-        print(response.json())
         image = response.json()
         await ctx.send(image['url'])
 
@@ -62,7 +61,7 @@ class Anime:
         if context.message.guild is not None:
             color = context.message.guild.me.color
         else:
-            color = discord.Colour.blue()
+            color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
                               description="Here's your image, {}~".format(context.message.author.name))
         embed.set_image(url=url)
@@ -93,7 +92,7 @@ class Anime:
         if context.message.guild is not None:
             color = context.message.guild.me.color
         else:
-            color = discord.Colour.blue()
+            color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Konachan!",
                               description="Here's your image, {}~".format(context.message.author.name))
         embed.set_image(url=url)
