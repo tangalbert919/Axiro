@@ -31,12 +31,24 @@ class Fun:
     @commands.command()
     async def kiss(self, ctx, user: discord.User):
         url = 'https://nekos.life/api/v2/img/kiss'
-        response = requests.get(url)
-        image = response.json()
-        image = image.get("url")
+        image = getImage(url)
         embed = discord.Embed(title="{} has kissed {}. Weird...".format(ctx.message.author.name, user.name))
         embed.set_image(url=image)
         await ctx.send(embed=embed)
+        
+    @commands.command()
+    async def hug(self, ctx, user: discord.User):
+    	url = 'https://nekos.life/api/v2/img/hug'
+    	image = getImage(url)
+    	embed = discord.Embed(title="{} hugged {}. How comforting.".format(ctx.message.author.name, user.name))
+    	embed.set_image(url=image)
+    	await ctx.send(embed=embed)
+    	
+    def getImage(self, url):
+    	response = requests.get(url)
+    	image = response.json()
+    	image = image.get('url')
+    	return image
 
 
 def setup(bot):
