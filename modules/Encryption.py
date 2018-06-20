@@ -8,6 +8,9 @@ class Encryption:
 
     def __init__(self, bot):
         self.bot = bot
+        
+    L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
+    I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 
     @commands.command()
     async def encode(self, ctx, target, message):
@@ -38,33 +41,30 @@ class Encryption:
             await ctx.send('That is not a valid target.')
 
     @commands.command()
-    async def cipher(self, ctx, target, enorde, message):
+    async def encipher(self, ctx, target, message):
         if "caesar".lower() in target:
-            # Thanks jameslyons (GitHub Gist)
-            # The code has been modified to work with this command.
-            L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
-            I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-
             key = 3
-            if "cipher" in enorde:
-                ciphertext = ""
-                for c in message.upper():
-                    if c.isalpha():
-                        ciphertext += I2L[(L2I[c] + key) % 26]
-                    else:
-                        ciphertext += c
-                await ctx.send(ciphertext)
-            # Deciphering doesn't work
-            elif "decipher" in enorde:
-                plaintext = ""
-                for c in message.upper():
-                    if c.isalpha():
-                        plaintext += I2L[(L2I[c] - key) % 26]
-                    else:
-                        plaintext += c
-                await ctx.send(plaintext)
-            else:
-                await ctx.send('You have to choose to cipher or decipher the text.')
+            ciphertext = ""
+            for c in message.upper():
+            	if c.isalpha():
+            		ciphertext += I2L[(L2I[c] + key) % 26]
+            	else:
+                    ciphertext += c
+            await ctx.send(ciphertext)
+        else:
+            await ctx.send('That\'s not a valid cipher option.')
+
+    @commands.command()
+    async def decipher(self, ctx, target, message):
+    	if "caesar".lower() in target:
+            key = 3
+    		plaintext = ""
+            for c in message.upper():
+                if c.isalpha():
+                    plaintext += I2L[(L2I[c] - key) % 26]
+                else:
+                    plaintext += c
+            await ctx.send(plaintext)
         else:
             await ctx.send('That\'s not a valid cipher option.')
 
