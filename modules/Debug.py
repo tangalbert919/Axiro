@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+
 class Debug:
 
     def __init__(self, bot):
@@ -16,16 +17,16 @@ class Debug:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             await ctx.send(':ok_hand:')
-            
+
     @commands.command()
     async def load(self, ctx, *, module):
-    	"""Loads a module. Useful if new modules were added."""
-    	try:
-    		self.bot.load_extension(module)
-    	except Exception as e:
-    		await ctx.send(f'```py\n{traceback.format_exc()}\n```')
-    	else:
-    		await ctx.send(':ok_hand:')
+        """Loads a module. Useful if new modules were added."""
+        try:
+            self.bot.load_extension(module)
+        except Exception as e:
+            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+        else:
+            await ctx.send(':ok_hand:')
 
 
 def setup(bot):

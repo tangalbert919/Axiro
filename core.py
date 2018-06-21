@@ -18,7 +18,7 @@ class WeirdnessBot(commands.Bot):
                 try:
                     self.load_extension(f"modules.{name}")
                 except:
-                    print(f"Oops! I broke the {file} module...")
+                    print(f"The {name} module failed to load. Please repair it and load it.")
 
 
     async def on_ready(self):
