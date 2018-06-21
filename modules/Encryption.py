@@ -8,9 +8,6 @@ class Encryption:
 
     def __init__(self, bot):
         self.bot = bot
-        
-    L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
-    I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 
     @commands.command()
     async def encode(self, ctx, target, message):
@@ -33,7 +30,7 @@ class Encryption:
             await ctx.send(decoded[2:-1])
         elif "binary".lower() in target:
             """This currently does not work."""
-            #decoded = ''.join(chr(int(message[i*8:i*8+8],2)) for i in range(len(message)//8))
+            # decoded = ''.join(chr(int(message[i*8:i*8+8],2)) for i in range(len(message)//8))
             decoded = binascii.b2a_qp(message)
             print(decoded)
             await ctx.send(decoded)
@@ -43,12 +40,14 @@ class Encryption:
     @commands.command()
     async def encipher(self, ctx, target, message):
         if "caesar".lower() in target:
+            L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
+            I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
             key = 3
             ciphertext = ""
             for c in message.upper():
-            	if c.isalpha():
-            		ciphertext += I2L[(L2I[c] + key) % 26]
-            	else:
+                if c.isalpha():
+                    ciphertext += I2L[(L2I[c] + key) % 26]
+                else:
                     ciphertext += c
             await ctx.send(ciphertext)
         else:
@@ -56,9 +55,11 @@ class Encryption:
 
     @commands.command()
     async def decipher(self, ctx, target, message):
-    	if "caesar".lower() in target:
+        if "caesar".lower() in target:
+            L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
+            I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
             key = 3
-    		plaintext = ""
+            plaintext = ""
             for c in message.upper():
                 if c.isalpha():
                     plaintext += I2L[(L2I[c] - key) % 26]
