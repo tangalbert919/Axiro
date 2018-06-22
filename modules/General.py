@@ -9,7 +9,12 @@ class General:
     @commands.command(name='help')
     async def _help(self, beep):
         embed = discord.Embed(title="Hi! I am a bot being built!",
-                              description="I am currently being built by my creator, so feel free to ignore me right now. :(")
+                              description="So here is my current list of commands:")
+        embed.add_field(name="General:\n", value="``help`` ``test`` ``about``", inline=False)
+        embed.add_field(name="Anime:\n", value="``danbooru`` ``safebooru`` ``konachan`` ``neko``", inline=False)
+        embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``encipher`` ``decipher``", inline=False)
+        embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug``", inline=False)
+        embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``mute``", inline=False)
         await beep.send(embed=embed)
 
     @commands.command()
@@ -18,7 +23,9 @@ class General:
 
     @commands.command()
     async def about(self, beep):
-        embed = discord.Embed(title="About the Weirdness Bot:", description="This bot was created to do what most bots should do, and then some really weird things.")
+        embed = discord.Embed(title="About the Weirdness Bot:", description="This bot was created to do what most "
+                                                                            "bots should do, and then some really "
+                                                                            "weird things.")
         embed.add_field(name="Version: ", value="1.0.0 Alpha \"Axiro\"")
         embed.add_field(name="Author: ", value="tangalbert919 (The Freaking iDroid)")
         await beep.send(embed=embed)
