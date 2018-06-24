@@ -36,6 +36,12 @@ class WeirdnessBot(commands.Bot):
     async def on_command_error(self, context, exception):
         if isinstance(exception, discord.ext.commands.errors.MissingRequiredArgument):
             await context.send("You're missing one or more required arguments.")
+        elif isinstance(exception, discord.ext.commands.errors.BotMissingPermissions):
+            await context.send("I am missing the required permissions to perform this command successfully.")
+        elif isinstance(exception, discord.ext.commands.errors.MissingPermissions):
+            await context.send("You do not have permission to perform this command.")
+        else:
+            await context.send("An error has occurred.")
 
     async def status_task(self):
         await self.change_presence(activity=discord.Activity(name='Do \"$help\" for help', type=discord.ActivityType.playing))
