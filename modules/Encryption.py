@@ -10,7 +10,7 @@ class Encryption:
         self.bot = bot
 
     @commands.command()
-    async def encode(self, ctx, target, message):
+    async def encode(self, ctx, target, *, message: str):
         if "base64".lower() in target:
             crypto = str(base64.b64encode(bytes(message, 'utf-8')))
             print(crypto)
@@ -23,7 +23,7 @@ class Encryption:
             await ctx.send('That is not a valid target.')
 
     @commands.command()
-    async def decode(self, ctx, target, message):
+    async def decode(self, ctx, target, *, message: str):
         if "base64".lower() in target:
             decoded = str(base64.b64decode(bytes(message, 'utf-8')))
             print(decoded)
@@ -38,7 +38,7 @@ class Encryption:
             await ctx.send('That is not a valid target.')
 
     @commands.command()
-    async def encipher(self, ctx, target, message):
+    async def encipher(self, ctx, target, *, message: str):
         if "caesar".lower() in target:
             L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
             I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
@@ -54,7 +54,7 @@ class Encryption:
             await ctx.send('That\'s not a valid cipher option.')
 
     @commands.command()
-    async def decipher(self, ctx, target, message):
+    async def decipher(self, ctx, target, *, message: str):
         if "caesar".lower() in target:
             L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
             I2L = dict(zip(range(26), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
