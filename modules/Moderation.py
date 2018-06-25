@@ -9,7 +9,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, user: discord.User, *, reason):
+    async def kick(self, ctx, user: discord.User, *, reason: str):
         try:
             await ctx.message.guild.kick(user, reason=reason)
         except Exception:
@@ -19,7 +19,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, user: discord.User, *, reason):
+    async def ban(self, ctx, user: discord.User, *, reason: str):
         try:
             await ctx.message.guild.ban(user, reason=reason)
         except Exception:
@@ -29,7 +29,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def unban(self, ctx, user, *, reason):
+    async def unban(self, ctx, user, *, reason: str):
         try:
             await ctx.message.guild.unban(user, reason=reason)
         except Exception:
@@ -39,7 +39,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def mute(self, ctx, user: discord.User, *, reason):
+    async def mute(self, ctx, user: discord.User, *, reason: str):
         await ctx.send("This feature has not been built yet.")
 
 
