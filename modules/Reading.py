@@ -13,17 +13,25 @@ class Reading:
     async def news(self, msg):
         config = json.loads(open('config.json', 'r').read())
         newsapi = NewsApiClient(api_key=config.get('newsapitoken'))
-        top_headlines = newsapi.get_top_headlines(language='en', country='us')
+        top_headlines = newsapi.get_top_headlines(language='en', country='us', page_size=1)
+        top_headlines = self.repairJSON(str(top_headlines))
+        top_headlines = json.loads(top_headlines)
+        top_headlines = top_headlines['articles'][0]['url']
         print(top_headlines)
         await msg.send(top_headlines)
-        """url = ('https://newsapi.org/v2/top-headlines?'
-               'country=us&'
-               'apiKey={}'.format(config.get('newsapitoken')))
-        response = requests.get(url)
-        print(response.json())
-        newsurl = response.json()
-        await msg.send(newsurl['url'])"""
 
+    def repairJSON(self, temp):
+        temp = temp.replace("{\'", "{\"")
+        temp = temp.replace("\': ", "\": ")
+        temp = temp.replace("\": \'", "\": \"")
+        temp = temp.replace("\', \'", "\", \"")
+        temp = temp.replace(", \'", ", \"")
+        temp = temp.replace("\'}", "\"}")
+        temp = temp.replace("True", "\"True\"")
+        temp = temp.replace("False", "\"False\"")
+        temp = temp.replace("None", "\"None\"")
+        #temp = temp[1:-1]
+        return temp
 
 def setup(bot):
     bot.add_cog(Reading(bot))
