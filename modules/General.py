@@ -57,6 +57,7 @@ class General:
     async def server(self, ctx):
         embed = discord.Embed(color=discord.Colour.dark_gold(), title="So you want to join my creator's server?",
                               description="Come join the support server by clicking [here](https://discord.gg/NEpsy8h)")
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def suggest(self, ctx, *, report: str):
