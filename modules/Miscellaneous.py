@@ -4,7 +4,7 @@ import json
 from newsapi import NewsApiClient
 
 
-class Reading:
+class Miscellaneous:
 
     def __init__(self, bot):
         self.bot = bot
@@ -23,6 +23,15 @@ class Reading:
         embed.set_image(url=top_headlines['articles'][0]['urlToImage'])
         await msg.send(embed=embed)
 
+    @commands.command()
+    async def math(self, ctx, *, message: str):
+        try:
+            answer = eval(message)
+            ctx.send("Answer: ", answer)
+        except Exception:
+            ctx.send("This is not an equation.")
+
+
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
         temp = temp.replace("\': ", "\": ")
@@ -37,4 +46,4 @@ class Reading:
         return temp
 
 def setup(bot):
-    bot.add_cog(Reading(bot))
+    bot.add_cog(Miscellaneous(bot))
