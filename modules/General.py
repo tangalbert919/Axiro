@@ -16,6 +16,7 @@ class General:
         embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``encipher`` ``decipher``", inline=False)
         embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug``", inline=False)
         embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
+        embed.add_field(name="Miscellaneous:\n", value="``math`` ``news``", inline=False)
         await beep.send(embed=embed)
 
     @commands.command()
