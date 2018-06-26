@@ -11,7 +11,7 @@ class General:
     async def _help(self, beep):
         embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
-        embed.add_field(name="General:\n", value="``help`` ``test`` ``about`` ``user`` ``suggest`` ``report``", inline=False)
+        embed.add_field(name="General:\n", value="``help`` ``test`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server``", inline=False)
         embed.add_field(name="Anime:\n", value="``danbooru`` ``safebooru`` ``konachan`` ``neko``", inline=False)
         embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``encipher`` ``decipher``", inline=False)
         embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug``", inline=False)
