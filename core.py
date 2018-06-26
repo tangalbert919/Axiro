@@ -31,6 +31,8 @@ class WeirdnessBot(commands.Bot):
     async def on_message(self, message):
         if message.author == self.user:
             return
+        if message.content == "HAIL HYDRA!":
+            await message.channel.send("***HAIL HYDRA!!!***")
         await self.process_commands(message)
 
     async def on_command_error(self, context, exception):
