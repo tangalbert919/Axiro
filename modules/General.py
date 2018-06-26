@@ -50,8 +50,13 @@ class General:
     @commands.command()
     async def invite(self, ctx):
         embed = discord.Embed(color=discord.Colour.dark_orange(), title="Are you going to invite me to your server?",
-                              description="Invite me by clicking [this link](https://discordapp.com/api/oauth2/authorize?client_id=458834071796187149&permissions=8&scope=bot).")
+                              description="Invite me by clicking [here](https://discordapp.com/api/oauth2/authorize?client_id=458834071796187149&permissions=8&scope=bot).")
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def server(self, ctx):
+        embed = discord.Embed(color=discord.Colour.dark_gold(), title="So you want to join my creator's server?",
+                              description="Come join the support server by clicking [here](https://discord.gg/NEpsy8h)")
 
     @commands.command()
     async def suggest(self, ctx, *, report: str):
