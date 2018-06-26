@@ -40,6 +40,8 @@ class WeirdnessBot(commands.Bot):
             await context.send("I am missing the required permissions to perform this command successfully.")
         elif isinstance(exception, discord.ext.commands.errors.MissingPermissions):
             await context.send("You do not have permission to perform this command.")
+        elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
+            await context.send("That command does not exist!")
         else:
             await context.send("An error has occurred.")
 
@@ -50,7 +52,7 @@ class WeirdnessBot(commands.Bot):
         await asyncio.sleep(30)
         await self.change_presence(activity=discord.Activity(name='24K Magic', type=discord.ActivityType.listening))
         await asyncio.sleep(30)
-        await self.change_presence(activity=discord.Activity(name='A whole lot of anime stuff', type=discord.ActivityType.streaming))
+        await self.change_presence(activity=discord.Activity(name='Doctor Who', type=discord.ActivityType.streaming))
         await asyncio.sleep(30)
 
 
