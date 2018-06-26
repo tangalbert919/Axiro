@@ -10,7 +10,7 @@ class Debug:
     @commands.command()
     async def reload(self, ctx, *, module):
         """Reloads a module."""
-        if ctx.message.author.id is not "310496481435975693":
+        if ctx.message.author.id != 310496481435975693:
             await ctx.send("Only my creator can run this command.")
             return
         try:
@@ -24,7 +24,7 @@ class Debug:
     @commands.command()
     async def load(self, ctx, *, module):
         """Loads a new module."""
-        if ctx.message.author.id is not "310496481435975693":
+        if ctx.message.author.id != 310496481435975693:
             await ctx.send("Only my creator can run this command.")
             return
         try:
@@ -36,7 +36,7 @@ class Debug:
 
     @commands.command()
     async def say(self, ctx, *, message: str):
-        if ctx.message.author.id is not "310496481435975693":
+        if ctx.message.author.id != 310496481435975693:
             await ctx.send("Only my creator can run that command.")
             return
         await ctx.message.delete()
