@@ -19,7 +19,7 @@ class WeirdnessBot(commands.Bot):
                 name = file[:-3]
                 try:
                     self.load_extension(f"modules.{name}")
-                except:
+                except Exception:
                     print(f"The {name} module failed to load. Please repair it and load it.")
 
     async def on_ready(self):
@@ -52,7 +52,7 @@ class WeirdnessBot(commands.Bot):
         await asyncio.sleep(30)
         await self.change_presence(activity=discord.Activity(name='24K Magic', type=discord.ActivityType.listening))
         await asyncio.sleep(30)
-        await self.change_presence(activity=discord.Activity(name='Doctor Who', type=discord.ActivityType.streaming))
+        await self.change_presence(activity=discord.Activity(name='Doctor Who', type=discord.ActivityType.watching))
         await asyncio.sleep(30)
 
 
