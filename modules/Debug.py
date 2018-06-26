@@ -10,6 +10,9 @@ class Debug:
     @commands.command()
     async def reload(self, ctx, *, module):
         """Reloads a module."""
+        if ctx.message.author.id is not "310496481435975693":
+            await ctx.send("Only my creator can run this command.")
+            return
         try:
             self.bot.unload_extension(module)
             self.bot.load_extension(module)
@@ -20,13 +23,24 @@ class Debug:
 
     @commands.command()
     async def load(self, ctx, *, module):
-        """Loads a module. Useful if new modules were added."""
+        """Loads a new module."""
+        if ctx.message.author.id is not "310496481435975693":
+            await ctx.send("Only my creator can run this command.")
+            return
         try:
             self.bot.load_extension(module)
         except Exception as e:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             await ctx.send(':ok_hand:')
+
+    @commands.command()
+    async def say(self, ctx, *, message: str):
+        if ctx.message.author.id is not "310496481435975693":
+            await ctx.send("Only my creator can run that command.")
+            return
+        await ctx.message.delete()
+        await ctx.send(message)
 
 
 def setup(bot):

@@ -14,12 +14,14 @@ class Anime:
     @commands.command()
     async def neko(self, ctx):
         if ctx.message.channel.is_nsfw():
-            url = 'https://nekos.life/api/v2/img/nsfw_neko_gif'
+            url = 'https://nekos.life/api/v2/img/lewd'
         else:
             url = 'https://nekos.life/api/v2/img/neko'
         response = requests.get(url)
         image = response.json()
-        await ctx.send(image['url'])
+        embed = discord.Embed(title="NEKO!!!")
+        embed.set_image(url=image['url'])
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def danbooru(self, context):
@@ -94,7 +96,7 @@ class Anime:
         else:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Konachan!",
-                              description="Here's your image, {}~".format(context.message.author.name))
+                              description="If you can't see the image, click [here]({})".format(url))
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Konachan.")
         await context.send(embed=embed)

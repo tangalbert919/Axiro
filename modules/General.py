@@ -41,10 +41,16 @@ class General:
             roles.append(x.name)
             knownroles = "\n".join(roles)
         embed = discord.Embed(title="Information successfully collected!", description="Here's what we know about {} "
-                                    "(also known as {}".format(target.name, target.display_name))
+                                    "(also known as {})".format(target.name, target.display_name))
         embed.add_field(name="User ID: ", value=str(target.id), inline=False)
         embed.add_field(name="Current Roles: ", value=knownroles, inline=False)
         embed.add_field(name="Joined Discord on: ", value=target.created_at, inline=False)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def invite(self, ctx):
+        embed = discord.Embed(color=discord.Colour.dark_orange(), title="Are you going to invite me to your server?",
+                              description="Invite me by clicking [this link](https://discordapp.com/api/oauth2/authorize?client_id=458834071796187149&permissions=8&scope=bot).")
         await ctx.send(embed=embed)
 
     @commands.command()
