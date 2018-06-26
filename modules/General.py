@@ -11,7 +11,7 @@ class General:
     async def _help(self, beep):
         embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
-        embed.add_field(name="General:\n", value="``help`` ``test`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server``", inline=False)
+        embed.add_field(name="General:\n", value="``help`` ``test`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
         embed.add_field(name="Anime:\n", value="``danbooru`` ``safebooru`` ``konachan`` ``neko``", inline=False)
         embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``encipher`` ``decipher``", inline=False)
         embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug``", inline=False)
@@ -76,6 +76,12 @@ class General:
         embed.add_field(name="Full report: ", value=report)
         await channel.send(embed=embed)
         await ctx.send("Your report has been sent.")
+
+    @commands.command()
+    async def github(self, ctx):
+        embed = discord.Embed(color=discord.Colour.light_grey(), title="Are you a programmer and want to help?",
+                              description="You should click [here](https://github.com/tangalbert919/WeirdnessBot) to see my repository. I am an open-source bot.")
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
