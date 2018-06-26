@@ -11,7 +11,7 @@ class Debug:
     async def reload(self, ctx, *, module):
         """Reloads a module."""
         if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
+            await ctx.send("Only the bot owner may run this command.")
             return
         try:
             self.bot.unload_extension(module)
@@ -25,7 +25,7 @@ class Debug:
     async def load(self, ctx, *, module):
         """Loads a new module."""
         if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
+            await ctx.send("Only the bot owner may run this command.")
             return
         try:
             self.bot.load_extension(module)
@@ -37,7 +37,7 @@ class Debug:
     @commands.command()
     async def say(self, ctx, *, message: str):
         if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run that command.")
+            await ctx.send("Only the bot owner may run this command.")
             return
         await ctx.message.delete()
         await ctx.send(message)
