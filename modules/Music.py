@@ -1,4 +1,3 @@
-import logging
 import math
 import re
 
@@ -14,7 +13,6 @@ class Music:
         self.bot = bot
 
         if not hasattr(bot, 'lavalink'):
-            lavalink.Client(bot=bot, password=self.bot.config['lavalinkpass'], loop=self.bot.loop, ws_port=1337, log_level=logging.DEBUG)
             self.bot.lavalink.register_hook(self.track_hook)
 
     async def track_hook(self, event):
@@ -257,6 +255,11 @@ class Music:
 
         await player.disconnect()
         await ctx.send('*⃣ | Disconnected.')
+
+    @commands.command()
+    async def rebootmusic(self, ctx):
+        await self.bot.restart_music()
+        await ctx.send("Restarting music...")
 
 
 def setup(bot):

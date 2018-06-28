@@ -3,6 +3,8 @@ from discord.ext import commands
 import json
 import os
 import asyncio
+import lavalink
+from datetime import datetime
 
 
 class WeirdnessBot(commands.Bot):
@@ -13,6 +15,8 @@ class WeirdnessBot(commands.Bot):
         self.remove_command('help')
 
         self.config = json.loads(open('config.json', 'r').read())
+        self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop, ws_port=1337)
+        self.launch_time = datetime.utcnow()
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
@@ -26,7 +30,7 @@ class WeirdnessBot(commands.Bot):
         print('Logged in as')
         print(self.user.name)
         print(self.user.id)
-        self.loop.create_task(self.status_task())
+        await self.loop.create_task(self.status_task())
 
     async def on_message(self, message):
         if message.author == self.user:
@@ -43,19 +47,24 @@ class WeirdnessBot(commands.Bot):
         elif isinstance(exception, discord.ext.commands.errors.MissingPermissions):
             await context.send("You do not have permission to perform this command.")
         elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
-            await context.send("That command does not exist!")
+            pass
         else:
             await context.send("An error has occurred.")
 
     async def status_task(self):
         await self.change_presence(activity=discord.Activity(name='Do \"$help\" for help', type=discord.ActivityType.playing))
         await asyncio.sleep(30)
-        await self.change_presence(activity=discord.Activity(name='PyCharm Community', type=discord.ActivityType.playing))
+        await self.change_presence(activity=discord.Activity(name='$help | PyCharm Community', type=discord.ActivityType.playing))
         await asyncio.sleep(30)
-        await self.change_presence(activity=discord.Activity(name='24K Magic', type=discord.ActivityType.listening))
+        await self.change_presence(activity=discord.Activity(name='$help | 24K Magic', type=discord.ActivityType.listening))
         await asyncio.sleep(30)
-        await self.change_presence(activity=discord.Activity(name='Doctor Who', type=discord.ActivityType.watching))
+        await self.change_presence(activity=discord.Activity(name='$help | Doctor Who', type=discord.ActivityType.watching))
         await asyncio.sleep(30)
+
+    async def restart_music(self):
+        del self.music_client
+        self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop,
+                                            ws_port=1337)
 
 
 client = WeirdnessBot()
