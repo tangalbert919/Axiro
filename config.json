@@ -4,5 +4,6 @@
     "danbooruname": "Danbooru username",
     "danboorutoken": "Danbooru API token",
     "konachanname": "Konachan username",
-    "konachanpasswd": "Konachan Password"
+    "konachanpasswd": "Konachan Password",
+    "lavalinkpass": "Lavalink password"
 }
