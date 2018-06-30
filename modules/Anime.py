@@ -62,8 +62,12 @@ class Anime:
                           api_key=self.bot.config['danboorutoken'])
         image_found = False
         while not image_found:
-            temp = self.repairJSON(
-                str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted {}".format(tags))))
+            if tags is None:
+                temp = self.repairJSON(
+                    str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
+            else:
+                temp = self.repairJSON(
+                    str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted {}".format(tags))))
             data = json.loads(temp)
             if 'file_url' in data:
                 image_found = True
