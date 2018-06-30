@@ -24,14 +24,14 @@ class Anime:
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def danbooru(self, context):
+    async def danbooru(self, context, *, tags: str):
         """Posts an image directly from Project Danbooru."""
         client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorutoken'])
         if context.message.channel.is_nsfw():
             image_found = False
             while not image_found:
                 temp = self.repairJSON(
-                    str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
+                    str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted {}".format(tags))))
                 data = json.loads(temp)
                 if 'file_url' in data:
                     image_found = True
@@ -50,12 +50,12 @@ class Anime:
         await context.send(embed=embed)
 
     @commands.command()
-    async def safebooru(self, context):
+    async def safebooru(self, context, *, tags: str):
         """Same as danbooru, but looks for safe images."""
         client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorutoken'])
         image_found = False
         while not image_found:
-            temp = self.repairJSON(str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted")))
+            temp = self.repairJSON(str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted {}".format(tags))))
             data = json.loads(temp)
             if 'file_url' in data:
                 image_found = True
