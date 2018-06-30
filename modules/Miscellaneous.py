@@ -28,9 +28,9 @@ class Miscellaneous:
     async def math(self, ctx, *, message: str):
         try:
             answer = eval(message)
-            ctx.send("Answer: ", answer)
+            await ctx.send("Answer: ", answer)
         except Exception:
-            ctx.send("This is not an equation.")
+            await ctx.send("This is not an equation.")
 
     @commands.command()
     async def uptime(self, ctx):
