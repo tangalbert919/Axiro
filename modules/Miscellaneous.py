@@ -21,7 +21,10 @@ class Miscellaneous:
         embed = discord.Embed(color=discord.Colour.dark_red(), title="Latest from the news.",
                               description="[{}]({})".format(top_headlines['articles'][0]['title'],
                                                             top_headlines['articles'][0]['url']))
-        embed.set_image(url=top_headlines['articles'][0]['urlToImage'])
+        try:
+            embed.set_image(url=top_headlines['articles'][0]['urlToImage'])
+        except Exception:
+            pass
         await msg.send(embed=embed)
 
     @commands.command()
@@ -38,7 +41,7 @@ class Miscellaneous:
         hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
         days, hours = divmod(hours, 24)
-        await ctx.send(f"{days}d, {hours}h, {minutes}m, {seconds}s")
+        await ctx.send("I have been up for "f"{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds.")
 
 
     def repairJSON(self, temp):
