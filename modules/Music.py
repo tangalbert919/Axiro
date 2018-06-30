@@ -12,8 +12,7 @@ class Music:
     def __init__(self, bot):
         self.bot = bot
 
-        if not hasattr(bot, 'lavalink'):
-            self.bot.lavalink.register_hook(self.track_hook)
+        self.bot.lavalink.register_hook(self.track_hook)
 
     async def track_hook(self, event):
         if isinstance(event, lavalink.Events.TrackStartEvent):
@@ -258,8 +257,11 @@ class Music:
 
     @commands.command()
     async def rebootmusic(self, ctx):
-        await self.bot.restart_music()
-        await ctx.send("Restarting music...")
+        if ctx.message.author.id != 310496481435975693:
+            await self.bot.restart_music()
+            await ctx.send("Restarting music...")
+        else:
+            await ctx.send("You do not have permission to run this command.")
 
 
 def setup(bot):
