@@ -17,7 +17,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.config = json.loads(open('config.json', 'r').read())
         self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop, ws_port=1337)
         self.launch_time = datetime.utcnow()
-        self.loop.create_task(self.status_task())
+        self.bg_task = self.loop.create_task(self.status_task())
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
