@@ -6,6 +6,7 @@ import json
 import random
 import requests
 
+
 class Anime:
 
     def __init__(self, bot):
@@ -24,14 +25,19 @@ class Anime:
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def danbooru(self, context, *, tags: str):
+    async def danbooru(self, context, tags=None):
         """Posts an image directly from Project Danbooru."""
-        client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorutoken'])
+        client = Danbooru('danbooru', username=self.bot.config['danbooruname'],
+                          api_key=self.bot.config['danboorutoken'])
         if context.message.channel.is_nsfw():
             image_found = False
             while not image_found:
-                temp = self.repairJSON(
-                    str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted {}".format(tags))))
+                if tags is None:
+                    temp = self.repairJSON(
+                        str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
+                else:
+                    temp = self.repairJSON(
+                        str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted {}".format(tags))))
                 data = json.loads(temp)
                 if 'file_url' in data:
                     image_found = True
@@ -50,12 +56,14 @@ class Anime:
         await context.send(embed=embed)
 
     @commands.command()
-    async def safebooru(self, context, *, tags: str):
+    async def safebooru(self, context, tags=None):
         """Same as danbooru, but looks for safe images."""
-        client = Danbooru('danbooru', username=self.bot.config['danbooruname'], api_key=self.bot.config['danboorutoken'])
+        client = Danbooru('danbooru', username=self.bot.config['danbooruname'],
+                          api_key=self.bot.config['danboorutoken'])
         image_found = False
         while not image_found:
-            temp = self.repairJSON(str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted {}".format(tags))))
+            temp = self.repairJSON(
+                str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted {}".format(tags))))
             data = json.loads(temp)
             if 'file_url' in data:
                 image_found = True
@@ -113,6 +121,7 @@ class Anime:
         temp = temp.replace("None", "\"None\"")
         temp = temp[1:-1]
         return temp
+
 
 def setup(bot):
     bot.add_cog(Anime(bot))
