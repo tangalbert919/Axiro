@@ -23,7 +23,6 @@ class General:
 
     @commands.command()
     async def ping(self, ctx):
-        """Calculates the ping time."""
         t_1 = time.perf_counter()
         await ctx.trigger_typing()
         t_2 = time.perf_counter()
@@ -35,8 +34,10 @@ class General:
         embed = discord.Embed(title="About the Weirdness Bot:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
         embed.add_field(name="Author: ", value="tangalbert919 (The Freaking iDroid)", inline=False)
+        embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n".format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())), inline=False)
+        embed.add_field(name="Version: ", value=self.bot.version_code)
         embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
-        #embed.add_field(name="Version: ", value=self.bot.version_code)
+
         await beep.send(embed=embed)
 
     @commands.command()
