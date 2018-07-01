@@ -55,9 +55,6 @@ class Encryption:
             #await ctx.send(decoded)
             await ctx.send("Binary decryption is currently not ready.")
             return
-        elif "md5".lower() in target:
-            await ctx.send("You can\'t decode md5. It's a one-way hash.")
-            return
         else:
             await ctx.send('That is not a valid target.')
             return
