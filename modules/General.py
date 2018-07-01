@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import time
 
 
 class General:
@@ -11,9 +12,9 @@ class General:
     async def _help(self, beep):
         embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
-        embed.add_field(name="General:\n", value="``help`` ``test`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
+        embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
         embed.add_field(name="Anime:\n", value="``danbooru`` ``safebooru`` ``konachan`` ``neko``", inline=False)
-        embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``encipher`` ``decipher``", inline=False)
+        embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
         embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug``", inline=False)
         embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
         embed.add_field(name="Miscellaneous:\n", value="``math`` ``news``", inline=False)
@@ -21,8 +22,13 @@ class General:
         await beep.send(embed=embed)
 
     @commands.command()
-    async def test(self, beep):
-        await beep.send('Testing, testing...')
+    async def ping(self, ctx):
+        """Calculates the ping time."""
+        t_1 = time.perf_counter()
+        await ctx.trigger_typing()
+        t_2 = time.perf_counter()
+        time_delta = round((t_2 - t_1) * 1000)
+        await ctx.send("Pong! ``Time: {}ms``".format(time_delta))
 
     @commands.command()
     async def about(self, beep):
