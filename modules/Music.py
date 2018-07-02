@@ -257,7 +257,7 @@ class Music:
 
     @commands.command()
     async def rebootmusic(self, ctx):
-        if ctx.message.author.id != 310496481435975693:
+        if ctx.message.author.id == 310496481435975693:
             await self.bot.restart_music()
             await ctx.send("Restarting music...")
         else:
