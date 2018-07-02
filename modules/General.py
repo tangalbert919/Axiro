@@ -15,7 +15,7 @@ class General:
         embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
         embed.add_field(name="Anime:\n", value="``danbooru`` ``safebooru`` ``konachan`` ``neko``", inline=False)
         embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
-        embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug``", inline=False)
+        embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
         embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
         embed.add_field(name="Miscellaneous:\n", value="``math`` ``news``", inline=False)
         embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))

@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 import requests
+import aiohttp
 
 
 class Fun:
@@ -28,9 +29,7 @@ class Fun:
                       'Are you living in a van down by the river?', '```I AM ERROR```'],
                      ['Absolutely not.',
                       'Here\'s my answer: What\'s at the beginning of \"Never\" and what comes after that?',
-                      'Did Ultron defeat the Avengers?', 'Is Hydra still operating?',
-                      'Did Hillary Clinton win the presidency?',
-                      '**No.**',
+                      'Is Hydra still operating?', 'Did Hillary Clinton win the presidency?', '**No.**',
                       'The answer to that question is also the answer to you surviving a fall from 10,000 feet.',
                       'Pffft. Of course not.']]
         await ctx.send(random.choice(random.choice(responses)))
@@ -49,6 +48,40 @@ class Fun:
         image = self.getImage(url)
         embed = discord.Embed(title="{} hugged {}. How comforting.".format(ctx.message.author.name, user.name))
         embed.set_image(url=image)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def urban(self, ctx, *, term):
+        if ctx.message.channel.is_nsfw():
+            await ctx.send("Due to the fact that some definitions are not appropriate, this command can only be used in NSFW channels.")
+            return
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get('http://api.urbandictionary.com/v0/define?term={}'.format(term)) as entry:
+                    entry = await entry.json()
+                    entry = entry.get('list')[0]
+        except Exception:
+            await ctx.send("That term could not be found on Urban Dictionary.")
+            return
+        word = entry.get('word')
+        definition = str(entry.get("definition"))
+        example = str(entry.get("example"))
+        link = str(entry.get("permalink"))
+        author = str(entry.get("author"))
+        thumbsup = str(entry.get("thumbs_up"))
+        thumbsdown = str(entry.get("thumbs_down"))
+        embed = discord.Embed(color=discord.Colour.lighter_grey(), title="{}".format(word), url=link,
+                              description=definition)
+        if len(example) == 0:
+            embed.add_field(name="Example: ", value="There's no example for this term.", inline=False)
+        elif len(example) >= 1024:
+            example = example[:1021]
+            embed.add_field(name="Example: ", value=example + "...", inline=False)
+        else:
+            embed.add_field(name="Example: ", value=example, inline=False)
+        embed.add_field(name=":thumbsup: ", value=thumbsup + " liked this.")
+        embed.add_field(name=":thumbsdown: ", value=thumbsdown + " disliked this.")
+        embed.set_footer(text="{} wrote this definition on Urban Dictionary.".format(author))
         await ctx.send(embed=embed)
 
     def getImage(self, url):

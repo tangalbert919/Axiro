@@ -6,6 +6,7 @@
 * discord.py rewrite
 * pybooru
 * newsapi
+* aiohttp
 
 # API Tokens
 
