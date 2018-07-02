@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import time
+import random
 
 
 class General:
@@ -13,9 +14,9 @@ class General:
         embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
         embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
-        embed.add_field(name="Anime:\n", value="``danbooru`` ``safebooru`` ``konachan`` ``neko``", inline=False)
         embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
         embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
+        embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
         embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
         embed.add_field(name="Miscellaneous:\n", value="``math`` ``news``", inline=False)
         embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
@@ -27,7 +28,8 @@ class General:
         await ctx.trigger_typing()
         t_2 = time.perf_counter()
         time_delta = round((t_2 - t_1) * 1000)
-        await ctx.send("Pong! ``Time: {}ms``".format(time_delta))
+        responses = ['Pong!', 'Ack!', 'Whoa!', 'NO! NOT THIS!', 'HAIL HYDRA!']
+        await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
 
     @commands.command()
     async def about(self, beep):
