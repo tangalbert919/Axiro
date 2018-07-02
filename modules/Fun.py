@@ -52,7 +52,7 @@ class Fun:
 
     @commands.command()
     async def urban(self, ctx, *, term):
-        if ctx.message.channel.is_nsfw():
+        if not ctx.message.channel.is_nsfw():
             await ctx.send("Due to the fact that some definitions are not appropriate, this command can only be used in NSFW channels.")
             return
         try:
