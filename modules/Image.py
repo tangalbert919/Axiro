@@ -7,7 +7,7 @@ import random
 import requests
 
 
-class Anime:
+class Image:
 
     def __init__(self, bot):
         self.bot = bot
@@ -20,12 +20,12 @@ class Anime:
             url = 'https://nekos.life/api/v2/img/neko'
         response = requests.get(url)
         image = response.json()
-        embed = discord.Embed(title="NEKO!!!")
+        embed = discord.Embed(title="From nekos.life")
         embed.set_image(url=image['url'])
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def danbooru(self, context, tags=None):
+    async def danbooru(self, context, tags=None, rating=None):
         """Posts an image directly from Project Danbooru."""
         client = Danbooru('danbooru', username=self.bot.config['danbooruname'],
                           api_key=self.bot.config['danboorutoken'])
@@ -33,45 +33,36 @@ class Anime:
             image_found = False
             while not image_found:
                 if tags is None:
-                    temp = self.repairJSON(
-                        str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
+                    if rating is None:
+                        temp = self.repairJSON(
+                        str(client.post_list(random=True, limit=1, tags="-status:deleted")))
+                    elif "safe".lower() in rating:
+                        temp = self.repairJSON(
+                            str(client.post_list(random=True, limit=1, tags="-status:deleted rating:s")))
+                    elif "explicit".lower() in rating:
+                        temp = self.repairJSON(
+                            str(client.post_list(random=True, limit=1, tags="-status:deleted rating:e")))
+                    else:
+                        await context.send("Invalid rating.")
                 else:
-                    temp = self.repairJSON(
+                    if rating is None:
+                        temp = self.repairJSON(
+                            str(client.post_list(random=True, limit=1,
+                                                 tags="-status:deleted {}".format(tags))))
+                    elif "safe".lower() in rating:
+                        temp = self.repairJSON(
+                            str(client.post_list(random=True, limit=1,
+                                                 tags="rating:s -status:deleted {}".format(tags))))
+                    elif "explicit".lower() in rating:
+                        temp = self.repairJSON(
                         str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted {}".format(tags))))
                 data = json.loads(temp)
                 if 'file_url' in data:
                     image_found = True
             url = data['file_url']
         else:
-            await context.send("You need to be in a NSFW channel for this.")
+            await context.send("You need to be in a NSFW channel to run this command.")
             return
-        if context.message.guild is not None:
-            color = context.message.guild.me.color
-        else:
-            color = discord.Colour.blurple()
-        embed = discord.Embed(color=color, title="Image from Project Danbooru!",
-                              description="If you can't see the image, click the title.", url=url)
-        embed.set_image(url=url)
-        embed.set_footer(text="Powered by Project Danbooru.")
-        await context.send(embed=embed)
-
-    @commands.command()
-    async def safebooru(self, context, tags=None):
-        """Same as danbooru, but looks for safe images."""
-        client = Danbooru('danbooru', username=self.bot.config['danbooruname'],
-                          api_key=self.bot.config['danboorutoken'])
-        image_found = False
-        while not image_found:
-            if tags is None:
-                temp = self.repairJSON(
-                    str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
-            else:
-                temp = self.repairJSON(
-                    str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted {}".format(tags))))
-            data = json.loads(temp)
-            if 'file_url' in data:
-                image_found = True
-        url = data['file_url']
         if context.message.guild is not None:
             color = context.message.guild.me.color
         else:
@@ -128,4 +119,4 @@ class Anime:
 
 
 def setup(bot):
-    bot.add_cog(Anime(bot))
+    bot.add_cog(Image(bot))
