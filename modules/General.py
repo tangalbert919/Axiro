@@ -35,7 +35,7 @@ class General:
                                     "bots should do, and then some really weird things.")
         embed.add_field(name="Author: ", value="tangalbert919 (The Freaking iDroid)", inline=False)
         embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n".format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())), inline=False)
-        embed.add_field(name="Version: ", value=self.bot.version_code)
+        #embed.add_field(name="Version: ", value=self.bot.version_code)
         embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
 
         await beep.send(embed=embed)
