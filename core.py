@@ -10,7 +10,7 @@ from datetime import datetime
 class WeirdnessBot(commands.AutoShardedBot):
 
     def __init__(self):
-        self._prefix = '$'
+        self._prefix = 'x!'
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 

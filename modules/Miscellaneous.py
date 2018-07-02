@@ -27,13 +27,13 @@ class Miscellaneous:
             pass
         await msg.send(embed=embed)
 
-    @commands.command()
+    """"@commands.command()
     async def math(self, ctx, *, message: str):
         try:
             answer = eval(message)
             await ctx.send("Answer: ", answer)
         except Exception:
-            await ctx.send("This is not an equation.")
+            await ctx.send("This is not an equation.")"""
 
     @commands.command()
     async def uptime(self, ctx):
