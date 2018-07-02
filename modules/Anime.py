@@ -50,7 +50,7 @@ class Anime:
         else:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
-                              description="If you can't see the image, click [here]({}).".format(url))
+                              description="If you can't see the image, click the title.", url=url)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Project Danbooru.")
         await context.send(embed=embed)
@@ -77,7 +77,7 @@ class Anime:
         else:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
-                              description="If you can't see the image, click [here]({})".format(url))
+                              description="If you can't see the image, click the title.", url=url)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Project Danbooru.")
         await context.send(embed=embed)
@@ -108,7 +108,7 @@ class Anime:
         else:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Konachan!",
-                              description="If you can't see the image, click [here]({})".format(url))
+                              description="If you can't see the image, click the title.", url=url)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Konachan.")
         await context.send(embed=embed)
