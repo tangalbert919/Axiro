@@ -55,13 +55,13 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def status_task(self):
         while not self.is_closed():
-            await self.change_presence(activity=discord.Activity(name='Do \"$help\" for help', type=discord.ActivityType.playing))
+            await self.change_presence(activity=discord.Activity(name='Do \"x!help\" for help', type=discord.ActivityType.playing))
             await asyncio.sleep(300)
-            await self.change_presence(activity=discord.Activity(name='$help | PyCharm Community', type=discord.ActivityType.playing))
+            await self.change_presence(activity=discord.Activity(name='x!help | PyCharm Community', type=discord.ActivityType.playing))
             await asyncio.sleep(300)
-            await self.change_presence(activity=discord.Activity(name='$help | 24K Magic', type=discord.ActivityType.listening))
+            await self.change_presence(activity=discord.Activity(name='x!help | 24K Magic', type=discord.ActivityType.listening))
             await asyncio.sleep(300)
-            await self.change_presence(activity=discord.Streaming(name='$help | Doctor Who', url="https://twitch.tv/TwitchPresents"))
+            await self.change_presence(activity=discord.Streaming(name='x!help | Doctor Who', url="https://twitch.tv/TwitchPresents"))
             await asyncio.sleep(300)
 
     async def restart_music(self):
