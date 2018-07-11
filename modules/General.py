@@ -2,24 +2,29 @@ import discord
 from discord.ext import commands
 import time
 import random
+import json
 
 
 class General:
 
     def __init__(self, bot):
         self.bot = bot
+        self.information = json.loads(open('help.json', 'r').read())
 
     @commands.command(name='help')
-    async def _help(self, beep):
-        embed = discord.Embed(title="Hi! I am a bot being built!",
+    async def _help(self, beep, commands=None):
+        if commands is None:
+            embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
-        embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
-        embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
-        embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
-        embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
-        embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
-        embed.add_field(name="Miscellaneous:\n", value="``math`` ``news``", inline=False)
-        embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
+            embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
+            embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
+            embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
+            embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
+            embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
+            embed.add_field(name="Miscellaneous:\n", value="``news``", inline=False)
+            embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
+        else:
+            embed = self.commandhelp(commands)
         await beep.send(embed=embed)
 
     @commands.command()
@@ -99,6 +104,14 @@ class General:
                               description="You should click [here](https://github.com/tangalbert919/WeirdnessBot) to see my repository. I am an open-source bot.")
         embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author.name))
         await ctx.send(embed=embed)
+
+    def commandhelp(self, command):
+        embed = discord.Embed(title="Help on {}".format(command), description="What we know about this command...")
+        try:
+            embed.add_field(name="Usage: ", value=self.information[command], inline=False)
+        except Exception:
+            embed.add_field(name="Error: ", value="This command does not exist.", inline=False)
+        return embed
 
 
 def setup(bot):

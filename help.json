@@ -1,0 +1,5 @@
+{
+  "example": "Put text here",
+  "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag] [rating]`` - Gets an image with the specified tag and rating. You do need a tag if you wish to specify a rating.",
+  "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels."
+}
