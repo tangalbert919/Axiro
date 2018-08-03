@@ -5,6 +5,7 @@ import os
 import asyncio
 import lavalink
 from datetime import datetime
+import random
 
 
 class WeirdnessBot(commands.AutoShardedBot):
@@ -20,6 +21,8 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.loop.create_task(self.status_task())
 
         self.version_code = "v1.0.0 Beta"
+
+        self.status_msg = json.loads(open('status.json', 'r').read())
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
@@ -37,8 +40,6 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        if message.content == "HAIL HYDRA!":
-            await message.channel.send("***HAIL HYDRA!!!***")
         await self.process_commands(message)
 
     async def on_command_error(self, context, exception):
@@ -55,13 +56,9 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def status_task(self):
         while not self.is_closed():
-            await self.change_presence(activity=discord.Activity(name='Do \"x!help\" for help', type=discord.ActivityType.playing))
-            await asyncio.sleep(300)
-            await self.change_presence(activity=discord.Activity(name='x!help | PyCharm Community', type=discord.ActivityType.playing))
-            await asyncio.sleep(300)
-            await self.change_presence(activity=discord.Activity(name='x!help | 24K Magic', type=discord.ActivityType.listening))
-            await asyncio.sleep(300)
-            await self.change_presence(activity=discord.Streaming(name='x!help | Doctor Who', url="https://twitch.tv/TwitchPresents"))
+            selected = random.randint(1, 11)
+            await self.change_presence(activity=discord.Activity(name=self.status_msg[selected],
+                                                                 type=discord.ActivityType.playing))
             await asyncio.sleep(300)
 
     async def restart_music(self):
