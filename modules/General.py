@@ -3,7 +3,7 @@ from discord.ext import commands
 import time
 import random
 import json
-import platform
+import sys
 
 
 class General:
@@ -42,8 +42,8 @@ class General:
         embed = discord.Embed(title="About the Weirdness Bot:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
         embed.add_field(name="Author: ", value="tangalbert919 (The Freaking iDroid)", inline=False)
-        embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n".format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())), inline=False)
-        embed.add_field(name="Version: ", value="Axiro: {}\nPython: {}\nDiscord.py: {}".format(self.bot.version_code, platform.__version__, discord.version_info))
+        embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n".format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())))
+        embed.add_field(name="Version: ", value="Axiro: **{}**\nPython: **{}**\nDiscord.py: **{}**".format(self.bot.version_code, sys.version, discord.__version__))
         embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
 
         await beep.send(embed=embed)
