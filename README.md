@@ -11,7 +11,7 @@ This bot is currently a work in progress, but very soon, it'll be a full-fledged
 
 ## Installation:
 
-Please refer to the INSTALL.md file for instructions on how to use this bot.
+Please refer to the INSTALL.md file for instructions on how to run an instance of this bot.
 
 ## TODO:
 

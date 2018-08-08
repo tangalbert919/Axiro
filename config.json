@@ -1,9 +1,0 @@
-{
-    "discordtoken": "token",
-    "newsapitoken": "newsapi.org token",
-    "danbooruname": "Danbooru username",
-    "danboorutoken": "Danbooru API token",
-    "konachanname": "Konachan username",
-    "konachanpasswd": "Konachan Password",
-    "lavalinkpass": "Lavalink password"
-}
