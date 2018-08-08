@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import io
 from contextlib import redirect_stdout
+import subprocess
 
 
 class Debug:
@@ -99,6 +100,14 @@ class Debug:
             else:
                 self._last_result = ret
                 await ctx.send(f'```py\n{value}{ret}\n```')
+
+    @commands.command()
+    async def pull(self, ctx):
+        if ctx.message.author.id != 310496481435975693:
+            await ctx.send("You do not have permission to run this command.")
+        else:
+            c = subprocess.call(('git', 'pull'))
+            if c != 0: await ctx.send("Updating from Git failed.")
 
 
 def setup(bot):
