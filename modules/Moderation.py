@@ -13,9 +13,9 @@ class Moderation:
         try:
             await ctx.message.guild.kick(user, reason=reason)
         except Exception:
-            await ctx.send("Player kick failed.")
+            await ctx.send(":x: Player kick failed.")
             return
-        await ctx.send("Player {} has been kicked from the server.".format(user.name))
+        await ctx.send(":white_check_mark: Player {} has been kicked from the server.".format(user.name))
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
@@ -23,9 +23,9 @@ class Moderation:
         try:
             await ctx.message.guild.ban(user, reason=reason)
         except Exception:
-            await ctx.send("I completely failed to ban that player.")
+            await ctx.send(":x: I completely failed to ban that player.")
             return
-        await ctx.send("Player {} has been banned from the server.".format(user.name))
+        await ctx.send(":white_check_mark: Player {} has been banned from the server.".format(user.name))
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
@@ -33,9 +33,9 @@ class Moderation:
         try:
             await ctx.message.guild.unban(user, reason=reason)
         except Exception:
-            await ctx.send("I completely failed to unban that player.")
+            await ctx.send(":x: I completely failed to unban that player.")
             return
-        await ctx.send("Player {} has been unbanned from the server.".format(user))
+        await ctx.send(":white_check_mark: Player {} has been unbanned from the server.".format(user))
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
