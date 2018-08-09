@@ -48,7 +48,7 @@ class Economy:
             ctx.send("Using negative numbers will not work.")
             return
         paid = money - check
-        paid_two = money + check
+        paid_two = money_two + check
         next_sql = "UPDATE users SET money = $1 WHERE id = $2"
         await self.bot.db.execute(next_sql, str(paid), ctx.message.author.id)
         await self.bot.db.execute(next_sql, str(paid_two), user.id)
