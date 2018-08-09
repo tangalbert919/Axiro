@@ -35,7 +35,12 @@ class Fun:
         await ctx.send(random.choice(random.choice(responses)))
 
     @commands.command()
-    async def kiss(self, ctx, user: discord.User):
+    async def kiss(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            ctx.send("Please specify a user.")
+            return
         url = 'https://nekos.life/api/v2/img/kiss'
         image = self.getImage(url)
         embed = discord.Embed(title="{} has kissed {}. Weird...".format(ctx.message.author.name, user.name))
@@ -43,7 +48,11 @@ class Fun:
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def hug(self, ctx, user: discord.User):
+    async def hug(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            ctx.send("Please specify a user.")
         url = 'https://nekos.life/api/v2/img/hug'
         image = self.getImage(url)
         embed = discord.Embed(title="{} hugged {}. How comforting.".format(ctx.message.author.name, user.name))
