@@ -51,6 +51,8 @@ class WeirdnessBot(commands.AutoShardedBot):
             await context.send("You do not have permission to perform this command.")
         elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
             pass
+        elif isinstance(exception, discord.ext.commands.errors.CommandOnCooldown):
+            await context.send("Please slow down! (Rate-limited) :watch:")
         else:
             await context.send("An error has occurred.")
 
