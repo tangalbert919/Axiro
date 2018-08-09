@@ -22,9 +22,9 @@ class Economy:
         temp = await self.bot.db.fetchval(sql, user.id)
         money = int(temp)
         if user.id != ctx.message.author.id:
-            await ctx.send(":chicken: **Balance of {}: ${}**".format(user.name, money))
+            await ctx.send(":chicken: **{} has {} chickens.**".format(user.name, money))
         else:
-            await ctx.send(":chicken: **Your balance: ${}**".format(money))
+            await ctx.send(":chicken: **You have {} chickens.**".format(money))
 
     @commands.command()
     @commands.cooldown(1, 10, BucketType.user)
