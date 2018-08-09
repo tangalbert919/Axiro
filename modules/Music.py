@@ -24,6 +24,7 @@ class Music:
                     embed.set_thumbnail(url=event.track.thumbnail)
                     await c.send(embed=embed)
         elif isinstance(event, lavalink.Events.QueueEndEvent):
+            await event.player.disconnect()
             c = event.player.fetch('channel')
             if c:
                 c = self.bot.get_channel(c)
@@ -250,7 +251,7 @@ class Music:
             return await ctx.send('I am not connected to any channel right now.')
 
         if not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
-            return await ctx.send('You\'re not in my voicechannel!')
+            return await ctx.send('You\'re not in my voice channel!')
 
         await player.disconnect()
         await ctx.send('*⃣ | Disconnected.')
