@@ -69,6 +69,7 @@ class General:
         embed.add_field(name="User ID: ", value=str(target.id), inline=False)
         embed.add_field(name="Current Roles: ", value=knownroles, inline=False)
         embed.add_field(name="Joined Discord on: ", value=target.created_at, inline=False)
+        embed.set_thumbnail(url=target.avatar_url)
         embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author.name))
         await ctx.send(embed=embed)
 
