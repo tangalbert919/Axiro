@@ -30,5 +30,9 @@
   "moderation": "This is the moderation section.",
   "kick": "Kicks the specified user. My pointy boots are on. \n\n``x!kick <player>`` - Self-explanatory.",
   "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player>`` - Self-explanatory.",
-  "unban": "Unbans the specified user. \n\n``x!unban <player>`` - Self-explanatory."
+  "unban": "Unbans the specified user. \n\n``x!unban <player>`` - Self-explanatory.",
+  "economy": "This is the economy section.",
+  "balance": "Checks how many chickens you have. \n\n``x!balance [player]`` - Self-explanatory.",
+  "pay": "Give someone chickens. This should be interesting. \n\n``x!pay <player> <amount>`` - Self-explanatory.",
+  "daily": "Get your daily chickens. \n\n``x!daily [player]`` - Specifying a player will give them your daily chickens."
 }

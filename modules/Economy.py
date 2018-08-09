@@ -22,9 +22,9 @@ class Economy:
         temp = await self.bot.db.fetchval(sql, user.id)
         money = int(temp)
         if user.id != ctx.message.author.id:
-            await ctx.send(":gem: **Balance of {}: ${}**".format(user.name, money))
+            await ctx.send(":chicken: **Balance of {}: ${}**".format(user.name, money))
         else:
-            await ctx.send(":gem: **Your balance: ${}**".format(money))
+            await ctx.send(":chicken: **Your balance: ${}**".format(money))
 
     @commands.command()
     @commands.cooldown(1, 10, BucketType.user)
@@ -42,7 +42,7 @@ class Economy:
         money = int(payer)
         money_two = int(receiver)
         if money < check:
-            ctx.send("You do not have enough money to perform this payment.")
+            ctx.send("You do not have enough chickens to perform this payment.")
             return
         elif check < 0:
             ctx.send("Using negative numbers will not work.")
@@ -76,7 +76,7 @@ class Economy:
         if user.id != ctx.message.author.id:
             await ctx.send("You just gave your ${} to {}".format(money, ctx.message.author.name))
         else:
-            await ctx.send("You just got 100 credits.")
+            await ctx.send("You just got 100 chickens.")
 
     @commands.command()
     @commands.cooldown(1, 604800, BucketType.user)
