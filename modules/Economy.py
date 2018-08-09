@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 
@@ -21,14 +22,37 @@ class Economy:
         temp = await self.bot.db.fetchval(sql, user.id)
         money = int(temp)
         if user.id != ctx.message.author.id:
-            await ctx.send(":gem: **Balance of {}: ${}**".format(ctx.message.author.name, money))
+            await ctx.send(":gem: **Balance of {}: ${}**".format(user.name, money))
         else:
             await ctx.send(":gem: **Your balance: ${}**".format(money))
 
     @commands.command()
     @commands.cooldown(1, 10, BucketType.user)
-    async def pay(self, ctx):
-        await ctx.send("This feature has not been implemented yet.")
+    async def pay(self, ctx, user: discord.User, payment):
+        try:
+            check = int(payment)
+        except Exception:
+            ctx.send("Please specify an actual amount.")
+        if user.id == self.bot.user.id:
+            await ctx.send("You can't give me money, since I'm a bot.")
+            return
+        sql = "SELECT money FROM users WHERE id = $1"
+        payer = await self.bot.db.fetchval(sql, ctx.message.author.id)
+        receiver = await self.bot.db.fetchval(sql, user.id)
+        money = int(payer)
+        money_two = int(receiver)
+        if money < check:
+            ctx.send("You do not have enough money to perform this payment.")
+            return
+        elif check < 0:
+            ctx.send("Using negative numbers will not work.")
+            return
+        paid = money - check
+        paid_two = money + check
+        next_sql = "UPDATE users SET money = $1 WHERE id = $2"
+        await self.bot.db.execute(next_sql, str(paid), ctx.message.author.id)
+        await self.bot.db.execute(next_sql, str(paid_two), user.id)
+        await ctx.send("Successfully paid ${} to {}".format(payment, user.name))
 
     @commands.command()
     @commands.cooldown(1, 10, BucketType.user)
