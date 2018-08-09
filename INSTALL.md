@@ -14,7 +14,7 @@ Using Python 3.6, you need to install the following:
 
 * yarl<1.2
 * pybooru
-* newsapi
+* newsapi-python
 * aiohttp
 * lavalink
 
