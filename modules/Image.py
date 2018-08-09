@@ -35,6 +35,12 @@ class Image:
                 if tags is None:
                     temp = self.repairJSON(
                         str(client.post_list(random=True, limit=1, tags="-status:deleted")))
+                elif "safe".lower() in tags:
+                    temp = self.repairJSON(
+                        str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted")))
+                elif "explicit".lower() in tags:
+                    temp = self.repairJSON(
+                        str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
                 else:
                     if rating is None:
                         temp = self.repairJSON(
@@ -79,6 +85,14 @@ class Image:
                     id_number = random.randint(1, highest_id)
                     temp = self.repairJSON(
                         str(client.post_list(limit=1, tags="-status:deleted id:{}".format(id_number))))
+                elif "safe".lower() in tags:
+                    id_number = random.randint(1, highest_id)
+                    temp = self.repairJSON(
+                        str(client.post_list(limit=1, tags="rating:s -status:deleted id:{}".format(id_number))))
+                elif "explicit".lower() in tags:
+                    id_number = random.randint(1, highest_id)
+                    temp = self.repairJSON(
+                        str(client.post_list(limit=1, tags="rating:e -status:deleted id:{}".format(id_number))))
                 else:
                     if "safe".lower() in rating:
                         temp = self.repairJSON(

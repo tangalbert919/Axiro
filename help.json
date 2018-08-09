@@ -1,8 +1,8 @@
 {
   "example": "Put text here",
   "image": "This is the images section.",
-  "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag]`` - Gets an image with the specified tag. \n\n ``x!konachan <tag> [rating]`` - Gets an image with the required tag and the specified rating. Type in \"safe\" or \"explicit\" (without the quotes) for the rating.",
-  "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels. \n\n``x!danbooru`` - Gets a random image from Danbooru. \n\n``x!danbooru [tag]`` - Gets an image with the specified tag. \n\n ``x!danbooru <tag> [rating]`` - Gets an image with the required tag and the specified rating. Type in \"safe\" or \"explicit\" (without the quotes) for the rating.",
+  "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag] [rating]`` - Gets an image with the specified tag, rating, or both.",
+  "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels. \n\n``x!danbooru`` - Gets a random image from Danbooru. \n\n``x!danbooru [tag] [rating]`` - Gets an image with the specified tag, rating, or both.",
   "neko": "Gets an image from Nekos API. \n\n``x!neko`` - Gets a random image.",
   "encryption": "This is the encryption section.",
   "encode": "Encrypts your message. \n\n``x!encode <target> <message>`` - Encrypts the message using the target specified. Current targets include base64 and binary.",
