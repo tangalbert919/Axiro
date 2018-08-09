@@ -56,8 +56,8 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def status_task(self):
         while not self.is_closed():
-            selected = random.randint(1, 11)
-            message = self.status_msg.get(selected)
+            selected = random.randint(1, 10)
+            message = "x!help | " + self.status_msg.get(str(selected))
             await self.change_presence(activity=discord.Activity(name=message,
                                                                  type=discord.ActivityType.playing))
             await asyncio.sleep(300)
