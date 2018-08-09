@@ -17,6 +17,8 @@ Using Python 3.6, you need to install the following:
 * newsapi-python
 * aiohttp
 * lavalink
+* asyncpg
+* psycopg2
 
 To install them, run `python -m pip install -U --user <package>`.
 
@@ -35,12 +37,17 @@ You absolutely must acquire these keys yourself. I am not getting them for you.
 * Danbooru Username & API Token
 * Konachan Username & Password
 
+# Initializing database
+
+You need to install PostgreSQL if you want full functionality of the bot. You must create the database called "axiro"
+yourself. The bot will handle the rest for you.
+
 # How to get this bot running
 
 1. Place all API Tokens in where they should go in config.json. That file needs to be created.
 2. Install the requirements listed above.
 3. Download the Lavalink.jar file (use the dev builds if you want working audio), and run it.
-3. `python3 core.py`
+4. `python3 core.py`
 
 # The config.json
 
@@ -52,6 +59,8 @@ You absolutely must acquire these keys yourself. I am not getting them for you.
     "danboorutoken": "Danbooru API token",
     "konachanname": "Konachan username",
     "konachanpasswd": "Konachan password",
-    "lavalinkpass": "Lavalink password"
+    "lavalinkpass": "Lavalink password",
+    "dbpass": "Database password",
+    "dbuser": "Database username"
 }
 ```
