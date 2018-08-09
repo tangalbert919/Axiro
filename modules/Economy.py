@@ -42,10 +42,10 @@ class Economy:
         money = int(payer)
         money_two = int(receiver)
         if money < check:
-            ctx.send("You do not have enough chickens to perform this payment.")
+            await ctx.send("You do not have enough chickens to perform this payment.")
             return
         elif check < 0:
-            ctx.send("Using negative numbers will not work.")
+            await ctx.send("Using negative numbers will not work.")
             return
         paid = money - check
         paid_two = money_two + check
