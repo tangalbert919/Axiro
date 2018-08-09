@@ -41,7 +41,7 @@ class General:
         await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
 
     @commands.command()
-    @commands.cooldown(1, 2, BucketType.user)
+    @commands.cooldown(1, 10, BucketType.user)
     async def about(self, beep):
         embed = discord.Embed(title="About the Weirdness Bot:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
