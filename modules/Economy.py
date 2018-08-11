@@ -33,6 +33,7 @@ class Economy:
             check = int(payment)
         except Exception:
             await ctx.send("Please specify an actual amount.")
+            return
         if user.id == self.bot.user.id:
             await ctx.send("You can't give me money, since I'm a bot.")
             return
