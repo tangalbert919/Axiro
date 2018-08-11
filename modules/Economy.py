@@ -54,7 +54,7 @@ class Economy:
         next_sql = "UPDATE users SET money = $1 WHERE id = $2"
         await self.bot.db.execute(next_sql, str(paid), ctx.message.author.id)
         await self.bot.db.execute(next_sql, str(paid_two), user.id)
-        await ctx.send("Successfully paid ${} to {}".format(payment, user.name))
+        await ctx.send("Successfully paid {} chickens to {}!".format(payment, user.name))
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
@@ -72,7 +72,7 @@ class Economy:
         raw_chance = 10  # Start with 30% chance of getting anywhere.
         did_i_win = random.randint(1, 100)
         if did_i_win <= raw_chance:
-            result = int(balance) + (check / 2)
+            result = int(balance) + int((check / 2))
             await ctx.send("Congrats, you won {} chickens and got to keep what you bet!".format(int(check / 2)))
         else:
             result = int(balance) - check
