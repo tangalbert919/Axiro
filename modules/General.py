@@ -20,7 +20,7 @@ class General:
             embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
             embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
-            embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay``")
+            embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble``")
             embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
             embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
