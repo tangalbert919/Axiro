@@ -44,6 +44,9 @@ class Image:
                 elif "explicit".lower() in tags:
                     temp = self.repairJSON(
                         str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
+                elif "loli" or "shota" in tags:
+                    await context.send("According to the Discord ToS, this is prohibited.")
+                    return
                 else:
                     if rating is None:
                         temp = self.repairJSON(
@@ -97,6 +100,8 @@ class Image:
                     id_number = random.randint(1, highest_id)
                     temp = self.repairJSON(
                         str(client.post_list(limit=1, tags="rating:e -status:deleted id:{}".format(id_number))))
+                elif "loli" or "shota" in tags:
+                    context.send("Due to Discord ToS, this is prohibited.")
                 else:
                     if "safe".lower() in rating:
                         temp = self.repairJSON(
