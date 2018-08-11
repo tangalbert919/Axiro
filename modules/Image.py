@@ -44,8 +44,11 @@ class Image:
                 elif "explicit".lower() in tags:
                     temp = self.repairJSON(
                         str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
-                elif "loli" or "shota" in tags:
-                    await context.send("According to the Discord ToS, this is prohibited.")
+                elif "loli".lower() in tags:
+                    await context.send("We can't show this as it violates Discord ToS.")
+                    return
+                elif "shota".lower() in tags:
+                    await context.send("We can't show this as it violates Discord ToS.")
                     return
                 else:
                     if rating is None:
@@ -100,8 +103,11 @@ class Image:
                     id_number = random.randint(1, highest_id)
                     temp = self.repairJSON(
                         str(client.post_list(limit=1, tags="rating:e -status:deleted id:{}".format(id_number))))
-                elif "loli" or "shota" in tags:
-                    await context.send("Due to Discord ToS, this is prohibited.")
+                elif "loli".lower() in tags:
+                    await context.send("We can't show this as it violates Discord ToS.")
+                    return
+                elif "shota".lower() in tags:
+                    await context.send("We can't show this as it violates Discord ToS.")
                     return
                 else:
                     if "safe".lower() in rating:
