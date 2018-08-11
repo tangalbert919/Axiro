@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
+import random
 
 
 class Economy:
@@ -57,8 +58,27 @@ class Economy:
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
-    async def gamble(self, ctx):
-        await ctx.send("This feature has not been implemented yet.")
+    async def gamble(self, ctx, money):
+        try:
+            check = int(money)
+        except Exception:
+            await ctx.send("Please specify an actual amount.")
+            return
+        sql = "SELECT money FROM users WHERE id = $1"
+        balance = await self.bot.db.fetchval(sql, ctx.message.author.id)
+        if balance < money:
+            await ctx.send("You do not have enough chickens for this gamble!")
+            return
+        raw_chance = 10  # Start with 30% chance of getting anywhere.
+        did_i_win = random.randint(1, 100)
+        if did_i_win <= raw_chance:
+            result = int(balance) + (check / 2)
+            await ctx.send("Congrats, you won {} chickens and got to keep what you bet!".format(int(check / 2)))
+        else:
+            result = int(balance) - check
+            await ctx.send("You just lost {} chickens in a gamble!".format(check))
+        next_sql = "UPDATE users SET money = $1 WHERE id = $2"
+        await self.bot.db.execute(next_sql, str(result), ctx.message.author.id)
 
     @commands.command()
     @commands.cooldown(1, 86400, BucketType.user)
