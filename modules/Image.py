@@ -102,6 +102,7 @@ class Image:
                         str(client.post_list(limit=1, tags="rating:e -status:deleted id:{}".format(id_number))))
                 elif "loli" or "shota" in tags:
                     context.send("Due to Discord ToS, this is prohibited.")
+                    return
                 else:
                     if "safe".lower() in rating:
                         temp = self.repairJSON(
