@@ -95,7 +95,7 @@ class Economy:
         next_sql = "UPDATE users SET money = $1 WHERE id = $2"
         await self.bot.db.execute(next_sql, str(money), user.id)
         if user.id != ctx.message.author.id:
-            await ctx.send("You just gave your ${} to {}".format(money, ctx.message.author.name))
+            await ctx.send("You just gave your ${} to {}".format(money, user.name))
         else:
             await ctx.send("You just got 100 chickens.")
 
