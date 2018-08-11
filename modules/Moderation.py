@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 
 
 class Moderation:
@@ -9,6 +10,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
+    @commands.cooldown(1, 5, BucketType.user)
     async def kick(self, ctx, user: discord.User, *, reason: str):
         try:
             await ctx.message.guild.kick(user, reason=reason)
@@ -19,6 +21,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
+    @commands.cooldown(1, 5, BucketType.user)
     async def ban(self, ctx, user: discord.User, *, reason: str):
         try:
             await ctx.message.guild.ban(user, reason=reason)
@@ -29,6 +32,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
+    @commands.cooldown(1, 5, BucketType.user)
     async def unban(self, ctx, user, *, reason: str):
         try:
             await ctx.message.guild.unban(user, reason=reason)
@@ -39,6 +43,7 @@ class Moderation:
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
+    @commands.cooldown(1, 5, BucketType.user)
     async def mute(self, ctx, user: discord.User, *, reason: str):
         await ctx.send("This feature has not been built yet.")
 

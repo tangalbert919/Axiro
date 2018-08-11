@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 import json
 from newsapi import NewsApiClient
 from datetime import datetime
@@ -11,6 +12,7 @@ class Miscellaneous:
         self.bot = bot
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def news(self, msg):
         config = json.loads(open('config.json', 'r').read())
         newsapi = NewsApiClient(api_key=config.get('newsapitoken'))
@@ -27,22 +29,14 @@ class Miscellaneous:
             pass
         await msg.send(embed=embed)
 
-    """"@commands.command()
-    async def math(self, ctx, *, message: str):
-        try:
-            answer = eval(message)
-            await ctx.send("Answer: ", answer)
-        except Exception:
-            await ctx.send("This is not an equation.")"""
-
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def uptime(self, ctx):
         delta_uptime = datetime.utcnow() - self.bot.launch_time
         hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
         days, hours = divmod(hours, 24)
         await ctx.send("I have been up for "f"{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds.")
-
 
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")

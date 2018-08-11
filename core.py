@@ -75,8 +75,11 @@ class WeirdnessBot(commands.AutoShardedBot):
         elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
             pass
         elif isinstance(exception, discord.ext.commands.errors.CommandOnCooldown):
+            m, s = divmod(exception.retry_after, 60)
+            h, m = divmod(m, 60)
             await context.send("Please slow down! (Rate-limited) :watch:\n"
-                               "You can use this command in {} seconds.".format(exception.retry_after))
+                               "You can use this command in {} hours, {} minutes, and {} seconds."
+                               .format(int(h), int(m), int(s)))
         else:
             await context.send("An error has occurred.")
 

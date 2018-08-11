@@ -14,7 +14,7 @@ class General:
         self.information = json.loads(open('help.json', 'r').read())
 
     @commands.command(name='help')
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def _help(self, beep, commands=None):
         if commands is None:
             embed = discord.Embed(title="Hi! I am a bot being built!",
@@ -32,7 +32,7 @@ class General:
         await beep.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def ping(self, ctx):
         t_1 = time.perf_counter()
         await ctx.trigger_typing()
@@ -42,7 +42,7 @@ class General:
         await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def about(self, beep):
         embed = discord.Embed(title="About the Weirdness Bot:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
@@ -54,7 +54,7 @@ class General:
         await beep.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def user(self, ctx):
         try:
             target = ctx.message.mentions[0]
@@ -75,7 +75,7 @@ class General:
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def invite(self, ctx):
         embed = discord.Embed(color=discord.Colour.dark_orange(), title="Are you going to invite me to your server?",
                               description="Invite me by clicking [here](https://discordapp.com/api/oauth2/authorize?client_id=458834071796187149&permissions=8&scope=bot).")
@@ -83,7 +83,7 @@ class General:
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def server(self, ctx):
         embed = discord.Embed(color=discord.Colour.dark_gold(), title="So you want to join my creator's server?",
                               description="Come join the support server by clicking [here](https://discord.gg/NEpsy8h)")
@@ -91,7 +91,7 @@ class General:
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def suggest(self, ctx, *, report: str):
         channel = self.bot.get_channel(460669314933063680)
         color = discord.Colour.blue()
@@ -101,7 +101,7 @@ class General:
         await ctx.send("Your suggestion has been sent.")
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def report(self, ctx, *, report: str):
         channel = self.bot.get_channel(460666448352641026)
         color = discord.Colour.red()
@@ -111,7 +111,7 @@ class General:
         await ctx.send("Your report has been sent.")
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def github(self, ctx):
         embed = discord.Embed(color=discord.Colour.light_grey(), title="Are you a programmer and want to help?",
                               description="You should click [here](https://github.com/tangalbert919/WeirdnessBot) to see my repository. I am an open-source bot.")

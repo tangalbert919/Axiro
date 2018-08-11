@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 from pybooru import Danbooru
 from pybooru import Moebooru
 import json
@@ -13,6 +14,7 @@ class Image:
         self.bot = bot
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def neko(self, ctx):
         if ctx.message.channel.is_nsfw():
             url = 'https://nekos.life/api/v2/img/lewd'
@@ -25,6 +27,7 @@ class Image:
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def danbooru(self, context, tags=None, rating=None):
         """Posts an image directly from Project Danbooru."""
         client = Danbooru('danbooru', username=self.bot.config['danbooruname'],
@@ -71,6 +74,7 @@ class Image:
         await context.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def konachan(self, context, tags=None, rating=None):
         """Picks a random image from Konachan and displays it."""
         client = Moebooru('konachan', username=self.bot.config['konachanname'],

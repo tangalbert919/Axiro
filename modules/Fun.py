@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 import random
 import requests
 import aiohttp
@@ -15,6 +16,7 @@ class Fun:
         await meme.send("This feature has not been implemented yet.")
 
     @commands.command(aliases=['ask'], name='8ball')
+    @commands.cooldown(1, 5, BucketType.user)
     async def _8ball(self, ctx, *, question):
         responses = [['Yes, definitely.', 'Of course! Bill Cipher would agree!', 'Did an iDroid program me?',
                       'The answer is simple: 25-5-19',
@@ -35,6 +37,7 @@ class Fun:
         await ctx.send(random.choice(random.choice(responses)))
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def kiss(self, ctx):
         try:
             user = ctx.message.mentions[0]
@@ -48,6 +51,7 @@ class Fun:
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def hug(self, ctx):
         try:
             user = ctx.message.mentions[0]
@@ -60,6 +64,7 @@ class Fun:
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def urban(self, ctx, *, term):
         if not ctx.message.channel.is_nsfw():
             await ctx.send("Due to the fact that some definitions are not appropriate, this command can only be used in NSFW channels.")

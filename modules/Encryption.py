@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 import base64
 import binascii
 import hashlib
@@ -11,6 +12,7 @@ class Encryption:
         self.bot = bot
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def encode(self, ctx, target, *, message: str):
         if "base64".lower() in target:
             crypto = str(base64.b64encode(bytes(message, 'utf-8')))
@@ -27,6 +29,7 @@ class Encryption:
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def hash(self, ctx, target, *, message: str):
         if "md5".lower() in target:
             hash = hashlib.md5(message.encode('utf-8')).hexdigest()
@@ -44,6 +47,7 @@ class Encryption:
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def decode(self, ctx, target, *, message: str):
         if "base64".lower() in target:
             decoded = str(base64.b64decode(bytes(message, 'utf-8')))
@@ -65,6 +69,7 @@ class Encryption:
         await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def encipher(self, ctx, target, *, message: str):
         if "caesar".lower() in target:
             L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))
@@ -81,6 +86,7 @@ class Encryption:
             await ctx.send('That\'s not a valid cipher option.')
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def decipher(self, ctx, target, *, message: str):
         if "caesar".lower() in target:
             L2I = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", range(26)))

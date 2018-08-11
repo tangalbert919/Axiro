@@ -9,7 +9,7 @@ class Economy:
         self.bot = bot
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def balance(self, ctx):
         try:
             user = ctx.message.mentions[0]
@@ -27,7 +27,7 @@ class Economy:
             await ctx.send(":chicken: **You have {} chickens.**".format(money))
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def pay(self, ctx, user: discord.User, payment):
         try:
             check = int(payment)
@@ -55,7 +55,7 @@ class Economy:
         await ctx.send("Successfully paid ${} to {}".format(payment, user.name))
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def gamble(self, ctx):
         await ctx.send("This feature has not been implemented yet.")
 

@@ -4,6 +4,7 @@ import re
 import discord
 import lavalink
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 
 time_rx = re.compile('[0-9]+')
 
@@ -32,6 +33,7 @@ class Music:
                     await c.send('Queue ended! Why not queue more songs?')
 
     @commands.command(aliases=['p'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def play(self, ctx, *, query):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -79,6 +81,7 @@ class Music:
             await player.play()
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def seek(self, ctx, time):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -102,6 +105,7 @@ class Music:
         await ctx.send(f'Moved track to **{lavalink.Utils.format_time(track_time)}**')
 
     @commands.command(aliases=['forceskip', 'fs'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def skip(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -112,6 +116,7 @@ class Music:
         await player.skip()
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def stop(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -123,6 +128,7 @@ class Music:
         await ctx.send('⏹ | Stopped.')
 
     @commands.command(aliases=['np', 'n'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def now(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
         song = 'Nothing'
@@ -139,6 +145,7 @@ class Music:
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['q'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def queue(self, ctx, page: int=1):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -162,6 +169,7 @@ class Music:
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['resume'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def pause(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -176,6 +184,7 @@ class Music:
             await ctx.send('⏯ | Paused')
 
     @commands.command(aliases=['vol'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def volume(self, ctx, volume: int=None):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -186,6 +195,7 @@ class Music:
         await ctx.send(f'🔈 | Set to {player.volume}%')
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def shuffle(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -197,6 +207,7 @@ class Music:
         await ctx.send('🔀 | Shuffle ' + ('enabled' if player.shuffle else 'disabled'))
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def repeat(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -208,6 +219,7 @@ class Music:
         await ctx.send('🔁 | Repeat ' + ('enabled' if player.repeat else 'disabled'))
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def remove(self, ctx, index: int):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -223,6 +235,7 @@ class Music:
         await ctx.send('Removed **' + removed.title + '** from the queue.')
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def find(self, ctx, *, query):
         if not query.startswith('ytsearch:') and not query.startswith('scsearch:'):
             query = 'ytsearch:' + query
@@ -244,6 +257,7 @@ class Music:
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['dc'])
+    @commands.cooldown(1, 5, BucketType.user)
     async def disconnect(self, ctx):
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -257,6 +271,7 @@ class Music:
         await ctx.send('*⃣ | Disconnected.')
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def rebootmusic(self, ctx):
         if ctx.message.author.id == 310496481435975693:
             await self.bot.restart_music()
