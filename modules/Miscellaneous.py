@@ -16,10 +16,13 @@ class Miscellaneous:
     async def news(self, msg):
         config = json.loads(open('config.json', 'r').read())
         newsapi = NewsApiClient(api_key=config.get('newsapitoken'))
-        top_headlines = newsapi.get_top_headlines(language='en', country='us', page_size=1)
-        top_headlines = self.repairJSON(str(top_headlines))
-        top_headlines = json.loads(top_headlines)
-        print(top_headlines)
+        try:
+            top_headlines = newsapi.get_top_headlines(language='en', country='us', page_size=1)
+            top_headlines = self.repairJSON(str(top_headlines))
+            top_headlines = json.loads(top_headlines)
+        except Exception:
+            await msg.send("I was completely unable to read the news. :(")
+            return
         embed = discord.Embed(color=discord.Colour.dark_red(), title="Latest from the news.",
                               description="[{}]({})".format(top_headlines['articles'][0]['title'],
                                                             top_headlines['articles'][0]['url']))
