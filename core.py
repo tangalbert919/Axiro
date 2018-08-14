@@ -108,8 +108,8 @@ class WeirdnessBot(commands.AutoShardedBot):
             await asyncio.sleep(300)
 
     async def on_guild_join(self, guild):
-        sql = "INSERT INTO guilds (id, name, prefix) VALUES ($1, $2, x!)"
-        await self.db.execute(sql, guild.id, guild.name)
+        sql = "INSERT INTO guilds (id, name, prefix) VALUES ($1, $2, $3)"
+        await self.db.execute(sql, guild.id, guild.name, "x!")
 
     async def on_guild_remove(self, guild):
         sql = "DELETE FROM guilds where id = $1"
