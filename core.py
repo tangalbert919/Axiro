@@ -40,7 +40,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.status_msg = json.loads(open('status.json', 'r').read())
 
         self.dbl_token = self.config['dbl_token']
-        self.dblpy = dbl.Client(self.bot, self.dbl_token)
+        self.dblpy = dbl.Client(self, self.dbl_token)
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
