@@ -7,6 +7,7 @@ import asyncpg
 import lavalink
 from datetime import datetime
 import random
+import dbl
 
 
 class WeirdnessBot(commands.AutoShardedBot):
@@ -38,6 +39,9 @@ class WeirdnessBot(commands.AutoShardedBot):
 
         self.status_msg = json.loads(open('status.json', 'r').read())
 
+        self.dbl_token = self.config['dbl_token']
+        self.dblpy = dbl.Client(self.bot, self.dbl_token)
+
         for file in os.listdir("modules"):
             if file.endswith(".py"):
                 name = file[:-3]
@@ -45,6 +49,18 @@ class WeirdnessBot(commands.AutoShardedBot):
                     self.load_extension(f"modules.{name}")
                 except Exception:
                     print(f"The {name} module failed to load. Please repair it and load it.")
+
+    async def update_stats(self):
+        """This function runs every 30 minutes to automatically update your server count"""
+
+        while True:
+            print('attempting to post server count')
+            try:
+                await self.dblpy.post_server_count()
+                print('posted server count ({})'.format(len(self.bot.guilds)))
+            except Exception as e:
+                print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+            await asyncio.sleep(1800)
 
     async def on_ready(self):
         print('Logged in as')
