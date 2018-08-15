@@ -2,7 +2,7 @@
   "example": "Put text here",
   "image": "This is the images section.",
   "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag] [rating]`` - Gets an image with the specified tag, rating, or both.",
-  "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels. \n\n``x!danbooru`` - Gets a random image from Danbooru. \n\n``x!danbooru [tag] [rating]`` - Gets an image with the specified tag, rating, or both.",
+  "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels. \n\n``x!danbooru`` - Gets a random image from Danbooru. \n\n``x!danbooru [tag] [rating]`` - Gets an image with the specified tag, rating, or both. Current ratings include questionable, explicit, and safe.",
   "neko": "Gets an image from Nekos API. \n\n``x!neko`` - Gets a random image.",
   "encryption": "This is the encryption section.",
   "encode": "Encrypts your message. \n\n``x!encode <target> <message>`` - Encrypts the message using the target specified. Current targets include base64 and binary.",
@@ -24,7 +24,7 @@
   "suggest": "Got a suggestion? Send my creator one! \n\n``x!suggest <suggestion> - Don't troll my creator, please.",
   "report": "Have you seen a bug? Tell my creator! \n\n``x!report <report> - Don't troll my creator, please.",
   "github": "If you're a developer, absolutely run this command and check out my GitHub repository. \n\n``x!github`` - Self-explanatory.",
-  "upvote": "Upvoting Axiro means more people will notice it, and that speaks volumes. Unless you don't like Axiro. \n\n``x!upvote`` - Self-explanatory."
+  "upvote": "Upvoting Axiro means more people will notice it, and that speaks volumes. Unless you don't like Axiro. \n\n``x!upvote`` - Self-explanatory.",
   "misc": "This is the miscellaneous section.",
   "news": "Get the news. \n\n``x!news`` - Self-explanatory.",
   "uptime": "Checks the uptime. \n\n``x!uptime`` - Self-explanatory.",

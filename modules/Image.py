@@ -55,7 +55,7 @@ class Image:
                 elif "questionable".lower() in rating:
                     temp = "[-status]=deleted&[tags]={}+rating:q".format(tags)
                 else:
-                    await context.send("Please specify a valid rating.")
+                    await context.send("Please specify a valid rating. Valid ratings include questionable, explicit, and safe.")
                     return
             async with aiohttp.ClientSession() as session:
                 async with session.get('https://danbooru.donmai.us/posts/random.json?search{}'
