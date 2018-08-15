@@ -37,6 +37,8 @@ class Image:
                 temp = "[-status]=deleted&[tags]=rating:s"
             elif "explicit".lower() in tags:
                 temp = "[-status]=deleted&[tags]=rating:e"
+            elif "questionable".lower() in tags:
+                temp = "[-status]=deleted&[tags]=rating:q"
             elif "loli".lower() in tags:
                 await context.send("We can't show this as it violates Discord ToS.")
                 return
@@ -50,6 +52,8 @@ class Image:
                     temp = "[-status]=deleted&[tags]={}+rating:s".format(tags)
                 elif "explicit".lower() in rating:
                     temp = "[-status]=deleted&[tags]={}+rating:e".format(tags)
+                elif "questionable".lower() in rating:
+                    temp = "[-status]=deleted&[tags]={}+rating:q".format(tags)
                 else:
                     await context.send("Please specify a valid rating.")
                     return
