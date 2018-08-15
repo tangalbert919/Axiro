@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import json
-from newsapi import NewsApiClient
 from datetime import datetime
+import aiohttp
 
 
 class Miscellaneous:
@@ -15,11 +15,11 @@ class Miscellaneous:
     @commands.cooldown(1, 5, BucketType.user)
     async def news(self, msg):
         config = json.loads(open('config.json', 'r').read())
-        newsapi = NewsApiClient(api_key=config.get('newsapitoken'))
         try:
-            top_headlines = newsapi.get_top_headlines(language='en', country='us', page_size=1)
-            top_headlines = self.repairJSON(str(top_headlines))
-            top_headlines = json.loads(top_headlines)
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://newsapi.org/v2/top-headlines?country=us&pageSize=1&apiKey={}'
+                                       .format(config.get('newsapitoken'))) as resp:
+                    top_headlines = await resp.json()
         except Exception:
             await msg.send("I was completely unable to read the news. :(")
             return
