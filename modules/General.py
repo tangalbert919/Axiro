@@ -19,7 +19,7 @@ class General:
         if commands is None:
             embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
-            embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github``", inline=False)
+            embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
             embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble``")
             embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
@@ -115,6 +115,14 @@ class General:
     async def github(self, ctx):
         embed = discord.Embed(color=discord.Colour.light_grey(), title="Are you a programmer and want to help?",
                               description="You should click [here](https://github.com/tangalbert919/WeirdnessBot) to see my repository. I am an open-source bot.")
+        embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author.name))
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def upvote(self, ctx):
+        embed = discord.Embed(color=discord.Colour.blue(), title="Come vote for Axiro!",
+                              description="Do you really like using Axiro? You can upvote it by clicking [here](https://discordbots.org/bot/458834071796187149/vote)!")
         embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author.name))
         await ctx.send(embed=embed)
 

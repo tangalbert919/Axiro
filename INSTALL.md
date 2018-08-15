@@ -17,7 +17,6 @@ Using Python 3.6, you need to install the following:
 * aiohttp
 * lavalink
 * asyncpg
-* psycopg2
 
 To install them, run `python -m pip install -U --user <package>`.
 
@@ -29,12 +28,15 @@ You need libffi-dev installed on your machine for this.
 
 # API Tokens
 
-You absolutely must acquire these keys yourself. I am not getting them for you.
+You absolutely **must** acquire these keys yourself. I am not getting them for you.
 
 * Discord API Token
 * News API Token
-* Danbooru Username & API Token
 * Konachan Username & Password
+
+# Unobtainable API tokens
+
+* DiscordBots.org API token
 
 # Initializing database
 
@@ -54,12 +56,11 @@ yourself. The bot will handle the rest for you.
 {
     "discordtoken": "discordapp.com API token",
     "newsapitoken": "newsapi token",
-    "danbooruname": "Danbooru username",
-    "danboorutoken": "Danbooru API token",
     "konachanname": "Konachan username",
     "konachanpasswd": "Konachan password",
     "lavalinkpass": "Lavalink password",
     "dbpass": "Database password",
-    "dbuser": "Database username"
+    "dbuser": "Database username",
+    "dbl_token": "DiscordBots.org token"
 }
 ```
