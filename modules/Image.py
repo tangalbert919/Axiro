@@ -1,11 +1,11 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
-from pybooru import Danbooru
 from pybooru import Moebooru
 import json
 import random
 import requests
+import aiohttp
 
 
 class Image:
@@ -30,41 +30,33 @@ class Image:
     @commands.cooldown(1, 5, BucketType.user)
     async def danbooru(self, context, tags=None, rating=None):
         """Posts an image directly from Project Danbooru."""
-        client = Danbooru('danbooru', username=self.bot.config['danbooruname'],
-                          api_key=self.bot.config['danboorutoken'])
         if context.message.channel.is_nsfw():
-            image_found = False
-            while not image_found:
-                if tags is None:
-                    temp = self.repairJSON(
-                        str(client.post_list(random=True, limit=1, tags="-status:deleted")))
-                elif "safe".lower() in tags:
-                    temp = self.repairJSON(
-                        str(client.post_list(random=True, limit=1, tags="rating:s -status:deleted")))
-                elif "explicit".lower() in tags:
-                    temp = self.repairJSON(
-                        str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted")))
-                elif "loli".lower() in tags:
-                    await context.send("We can't show this as it violates Discord ToS.")
-                    return
-                elif "shota".lower() in tags:
-                    await context.send("We can't show this as it violates Discord ToS.")
-                    return
+            if tags is None:
+                temp = "[-status]=deleted"
+            elif "safe".lower() in tags:
+                temp = "[-status]=deleted&[tags]=rating:s"
+            elif "explicit".lower() in tags:
+                temp = "[-status]=deleted&[tags]=rating:e"
+            elif "loli".lower() in tags:
+                await context.send("We can't show this as it violates Discord ToS.")
+                return
+            elif "shota".lower() in tags:
+                await context.send("We can't show this as it violates Discord ToS.")
+                return
+            else:
+                if rating is None:
+                    temp = "[-status]=deleted&[tags]={}".format(tags)
+                elif "safe".lower() in rating:
+                    temp = "[-status]=deleted&[tags]={}+rating:s".format(tags)
+                elif "explicit".lower() in rating:
+                    temp = "[-status]=deleted&[tags]={}+rating:e".format(tags)
                 else:
-                    if rating is None:
-                        temp = self.repairJSON(
-                            str(client.post_list(random=True, limit=1,
-                                                 tags="-status:deleted {}".format(tags))))
-                    elif "safe".lower() in rating:
-                        temp = self.repairJSON(
-                            str(client.post_list(random=True, limit=1,
-                                                 tags="rating:s -status:deleted {}".format(tags))))
-                    elif "explicit".lower() in rating:
-                        temp = self.repairJSON(
-                        str(client.post_list(random=True, limit=1, tags="rating:e -status:deleted {}".format(tags))))
-                data = json.loads(temp)
-                if 'file_url' in data:
-                    image_found = True
+                    await context.send("Please specify a valid rating.")
+                    return
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://danbooru.donmai.us/posts/random.json?search{}'
+                                        .format(temp)) as resp:
+                    data = await resp.json()
             url = data['file_url']
         else:
             await context.send("You need to be in a NSFW channel to run this command.")
