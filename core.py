@@ -41,6 +41,7 @@ class WeirdnessBot(commands.AutoShardedBot):
 
         self.dbl_token = self.config['dbl_token']
         self.dblpy = dbl.Client(self, self.dbl_token)
+        self.loop.create_task(self.update_stats())
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
