@@ -55,12 +55,17 @@ class Image:
                 elif "questionable".lower() in rating:
                     temp = "[-status]=deleted&[tags]={}+rating:q".format(tags)
                 else:
-                    await context.send("Please specify a valid rating. Valid ratings include questionable, explicit, and safe.")
+                    await context.send("Please specify a valid rating. "
+                                       "Valid ratings include questionable, explicit, and safe.")
                     return
             async with aiohttp.ClientSession() as session:
-                async with session.get('https://danbooru.donmai.us/posts/random.json?search{}'
+                image_found = False
+                while not image_found:
+                    async with session.get('https://danbooru.donmai.us/posts/random.json?search{}'
                                         .format(temp)) as resp:
-                    data = await resp.json()
+                        data = await resp.json()
+                    if not "loli".lower() in data['tag_string'] or not "shota".lower() in data['tag_string']:
+                        image_found = True
             url = data['file_url']
         else:
             await context.send("You need to be in a NSFW channel to run this command.")
