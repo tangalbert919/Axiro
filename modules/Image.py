@@ -96,6 +96,11 @@ class Image:
                     id_number = random.randint(1, highest_id)
                     temp = self.repairJSON(
                         str(client.post_list(limit=1, tags="-status:deleted id:{}".format(id_number))))
+                    """async with aiohttp.ClientSession() as session:
+                        async with session.get('https://konachan.com/post.json') as resp:
+                            temp = await resp.json()
+                            post_int = random.randint(1, 100)
+                            temp = temp[post_int]"""
                 elif "safe".lower() in tags:
                     id_number = random.randint(1, highest_id)
                     temp = self.repairJSON(

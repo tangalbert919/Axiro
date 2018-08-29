@@ -13,7 +13,7 @@ import dbl
 class WeirdnessBot(commands.AutoShardedBot):
 
     def __init__(self):
-        self._prefix = 'x!'
+        self._prefix = 'xt!'
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 
@@ -103,7 +103,7 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def status_task(self):
         while not self.is_closed():
             selected = random.randint(1, 10)
-            message = "x!help | " + self.status_msg.get(str(selected))
+            message = "xt!help | " + self.status_msg.get(str(selected))
             await self.change_presence(activity=discord.Activity(name=message,
                                                                  type=discord.ActivityType.playing))
             await asyncio.sleep(300)
