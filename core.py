@@ -13,11 +13,11 @@ import dbl
 class WeirdnessBot(commands.AutoShardedBot):
 
     def __init__(self):
-        self._prefix = 'x!'
+        self.config = json.loads(open('config.json', 'r').read())
+        self._prefix = self.config['prefix']
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 
-        self.config = json.loads(open('config.json', 'r').read())
         self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop, ws_port=1337)
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
