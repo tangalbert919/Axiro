@@ -41,7 +41,7 @@ class General:
         responses = ['Pong!', 'Ack!', 'Whoa!', 'NO! NOT THIS!', 'HAIL HYDRA!']
         await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
 
-    @commands.command(aliass=['info'])
+    @commands.command(aliases=['info'])
     @commands.cooldown(1, 5, BucketType.user)
     async def about(self, beep):
         embed = discord.Embed(title="About Axiro:", description="This bot was created to do what most "
