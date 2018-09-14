@@ -14,7 +14,7 @@ class General:
         self.information = json.loads(open('help.json', 'r').read())
 
     @commands.command(name='help')
-    @commands.cooldown(1, 5, BucketType.user)
+    @commands.cooldown(1, 2, BucketType.user)
     async def _help(self, beep, commands=None):
         if commands is None:
             embed = discord.Embed(title="Hi! I am a bot being built!",
@@ -42,7 +42,7 @@ class General:
         await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
 
     @commands.command(aliases=['info'])
-    @commands.cooldown(1, 5, BucketType.user)
+    @commands.cooldown(1, 2, BucketType.user)
     async def about(self, beep):
         embed = discord.Embed(title="About Axiro:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
