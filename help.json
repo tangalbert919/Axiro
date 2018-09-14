@@ -36,5 +36,6 @@
   "balance": "Checks how many chickens you have. \n\n``x!balance [player]`` - Self-explanatory.",
   "pay": "Give someone chickens. This should be interesting. \n\n``x!pay <player> <amount>`` - Self-explanatory.",
   "daily": "Get your daily chickens. \n\n``x!daily [player]`` - Specifying a player will give them your daily chickens.",
-  "gamble": "How is gambling chickens a good idea? \n\n``x!gamble <chickens>`` - You are very unlikely to get your chickens back, but here's how to use it."
+  "gamble": "How is gambling chickens a good idea? \n\n``x!gamble <chickens>`` - You are very unlikely to get your chickens back, but here's how to use it.",
+  "raid": "Raiding farms for chickens is a bad idea, but who's stopping you? \n``x!raid`` - Watch out for farmers with pitchforks."
 }
