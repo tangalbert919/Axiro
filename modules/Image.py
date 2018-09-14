@@ -84,6 +84,7 @@ class Image:
     @commands.cooldown(1, 5, BucketType.user)
     async def konachan(self, context, tags=None, rating=None):
         """Picks a random image from Konachan and displays it."""
+        """TODO: Clean up this mess."""
         client = Moebooru('konachan', username=self.bot.config['konachanname'],
                           password=self.bot.config['konachanpasswd'])
         image_found = False

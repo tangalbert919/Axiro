@@ -13,16 +13,16 @@ import dbl
 class WeirdnessBot(commands.AutoShardedBot):
 
     def __init__(self):
-        self._prefix = 'xt!'
+        self.config = json.loads(open('config.json', 'r').read())
+        self._prefix = self.config['prefix']
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 
-        self.config = json.loads(open('config.json', 'r').read())
         self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop, ws_port=1337)
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
 
-        self.version_code = "Release 1"
+        self.version_code = "Release 2 Alpha"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
@@ -103,7 +103,7 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def status_task(self):
         while not self.is_closed():
             selected = random.randint(1, 10)
-            message = "xt!help | " + self.status_msg.get(str(selected))
+            message = "x!help | " + self.status_msg.get(str(selected))
             await self.change_presence(activity=discord.Activity(name=message,
                                                                  type=discord.ActivityType.playing))
             await asyncio.sleep(300)

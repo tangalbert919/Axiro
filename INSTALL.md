@@ -61,6 +61,7 @@ yourself. The bot will handle the rest for you.
     "lavalinkpass": "Lavalink password",
     "dbpass": "Database password",
     "dbuser": "Database username",
-    "dbl_token": "DiscordBots.org token"
+    "dbl_token": "DiscordBots.org token",
+    "prefix": "x!"
 }
 ```
