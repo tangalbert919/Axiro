@@ -22,7 +22,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
 
-        self.version_code = "Release 2 Alpha"
+        self.version_code = "Release 2"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
@@ -53,9 +53,8 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def update_stats(self):
         """This function runs every 30 minutes to automatically update your server count"""
-
         while True:
-            print('attempting to post server count')
+            print('Attempting to post server count')
             try:
                 await self.dblpy.post_server_count()
                 print('posted server count ({})'.format(len(self.bot.guilds)))
@@ -111,10 +110,26 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def on_guild_join(self, guild):
         sql = "INSERT INTO guilds (id, name, prefix) VALUES ($1, $2, $3)"
         await self.db.execute(sql, guild.id, guild.name, "x!")
+        channel = self.get_channel(477206313139699722)
+        embed = discord.Embed(title="Guild joined!", color=discord.Colour.blue(),
+                              description="We have joined a guild, bringing us to {} guilds!".format(len(self.guilds)))
+        embed.add_field(name="Guild name:", value=guild.name)
+        embed.add_field(name="Guild Owner: ", value=guild.owner)
+        embed.add_field(name="Member count: ", value=guild.member_count)
+        embed.set_thumbnail(url=guild.icon_url)
+        await channel.send(embed=embed)
 
     async def on_guild_remove(self, guild):
         sql = "DELETE FROM guilds where id = $1"
         await self.db.execute(sql, guild.id)
+        channel = self.get_channel(477206313139699722)
+        embed = discord.Embed(title="Guild lost!", color=discord.Colour.red(),
+                              description="We have lost a guild, dropping us to {} guilds!".format(len(self.guilds)))
+        embed.add_field(name="Guild name:", value=guild.name)
+        embed.add_field(name="Guild Owner: ", value=guild.owner)
+        embed.add_field(name="Member count: ", value=guild.member_count)
+        embed.set_thumbnail(url=guild.icon_url)
+        await channel.send(embed=embed)
 
     async def restart_music(self):
         del self.music_client
