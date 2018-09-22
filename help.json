@@ -17,7 +17,7 @@
   "urban": "Looks up a term on the Urban Dictionary. Can only be used in NSFW channels because definitions and examples might be NSFW. \n\n``x!urban <term>`` - Looks up the specified term.",
   "general": "This is the general section.",
   "ping": "Measures response time. \n\n ``x!ping`` - Self-explanatory.",
-  "about": "Just run this command and I'll tell you about myself! \n\n``x!about`` - Self-explanatory.",
+  "about": "Just run this command and I'll tell you about myself! \n\n``x!about`` - Self-explanatory.\n\n``x!info`` - Alias, self-explanatory.",
   "user": "I can tell you a few things about whatever user you choose. \n\n``x!user <player>`` - Self-explanatory.",
   "invite": "Invite me to your server unless you don't like weirdness. \n\n``x!invite <player>`` - Self-explanatory.",
   "server": "Come join my server! \n\n``x!server`` - Self-explanatory.",

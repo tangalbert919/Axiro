@@ -20,7 +20,7 @@ class General:
             embed = discord.Embed(title="Hi! I am a bot being built!",
                               description="So here is my current list of commands:")
             embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
-            embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble``")
+            embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble`` ``raid``")
             embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``raid``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
             embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
@@ -38,7 +38,7 @@ class General:
         await ctx.trigger_typing()
         t_2 = time.perf_counter()
         time_delta = round((t_2 - t_1) * 1000)
-        responses = ['Pong!', 'Ack!', 'Whoa!', 'NO! NOT THIS!', 'HAIL HYDRA!']
+        responses = ['Pong!', 'Ack!', 'Whoa!', 'Pang!', 'How am I doing?']
         await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
 
     @commands.command(aliases=['info'])
