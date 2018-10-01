@@ -37,5 +37,10 @@
   "pay": "Give someone chickens. This should be interesting. \n\n``x!pay <player> <amount>`` - Self-explanatory.",
   "daily": "Get your daily chickens. \n\n``x!daily [player]`` - Specifying a player will give them your daily chickens.",
   "gamble": "How is gambling chickens a good idea? \n\n``x!gamble <chickens>`` - You are very unlikely to get your chickens back, but here's how to use it.",
-  "raid": "Raiding farms for chickens is a bad idea, but who's stopping you? \n``x!raid`` - Watch out for farmers with pitchforks."
+  "raid": "Raiding farms for chickens is a bad idea, but who's stopping you? \n``x!raid`` - Watch out for farmers with pitchforks.",
+  "music": "This is the music section",
+  "play": "Play some music. The bot will go on YouTube and look. \n``x!play <name>`` - Play the track you're looking for. You can also put in the code to get the exact one. \nYou need to be in a voice channel for this.",
+  "skip": "Skips the current track. \n``x!skip`` - Skips the current track being played.",
+  "stop": "Stop the bot from playing any more music. \n``x!stop - Self-explanatory.",
+  "now": "What's playing right now? \n``x!now`` - Self-explanatory."
 }
