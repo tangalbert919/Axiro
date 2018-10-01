@@ -22,7 +22,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
 
-        self.version_code = "Release 2"
+        self.version_code = "Release 2 Patch 1"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
@@ -100,7 +100,7 @@ class WeirdnessBot(commands.AutoShardedBot):
             await context.send("An error has occurred.")
 
     async def status_task(self):
-        while not self.is_closed():
+        while True:
             selected = random.randint(1, 10)
             message = "x!help | " + self.status_msg.get(str(selected))
             await self.change_presence(activity=discord.Activity(name=message,

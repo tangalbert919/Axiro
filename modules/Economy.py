@@ -76,7 +76,7 @@ class Economy:
             await ctx.send("Congrats, you won {} chickens and got to keep what you bet!".format(int(check / 2)))
         else:
             result = int(balance) - check
-            await ctx.send("You just lost {} chickens in a gamble!".format(check))
+            await ctx.send("You just lost {} chickens in a gamble! :frowning:".format(check))
         next_sql = "UPDATE users SET money = $1 WHERE id = $2"
         await self.bot.db.execute(next_sql, str(result), ctx.message.author.id)
 
