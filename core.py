@@ -70,6 +70,8 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def on_message(self, message):
         if message.author == self.user:
             return
+        if message.author == message.author.bot:
+            return
         if not message.author.bot:
             sql = "SELECT * FROM users WHERE id = $1"
             user = await self.db.fetchrow(sql, message.author.id)
