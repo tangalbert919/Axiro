@@ -21,7 +21,7 @@ class General:
                               description="So here is my current list of commands:")
             embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
             embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble`` ``raid``")
-            embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``raid``", inline=False)
+            embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``reverse``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
             embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
             embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
