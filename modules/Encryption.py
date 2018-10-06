@@ -102,6 +102,11 @@ class Encryption:
         else:
             await ctx.send('That\'s not a valid cipher option.')
 
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def reverse(self, ctx, *, message: str):
+        new_msg = message[::-1]
+        await ctx.send(new_msg)
 
 def setup(bot):
     bot.add_cog(Encryption(bot))
