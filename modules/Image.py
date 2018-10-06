@@ -79,19 +79,6 @@ class Image:
         await context.send(embed=embed)
 
     @commands.command()
-    async def test(self, ctx):
-        url_list = []
-        async with aiohttp.ClientSession() as session:
-            async with session.get('https://konachan.com/post/index.json?tags=-status%3Adeleted&limit=100') as resp:
-                data = await resp.json()
-                for entry in data:
-                    print(entry['file_url'])
-                    url_list.append(entry['file_url'])
-                url = url_list[random.randint(0, 99)]
-                print("The following url has been selected: \n")
-                print(url)
-
-    @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
     async def konachan(self, context, tags=None, rating=None):
         """Picks a random image from Konachan and displays it."""
@@ -178,7 +165,7 @@ class Image:
                                                .format(temp)) as resp:
                     data = await resp.json()
                     for entry in data:
-                        print(entry['file_url'])
+                        #print(entry['file_url'])
                         url_list.append(entry['file_url'])
             url = url_list[random.randint(0, 99)]
         else:
