@@ -41,11 +41,6 @@ class Miscellaneous:
         days, hours = divmod(hours, 24)
         await ctx.send("I have been up for "f"{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds.")
 
-    @commands.command()
-    @commands.cooldown(1, 5, BucketType.user)
-    async def translate(self, ctx):
-        await ctx.send("Currently unavailable.")
-
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
         temp = temp.replace("\': ", "\": ")
