@@ -41,6 +41,23 @@ class Miscellaneous:
         days, hours = divmod(hours, 24)
         await ctx.send("I have been up for "f"{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds.")
 
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def winner(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            user = ctx.message.author
+        await ctx.send("Congratulations, {}! You're a winner!".format(user.name))
+
+    @commands.command()
+    async def loser(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            user = ctx.message.author
+        await ctx.send("Sorry, {}! You're a loser!".format(user.name))
+
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
         temp = temp.replace("\': ", "\": ")
