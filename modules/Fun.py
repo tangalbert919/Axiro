@@ -57,6 +57,7 @@ class Fun:
             user = ctx.message.mentions[0]
         except Exception:
             await ctx.send("Please specify a user.")
+            return
         url = 'https://nekos.life/api/v2/img/hug'
         image = self.getImage(url)
         embed = discord.Embed(title="{} hugged {}. How comforting.".format(ctx.message.author.name, user.name))

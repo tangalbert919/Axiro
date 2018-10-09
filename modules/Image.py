@@ -64,7 +64,11 @@ class Image:
                         data = await resp.json()
                     if not "loli".lower() in data['tag_string'] or not "shota".lower() in data['tag_string']:
                         image_found = True
-            url = data['file_url']
+            try:
+                url = data['file_url']
+            except Exception:
+                await context.send("We could not find any images with that tag.")
+                return
         else:
             await context.send("You need to be in a NSFW channel to run this command.")
             return
@@ -167,7 +171,10 @@ class Image:
                     for entry in data:
                         #print(entry['file_url'])
                         url_list.append(entry['file_url'])
-            url = url_list[random.randint(0, 99)]
+            try:
+                url = url_list[random.randint(0, len(url_list))]
+            except Exception:
+                await context.send("We could not find any images with that tag.")
         else:
             await context.send("You need to be in a NSFW channel to run this command.")
             return
