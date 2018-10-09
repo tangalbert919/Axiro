@@ -20,8 +20,8 @@ class Fun:
     async def _8ball(self, ctx, *, question):
         responses = [['Yes, definitely.', 'Of course! Bill Cipher would agree!', 'Did an iDroid program me?',
                       'The answer is simple: 25-5-19',
-                      'Did Donald Trump get started on that wall?', 'Absolutely, you weirdo!',
-                      'I am absolutely certain about your question and that Hillary Clinton lost fair and square.',
+                      'My answer is the opposite of "no."', 'Absolutely, you weirdo!',
+                      'I vote yes. What about you?',
                       '**Yes.**', 'BHV', 'Sure. Why not?'],
                      ['Reply hazy, try again later.', 'I am unable to answer this right now.',
                       'You\'ll have to ask again later.', 'I don\'t know. I just want to watch \"Saturday Night Live.\"',
@@ -31,7 +31,7 @@ class Fun:
                       'Go ask the man living ***IN A VAN DOWN BY THE RIVER!!!***', '```I AM ERROR```'],
                      ['Absolutely not.',
                       'Here\'s my answer: What\'s at the beginning of \"Never\" and what comes after that?',
-                      'Is Hydra still operating?', 'Did Hillary Clinton win the presidency?', '**No.**',
+                      'Keep wishing. Maybe you will get "yes" for an answer.', 'That\'s a definitive no.', '**No.**',
                       'The answer to that question is also the answer to you surviving a fall from 10,000 feet.',
                       'Pffft. Of course not.']]
         await ctx.send(random.choice(random.choice(responses)))

@@ -1,5 +1,5 @@
 {
-  "example": "Put text here",
+  "example": "You shouldn't be seeing this for any reason.",
   "image": "This is the images section.",
   "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag] [rating]`` - Gets an image with the specified tag, rating, or both.",
   "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels. \n\n``x!danbooru`` - Gets a random image from Danbooru. \n\n``x!danbooru [tag] [rating]`` - Gets an image with the specified tag, rating, or both. Current ratings include questionable, explicit, and safe.",
@@ -22,13 +22,15 @@
   "user": "I can tell you a few things about whatever user you choose. \n\n``x!user <player>`` - Self-explanatory.",
   "invite": "Invite me to your server unless you don't like weirdness. \n\n``x!invite <player>`` - Self-explanatory.",
   "server": "Come join my server! \n\n``x!server`` - Self-explanatory.",
-  "suggest": "Got a suggestion? Send my creator one! \n\n``x!suggest <suggestion> - Don't troll my creator, please.",
-  "report": "Have you seen a bug? Tell my creator! \n\n``x!report <report> - Don't troll my creator, please.",
+  "suggest": "Got a suggestion? Send my creator one! \n\n``x!suggest <suggestion>`` - Don't troll my creator, please.",
+  "report": "Have you seen a bug? Tell my creator! \n\n``x!report <report>`` - Don't troll my creator, please.",
   "github": "If you're a developer, absolutely run this command and check out my GitHub repository. \n\n``x!github`` - Self-explanatory.",
   "upvote": "Upvoting Axiro means more people will notice it, and that speaks volumes. Unless you don't like Axiro. \n\n``x!upvote`` - Self-explanatory.",
   "misc": "This is the miscellaneous section.",
   "news": "Get the news. \n\n``x!news`` - Self-explanatory.",
   "uptime": "Checks the uptime. \n\n``x!uptime`` - Self-explanatory.",
+  "winner": "Are you a winner or is someone else a winner? \n\n``x!winner [player]`` - You can leave the player part blank and Axiro will declare you as a winner. You have to mention a user if you want to declare someone else a winner.",
+  "loser": "Are you a loser or is someone else a loser? \n\n``x!loser [player]`` - You can leave the player part blank and Axiro will declare you a loser. You have to mention a user if you want to declare someone else a loser.",
   "moderation": "This is the moderation section.",
   "kick": "Kicks the specified user. My pointy boots are on. \n\n``x!kick <player>`` - Self-explanatory.",
   "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player>`` - Self-explanatory.",
@@ -42,6 +44,6 @@
   "music": "This is the music section",
   "play": "Play some music. The bot will go on YouTube and look. \n``x!play <name>`` - Play the track you're looking for. You can also put in the code to get the exact one. \nYou need to be in a voice channel for this.",
   "skip": "Skips the current track. \n``x!skip`` - Skips the current track being played.",
-  "stop": "Stop the bot from playing any more music. \n``x!stop - Self-explanatory.",
+  "stop": "Stop the bot from playing any more music. \n``x!stop`` - Self-explanatory.",
   "now": "What's playing right now? \n``x!now`` - Self-explanatory."
 }
