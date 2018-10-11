@@ -175,6 +175,7 @@ class Image:
                 url = url_list[random.randint(0, len(url_list))]
             except Exception:
                 await context.send("We could not find any images with that tag.")
+                return
         else:
             await context.send("You need to be in a NSFW channel to run this command.")
             return

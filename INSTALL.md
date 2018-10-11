@@ -16,7 +16,6 @@ to install it.
 Now, with all of that being said, you will need to use Pip to install the following packages:
 
 * yarl<1.2
-* pybooru
 * aiohttp
 * lavalink
 * asyncpg
@@ -61,8 +60,6 @@ yourself. The bot will handle the rest for you.
 {
     "discordtoken": "discordapp.com API token",
     "newsapitoken": "newsapi token",
-    "konachanname": "Konachan username",
-    "konachanpasswd": "Konachan password",
     "lavalinkpass": "Lavalink password",
     "dbpass": "Database password",
     "dbuser": "Database username",
