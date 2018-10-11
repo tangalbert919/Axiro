@@ -51,6 +51,7 @@ class Miscellaneous:
         await ctx.send("Congratulations, {}! You're a winner!".format(user.name))
 
     @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def loser(self, ctx):
         try:
             user = ctx.message.mentions[0]
