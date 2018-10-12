@@ -37,17 +37,6 @@ class Moderation:
         await ctx.send(":white_check_mark: Player {} has been banned from the server.".format(user.name))
 
     @commands.command()
-    @commands.has_permissions(ban_members=True)
-    @commands.cooldown(1, 5, BucketType.user)
-    async def unban(self, ctx, user, *, reason: str):
-        try:
-            await ctx.message.guild.unban(user, reason=reason)
-        except Exception:
-            await ctx.send(":x: I completely failed to unban that player.")
-            return
-        await ctx.send(":white_check_mark: Player {} has been unbanned from the server.".format(user))
-
-    @commands.command()
     @commands.has_permissions(manage_messages=True)
     @commands.cooldown(1, 5, BucketType.user)
     async def mute(self, ctx, user: discord.Member):
