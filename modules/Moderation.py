@@ -50,6 +50,20 @@ class Moderation:
             return
         await ctx.send(":white_check_mark: Player {} has been muted.".format(user.display_name))
 
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    @commands.cooldown(1, 5, BucketType.user)
+    async def unmute(self, ctx, user: discord.Member):
+        if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_roles:
+            await ctx.send(":x: I do not have permission to manage roles.")
+            return
+        try:
+            await ctx.message.channel.category.set_permissions(user, overwrite=None)
+        except Exception:
+            await ctx.send("I was unable to unmute that player.")
+            return
+        await ctx.send(":white_check_mark: Player {} has been unmuted.".format(user.display_name))
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

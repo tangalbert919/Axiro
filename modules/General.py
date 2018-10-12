@@ -17,14 +17,14 @@ class General:
     @commands.cooldown(1, 2, BucketType.user)
     async def _help(self, beep, commands=None):
         if commands is None:
-            embed = discord.Embed(title="Hi! I am a bot being built!",
-                              description="So here is my current list of commands:")
+            embed = discord.Embed(title="I'm Axiro! This is my list of commands!",
+                              description="If you need help on a specific command, use ``x!help <command>``")
             embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
             embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble`` ``raid``")
             embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``reverse``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
             embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
-            embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute``", inline=False)
+            embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute`` ``unmute``", inline=False)
             embed.add_field(name="Miscellaneous:\n", value="``news`` ``uptime`` ``winner`` ``loser``", inline=False)
             embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now``", inline=False)
             embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
