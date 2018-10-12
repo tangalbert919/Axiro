@@ -21,7 +21,7 @@ Please refer to the INSTALL.md file for instructions on how to run an instance o
 * ~~Add this bot to discordbots.org~~
 * Get to 200 guilds.
 * Gain access to weeb.sh
-* Use aiohttp for Konachan
+* ~~Use aiohttp for Konachan~~
 * ~~Build music module.~~
 * Add more weird stuff.
 * Complete the Encryption module.
