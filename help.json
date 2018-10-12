@@ -1,7 +1,7 @@
 {
   "example": "You shouldn't be seeing this for any reason.",
   "image": "This is the images section.",
-  "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag] [rating]`` - Gets an image with the specified tag, rating, or both.",
+  "konachan": "Searches for an image on Konachan. Can only be used in NSFW channels. \n\n``x!konachan`` - Gets a random image from Konachan. \n\n``x!konachan [tag] [rating]`` - Gets an image with the specified tag, rating, or both. Current ratings include questionable, explicit, and safe.",
   "danbooru": "Searches for an image on Danbooru. Can only be used in NSFW channels. \n\n``x!danbooru`` - Gets a random image from Danbooru. \n\n``x!danbooru [tag] [rating]`` - Gets an image with the specified tag, rating, or both. Current ratings include questionable, explicit, and safe.",
   "neko": "Gets an image from Nekos API. \n\n``x!neko`` - Gets a random image.",
   "encryption": "This is the encryption section.",
@@ -34,7 +34,7 @@
   "moderation": "This is the moderation section.",
   "kick": "Kicks the specified user. My pointy boots are on. \n\n``x!kick <player>`` - Self-explanatory.",
   "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player>`` - Self-explanatory.",
-  "unban": "Unbans the specified user. \n\n``x!unban <player>`` - Self-explanatory.",
+  "mute": "Mutes the specified user. \n\n``x!mute <player>`` - Roles are not created from this command, so be careful if you cannot manage permissions for any channel.",
   "economy": "This is the economy section.",
   "balance": "Checks how many chickens you have. \n\n``x!balance [player]`` - Self-explanatory.",
   "pay": "Give someone chickens. This should be interesting. \n\n``x!pay <player> <amount>`` - Self-explanatory.",
