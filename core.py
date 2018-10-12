@@ -8,6 +8,7 @@ import lavalink
 from datetime import datetime
 import random
 import dbl
+import logging
 
 
 class WeirdnessBot(commands.AutoShardedBot):
@@ -50,6 +51,12 @@ class WeirdnessBot(commands.AutoShardedBot):
                     self.load_extension(f"modules.{name}")
                 except Exception:
                     print(f"The {name} module failed to load. Please repair it and load it.")
+
+        logger = logging.getLogger('discord')
+        logger.setLevel(logging.INFO)
+        handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+        handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+        logger.addHandler(handler)
 
     async def update_stats(self):
         """This function runs every 30 minutes to automatically update your server count"""
