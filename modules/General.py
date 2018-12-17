@@ -26,7 +26,7 @@ class General:
             embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
             embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute`` ``unmute``", inline=False)
             embed.add_field(name="Miscellaneous:\n", value="``news`` ``uptime`` ``winner`` ``loser``", inline=False)
-            embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now``", inline=False)
+            embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now`` ``pause`` ``queue`` ``repeat`` ``volume`` ``shuffle``", inline=False)
             embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
         else:
             embed = self.commandhelp(commands)
