@@ -23,7 +23,7 @@ class General:
             embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble`` ``raid``")
             embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``reverse``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
-            embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko``", inline=False)
+            embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko`` ``yandere``", inline=False)
             embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute`` ``unmute``", inline=False)
             embed.add_field(name="Miscellaneous:\n", value="``news`` ``uptime`` ``winner`` ``loser``", inline=False)
             embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now`` ``pause`` ``queue`` ``repeat`` ``volume`` ``shuffle``", inline=False)

@@ -86,55 +86,6 @@ class Image:
     @commands.cooldown(1, 5, BucketType.user)
     async def konachan(self, context, tags=None, rating=None):
         """Picks a random image from Konachan and displays it."""
-        """This code is no longer being used as of Release 3."""
-        """client = Moebooru('konachan', username=self.bot.config['konachanname'],
-                          password=self.bot.config['konachanpasswd'])
-        image_found = False
-        if context.message.channel.is_nsfw():
-            latest_post = self.repairJSON(str(client.post_list(limit=1)))
-            post_loaded = json.loads(latest_post)
-            highest_id = post_loaded['id']
-            while not image_found:
-                if tags is None:
-                    id_number = random.randint(1, highest_id)
-                    temp = self.repairJSON(
-                        str(client.post_list(limit=1, tags="-status:deleted id:{}".format(id_number))))
-                elif "safe".lower() in tags:
-                    id_number = random.randint(1, highest_id)
-                    temp = self.repairJSON(
-                        str(client.post_list(limit=1, tags="rating:s -status:deleted id:{}".format(id_number))))
-                elif "explicit".lower() in tags:
-                    id_number = random.randint(1, highest_id)
-                    temp = self.repairJSON(
-                        str(client.post_list(limit=1, tags="rating:e -status:deleted id:{}".format(id_number))))
-                elif "loli".lower() in tags:
-                    await context.send("We can't show this as it violates Discord ToS.")
-                    return
-                elif "shota".lower() in tags:
-                    await context.send("We can't show this as it violates Discord ToS.")
-                    return
-                else:
-                    if "safe".lower() in rating:
-                        temp = self.repairJSON(
-                            str(client.post_list(limit=1, tags="-status:deleted rating:s {}".format(tags))))
-                    elif "explicit".lower() in rating:
-                        temp = self.repairJSON(
-                            str(client.post_list(limit=1, tags="-status:deleted rating:e {}".format(tags))))
-                    else:
-                        temp = self.repairJSON(
-                            str(client.post_list(limit=1, tags="-status:deleted {}".format(tags))))
-                data = json.loads(temp)
-                if 'file_url' in data:
-                    image_found = True
-        else:
-            await context.send("You need to be in a NSFW channel for this.")
-            return
-        url = data['file_url']
-        if context.message.guild is not None:
-            color = context.message.guild.me.color
-        else:
-            color = discord.Colour.blurple()"""
-        # As of Release 3, this new code is being used.
         url_list = []
         if context.message.channel.is_nsfw():
             if tags is None:
@@ -191,8 +142,60 @@ class Image:
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
-    async def yandere(self, ctx, tags=None, rating=None):
-        await ctx.send("This bot will be connected to yande.re soon.")
+    async def yandere(self, context, tags=None, rating=None):
+        url_list = []
+        if context.message.channel.is_nsfw():
+            if tags is None:
+                temp = "?tags=-status%3Adeleted+-loli+-shota&limit=100"
+            elif "safe".lower() in tags:
+                temp = "?tags=-status%3Adeleted+-loli+-shota+rating:s&limit=100"
+            elif "explicit".lower() in tags:
+                temp = "?tags=-status%3Adeleted+-loli+-shota+rating:e&limit=100"
+            elif "questionable".lower() in tags:
+                temp = "?tags=-status%3Adeleted+-loli+-shota+rating:q&limit=100"
+            elif "loli".lower() in tags:
+                await context.send("We can't show this as it violates Discord ToS.")
+                return
+            elif "shota".lower() in tags:
+                await context.send("We can't show this as it violates Discord ToS.")
+                return
+            else:
+                if rating is None:
+                    temp = "?tags=-status%3Adeleted+-loli+-shota+{}&limit=100".format(tags)
+                elif "safe".lower() in rating:
+                    temp = "?tags=-status%3Adeleted+-loli+-shota+{}+rating:s&limit=100".format(tags)
+                elif "explicit".lower() in rating:
+                    temp = "?tags=-status%3Adeleted+-loli+-shota+{}+rating:e&limit=100".format(tags)
+                elif "questionable".lower() in rating:
+                    temp = "?tags=-status%3Adeleted+-loli+-shota+{}+rating:q&limit=100".format(tags)
+                else:
+                    await context.send("Please specify a valid rating. "
+                                       "Valid ratings include questionable, explicit, and safe.")
+                    return
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://konachan.com/post/index.json{}'
+                                               .format(temp)) as resp:
+                    data = await resp.json()
+                    for entry in data:
+                        # print(entry['file_url'])
+                        url_list.append(entry['file_url'])
+            try:
+                url = url_list[random.randint(0, len(url_list))]
+            except Exception:
+                await context.send("We could not find any images with that tag.")
+                return
+        else:
+            await context.send("You need to be in a NSFW channel to run this command.")
+            return
+        if context.message.guild is not None:
+            color = context.message.guild.me.color
+        else:
+            color = discord.Colour.blurple()
+        embed = discord.Embed(color=color, title="Image from Yande.re!",
+                              description="If you can't see the image, click the title.", url=url)
+        embed.set_image(url=url)
+        embed.set_footer(text="Powered by Yande.re.")
+        await context.send(embed=embed)
 
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
