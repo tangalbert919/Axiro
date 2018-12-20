@@ -44,7 +44,7 @@ class Moderation:
             await ctx.send(":x: I do not have permission to manage roles.")
             return
         try:
-            await ctx.message.channel.category.set_permissions(user, send_messages=False)
+            await ctx.message.channel.category.set_permissions(user, send_messages=False, add_reactions=False)
         except Exception:
             await ctx.send("I was unable to mute that player.")
             return

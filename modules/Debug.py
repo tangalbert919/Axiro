@@ -1,8 +1,9 @@
-import discord
 from discord.ext import commands
 import io
 from contextlib import redirect_stdout
 import subprocess
+import textwrap
+import traceback
 
 
 class Debug:
@@ -107,7 +108,10 @@ class Debug:
             await ctx.send("You do not have permission to run this command.")
         else:
             c = subprocess.call(('git', 'pull'))
-            if c != 0: await ctx.send("Updating from Git failed.")
+            if c != 0:
+                await ctx.send("Updating from Git failed.")
+                return
+            await ctx.send("Successfully updated from Git.")
 
 
 def setup(bot):
