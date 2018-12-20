@@ -19,14 +19,22 @@ class General:
         if commands is None:
             embed = discord.Embed(title="I'm Axiro! This is my list of commands!",
                               description="If you need help on a specific command, use ``x!help <command>``")
-            embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
+            """embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
             embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble`` ``raid``")
             embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``reverse``", inline=False)
             embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
             embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko`` ``yandere``", inline=False)
             embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute`` ``unmute``", inline=False)
             embed.add_field(name="Miscellaneous:\n", value="``news`` ``uptime`` ``winner`` ``loser``", inline=False)
-            embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now`` ``pause`` ``queue`` ``repeat`` ``volume`` ``shuffle``", inline=False)
+            embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now`` ``pause`` ``queue`` ``repeat`` ``volume`` ``shuffle``", inline=False)"""
+            for cog in self.bot.cogs:
+                if cog == "Debug":
+                    continue
+                cogcmds = self.bot.get_cog_commands(cog)
+                list = ""
+                for c in cogcmds:
+                    list += f"``{c}`` "
+                embed.add_field(name=cog, value=list, inline=False)
             embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
         else:
             embed = self.commandhelp(commands)
