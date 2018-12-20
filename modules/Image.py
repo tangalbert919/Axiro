@@ -25,7 +25,7 @@ class Image:
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 5, BucketType.user)
+    @commands.cooldown(1, 3, BucketType.user)
     async def danbooru(self, context, tags=None, rating=None):
         """Posts an image directly from Project Danbooru."""
         if context.message.channel.is_nsfw():
@@ -83,7 +83,7 @@ class Image:
         await context.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 5, BucketType.user)
+    @commands.cooldown(1, 3, BucketType.user)
     async def konachan(self, context, tags=None, rating=None):
         """Picks a random image from Konachan and displays it."""
         url_list = []
@@ -141,7 +141,7 @@ class Image:
         await context.send(embed=embed)
 
     @commands.command()
-    @commands.cooldown(1, 5, BucketType.user)
+    @commands.cooldown(1, 3, BucketType.user)
     async def yandere(self, context, tags=None, rating=None):
         url_list = []
         if context.message.channel.is_nsfw():
@@ -173,7 +173,7 @@ class Image:
                                        "Valid ratings include questionable, explicit, and safe.")
                     return
             async with aiohttp.ClientSession() as session:
-                async with session.get('https://konachan.com/post/index.json{}'
+                async with session.get('https://yande.re/post/index.json{}'
                                                .format(temp)) as resp:
                     data = await resp.json()
                     for entry in data:
