@@ -4,6 +4,7 @@ from discord.ext.commands.cooldowns import BucketType
 import json
 from datetime import datetime
 import aiohttp
+import random
 
 
 class Miscellaneous:
@@ -47,7 +48,8 @@ class Miscellaneous:
         try:
             user = ctx.message.mentions[0]
         except Exception:
-            user = ctx.message.author
+            memberlist = ctx.message.guild.members
+            user = memberlist[random.randint(0, len(memberlist))]
         await ctx.send("Congratulations, {}! You're a winner!".format(user.name))
 
     @commands.command()
@@ -56,19 +58,23 @@ class Miscellaneous:
         try:
             user = ctx.message.mentions[0]
         except Exception:
-            user = ctx.message.author
+            memberlist = ctx.message.guild.members
+            user = memberlist[random.randint(0, len(memberlist))]
         await ctx.send("Sorry, {}! You're a loser!".format(user.name))
 
     @commands.command()
+    @commands.has_permissions(manage_nicknames=True)
     @commands.cooldown(1, 5, BucketType.user)
     async def drumpf(self, ctx, user: discord.Member):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_nicknames:
-            await ctx.send("You do not have permission to edit nicknames.")
+            await ctx.send(":x: I do not have permission to edit nicknames.")
             return
         try:
             await user.edit(nick="Donald Drumpf")
         except discord.Forbidden:
             await ctx.send("I do not have permission to do that.")
+            return
+        await ctx.message.delete()
         await ctx.send("Someone has been turned into Donald Drumpf.")
 
     def repairJSON(self, temp):

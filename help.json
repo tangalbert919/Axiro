@@ -17,6 +17,7 @@
   "kiss": "Kisses the specified user, because kissing someone in real life either isn't enough or too hard. \n\n``x!kiss <player>`` - Kisses the specified player.",
   "hug": "Hugs the specified user, because hugging someone in real life either isn't enough or you're just lonely. \n\n``x!hug <player>`` - Hugs the specified player.",
   "urban": "Looks up a term on the Urban Dictionary. Can only be used in NSFW channels because definitions and examples might be NSFW. \n\n``x!urban <term>`` - Looks up the specified term.",
+  "meme": "This feature has not been implemented yet.",
   "general": "This is the general section.",
   "ping": "Measures response time. \n\n ``x!ping`` - Self-explanatory.",
   "about": "Just run this command and I'll tell you about myself! \n\n``x!about`` - Self-explanatory.\n\n``x!info`` - Alias, self-explanatory.",
@@ -30,8 +31,8 @@
   "misc": "This is the miscellaneous section.",
   "news": "Get the news. \n\n``x!news`` - Self-explanatory.",
   "uptime": "Checks the uptime. \n\n``x!uptime`` - Self-explanatory.",
-  "winner": "Are you a winner or is someone else a winner? \n\n``x!winner [player]`` - You can leave the player part blank and Axiro will declare you as a winner. You have to mention a user if you want to declare someone else a winner.",
-  "loser": "Are you a loser or is someone else a loser? \n\n``x!loser [player]`` - You can leave the player part blank and Axiro will declare you a loser. You have to mention a user if you want to declare someone else a loser.",
+  "winner": "Are you a winner or is someone else a winner? \n\n``x!winner [player]`` - You can leave the player part blank and Axiro will declare a random person as a winner. You can mention a user to specifically target them.",
+  "loser": "Are you a loser or is someone else a loser? \n\n``x!loser [player]`` - You can leave the player part blank and Axiro will declare a random person as a loser. You can mention a user to specifically target them.",
   "moderation": "This is the moderation section.",
   "kick": "Kicks the specified user. My pointy boots are on. \n\n``x!kick <player>`` - Self-explanatory.",
   "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player>`` - Self-explanatory.",
@@ -52,5 +53,6 @@
   "queue": "Get a list of tracks that will be played. \n``x!queue`` - Self-explanatory.",
   "repeat": "Set the current track on repeat. Can be used to turn off repeat. \n``x!repeat`` - Self-explanatory.",
   "volume": "Set the volume of the bot. \n``x!volume <integer> - Default is 100 (max). Anything above that may cause distortion.",
-  "shuffle": "Shuffles the queue. \n``x!shuffle`` - Self-explanatory."
+  "shuffle": "Shuffles the queue. \n``x!shuffle`` - Self-explanatory.",
+  "disconnect": "Disconnects the bot from its currently connected voice channel. \n``x!disconnect`` - Self-explanatory."
 }
