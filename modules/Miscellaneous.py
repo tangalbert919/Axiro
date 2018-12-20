@@ -59,6 +59,18 @@ class Miscellaneous:
             user = ctx.message.author
         await ctx.send("Sorry, {}! You're a loser!".format(user.name))
 
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def drumpf(self, ctx, user: discord.Member):
+        if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_nicknames:
+            await ctx.send("You do not have permission to edit nicknames.")
+            return
+        try:
+            await user.edit(nick="Donald Drumpf")
+        except discord.Forbidden:
+            await ctx.send("I do not have permission to do that.")
+        await ctx.send("Someone has been turned into Donald Drumpf.")
+
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
         temp = temp.replace("\': ", "\": ")

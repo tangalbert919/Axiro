@@ -23,7 +23,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
 
-        self.version_code = "Release 3"
+        self.version_code = "Release 4 Beta"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
@@ -99,6 +99,8 @@ class WeirdnessBot(commands.AutoShardedBot):
             await context.send("You do not have permission to perform this command.")
         elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
             pass
+        elif isinstance(exception, discord.ext.commands.errors.BadArgument):
+            await context.send("You used an invalid argument.")
         elif isinstance(exception, discord.ext.commands.errors.CommandOnCooldown):
             m, s = divmod(exception.retry_after, 60)
             h, m = divmod(m, 60)
