@@ -18,6 +18,7 @@
   "hug": "Hugs the specified user, because hugging someone in real life either isn't enough or you're just lonely. \n\n``x!hug <player>`` - Hugs the specified player.",
   "urban": "Looks up a term on the Urban Dictionary. Can only be used in NSFW channels because definitions and examples might be NSFW. \n\n``x!urban <term>`` - Looks up the specified term.",
   "meme": "This feature has not been implemented yet.",
+  "randomfact": "Gets a random fact. ``x!randomfact`` - Self-explanatory.",
   "general": "This is the general section.",
   "ping": "Measures response time. \n\n ``x!ping`` - Self-explanatory.",
   "about": "Just run this command and I'll tell you about myself! \n\n``x!about`` - Self-explanatory.\n\n``x!info`` - Alias, self-explanatory.",

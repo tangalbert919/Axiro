@@ -4,6 +4,7 @@ from discord.ext.commands.cooldowns import BucketType
 import random
 import requests
 import aiohttp
+from lxml import html
 
 
 class Fun:
@@ -98,6 +99,17 @@ class Fun:
         embed.add_field(name=":thumbsdown: ", value=thumbsdown + " disliked this.")
         embed.set_footer(text="{} wrote this definition on Urban Dictionary.".format(author))
         await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def randomfact(self, ctx):
+        """async with aiohttp.ClientSession() as session:
+            async with session.get('https://www.cs.cmu.edu/~bingbin/index.html') as entry:
+                tree = await html.fromstring(entry.content)"""
+        page = requests.get('https://www.cs.cmu.edu/~bingbin/index.html')
+        tree = html.fromstring(page.content)
+        facts = tree.xpath('//p/text()')
+        await ctx.send(facts[random.randint(0, len(facts))])
 
     def getImage(self, url):
         response = requests.get(url)

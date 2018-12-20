@@ -15,10 +15,12 @@ to install it.
 
 Now, with all of that being said, you will need to use Pip to install the following packages:
 
-* yarl<1.2
+* yarl
 * aiohttp
 * lavalink
 * asyncpg
+* requests
+* lxml
 
 To install them, run `python3 -m pip install -U --user <package>`.
 
@@ -36,7 +38,6 @@ You absolutely **must** acquire these keys yourself. I am not getting them for y
 
 * Discord API Token (you can get them from the Developer's Portal on discordapp.com)
 * News API Token
-* Konachan Username & Password
 
 # Unobtainable API tokens
 
