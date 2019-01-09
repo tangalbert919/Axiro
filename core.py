@@ -64,7 +64,7 @@ class WeirdnessBot(commands.AutoShardedBot):
             print('Attempting to post server count')
             try:
                 await self.dblpy.post_server_count()
-                print('posted server count ({})'.format(len(self.bot.guilds)))
+                print('posted server count ({})'.format(len(self.guilds)))
             except Exception as e:
                 print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
             await asyncio.sleep(1800)
