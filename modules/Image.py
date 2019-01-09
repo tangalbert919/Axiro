@@ -29,41 +29,48 @@ class Image:
     async def danbooru(self, context, tags=None, secondtag=None):
         """Posts an image directly from Project Danbooru."""
         if context.message.channel.is_nsfw():
+            safe_rating = False
+            questionable_rating = False
+            explicit_rating = False
+            temp = "[-status]=deleted"
+            # No tags
             if tags is None:
-                temp = "[-status]=deleted"
-            elif "safe".lower() in tags:
-                temp = "[-status]=deleted&[tags]=rating:s"
-            elif "explicit".lower() in tags:
-                temp = "[-status]=deleted&[tags]=rating:e"
-            elif "questionable".lower() in tags:
-                temp = "[-status]=deleted&[tags]=rating:q"
-            elif "loli".lower() in tags:
-                await context.send("We can't show this as it violates Discord ToS.")
-                return
-            elif "shota".lower() in tags:
-                await context.send("We can't show this as it violates Discord ToS.")
-                return
+                pass
             else:
+                # Do rating checks
+                if "safe".lower() in tags or "safe".lower() in secondtag:
+                    safe_rating = True
+                elif "explicit".lower() in tags or "explicit".lower() in secondtag:
+                    explicit_rating = True
+                elif "questionable".lower() in tags or "questionable".lower() in secondtag:
+                    questionable_rating = True
+                # Check for tags we can't use
+                if "loli".lower() in tags or "loli".lower() in secondtag:
+                    if "shota".lower() in tags or "shota".lower() in secondtag:
+                        await context.send("We can't show this as it violates Discord ToS.")
+                        return
+                    await context.send("We can't show this as it violates Discord ToS.")
+                    return
+                # One tag
                 if secondtag is None:
-                    temp = "[-status]=deleted&[tags]={}".format(tags)
-                elif "safe".lower() in secondtag:
-                    temp = "[-status]=deleted&[tags]={}+rating:s".format(tags)
-                elif "explicit".lower() in secondtag:
-                    temp = "[-status]=deleted&[tags]={}+rating:e".format(tags)
-                elif "questionable".lower() in secondtag:
-                    temp = "[-status]=deleted&[tags]={}+rating:q".format(tags)
-                elif "loli".lower() in secondtag:
-                    await context.send("We can't show this as it violates Discord ToS.")
-                    return
-                elif "shota".lower() in secondtag:
-                    await context.send("We can't show this as it violates Discord ToS.")
-                    return
+                    if not safe_rating and not questionable_rating and not explicit_rating:
+                        temp = temp + "&[tags]={}".format(tags)
+                    else:
+                        temp = temp + "&[tags]={}".format(self.rating(safe_rating, questionable_rating, explicit_rating))
+                # Two tags
                 else:
-                    temp = "[-status]=deleted&[tags]={}+{}".format(tags, secondtag)
+                    if not safe_rating and not questionable_rating and not explicit_rating:
+                        temp = temp + "&[tags]={}+{}".format(tags, secondtag)
+                    else:
+                        if "safe".lower() in tags or "questionable".lower() in tags or "explicit".lower() in tags:
+                            temp = temp + "&[tags]={}+{}".format(self.rating(safe_rating, questionable_rating, explicit_rating), secondtag)
+                        else:
+                            temp = temp + "&[tags]={}+{}".format(tags, self.rating(safe_rating, questionable_rating, explicit_rating))
             async with aiohttp.ClientSession() as session:
                 async with session.get('https://danbooru.donmai.us/posts/random.json?search{}'
                                                    .format(temp)) as resp:
                     data = await resp.json()
+                session.close()
             try:
                 url = data['file_url']
             except Exception:
@@ -78,6 +85,10 @@ class Image:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
                               description="If you can't see the image, click the title.", url=url)
+        embed.add_field(name="Known tags ({}): ".format(data['tag_count']), value="`{}`".format(data['tag_string']),
+                        inline=False)
+        embed.add_field(name="Original link: ", value="[Click here](https://danbooru.donmai.us/posts/{})".format(data['id']),
+                        inline=True)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Project Danbooru.")
         await context.send(embed=embed)
@@ -122,6 +133,7 @@ class Image:
                     for entry in data:
                         #print(entry['file_url'])
                         url_list.append(entry['file_url'])
+                session.close()
             try:
                 url = url_list[random.randint(0, len(url_list))]
             except Exception:
@@ -179,6 +191,7 @@ class Image:
                     for entry in data:
                         # print(entry['file_url'])
                         url_list.append(entry['file_url'])
+                session.close()
             try:
                 url = url_list[random.randint(0, len(url_list))]
             except Exception:
@@ -209,6 +222,15 @@ class Image:
         temp = temp.replace("None", "\"None\"")
         temp = temp[1:-1]
         return temp
+
+    @staticmethod
+    def rating(safe, questionable, explicit):
+        if safe:
+            return "rating:s"
+        elif questionable:
+            return "rating:q"
+        elif explicit:
+            return "rating:e"
 
 
 def setup(bot):
