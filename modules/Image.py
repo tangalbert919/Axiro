@@ -26,7 +26,7 @@ class Image:
 
     @commands.command()
     @commands.cooldown(1, 3, BucketType.user)
-    async def danbooru(self, context, tags=None, rating=None):
+    async def danbooru(self, context, tags=None, secondtag=None):
         """Posts an image directly from Project Danbooru."""
         if context.message.channel.is_nsfw():
             if tags is None:
@@ -44,18 +44,22 @@ class Image:
                 await context.send("We can't show this as it violates Discord ToS.")
                 return
             else:
-                if rating is None:
+                if secondtag is None:
                     temp = "[-status]=deleted&[tags]={}".format(tags)
-                elif "safe".lower() in rating:
+                elif "safe".lower() in secondtag:
                     temp = "[-status]=deleted&[tags]={}+rating:s".format(tags)
-                elif "explicit".lower() in rating:
+                elif "explicit".lower() in secondtag:
                     temp = "[-status]=deleted&[tags]={}+rating:e".format(tags)
-                elif "questionable".lower() in rating:
+                elif "questionable".lower() in secondtag:
                     temp = "[-status]=deleted&[tags]={}+rating:q".format(tags)
-                else:
-                    await context.send("Please specify a valid rating. "
-                                       "Valid ratings include questionable, explicit, and safe.")
+                elif "loli".lower() in secondtag:
+                    await context.send("We can't show this as it violates Discord ToS.")
                     return
+                elif "shota".lower() in secondtag:
+                    await context.send("We can't show this as it violates Discord ToS.")
+                    return
+                else:
+                    temp = "[-status]=deleted&[tags]={}+{}".format(tags, secondtag)
             async with aiohttp.ClientSession() as session:
                 async with session.get('https://danbooru.donmai.us/posts/random.json?search{}'
                                                    .format(temp)) as resp:
