@@ -77,6 +77,13 @@ class Miscellaneous:
         await ctx.message.delete()
         await ctx.send("Someone has been turned into Donald Drumpf.")
 
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def wegothim(self, ctx):
+        embed = discord.Embed(color=discord.Colour.red(), title="WE GOT HIM!")
+        embed.set_image(url="https://media1.tenor.com/images/4a08ff9d3f956dd814fc8ee1cfaac592/tenor.gif?itemid=10407619")
+        await ctx.send(embed=embed)
+
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
         temp = temp.replace("\': ", "\": ")

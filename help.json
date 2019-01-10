@@ -34,6 +34,7 @@
   "uptime": "Checks the uptime. \n\n``x!uptime`` - Self-explanatory.",
   "winner": "Are you a winner or is someone else a winner? \n\n``x!winner [player]`` - You can leave the player part blank and Axiro will declare a random person as a winner. You can mention a user to specifically target them.",
   "loser": "Are you a loser or is someone else a loser? \n\n``x!loser [player]`` - You can leave the player part blank and Axiro will declare a random person as a loser. You can mention a user to specifically target them.",
+  "wegothim": "WE GOT HIM! \n\n``x!wegothim`` - I'm not being paid to promote \"Last Week Tonight\" by John Oliver or HBO. I'm just a fan.",
   "moderation": "This is the moderation section.",
   "kick": "Kicks the specified user. My pointy boots are on. \n\n``x!kick <player>`` - Self-explanatory.",
   "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player>`` - Self-explanatory.",
