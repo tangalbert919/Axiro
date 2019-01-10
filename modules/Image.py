@@ -118,17 +118,14 @@ class Image:
                 elif "questionable".lower() in rating:
                     temp = "?tags=-status%3Adeleted+-loli+-shota+{}+rating:q&limit=100".format(tags)
                 else:
-                    await context.send("Please specify a valid rating. "
-                                       "Valid ratings include questionable, explicit, and safe.")
-                    return
+                    temp = "?tags=-status%3Adeleted+-loli+-shota+{}+{}&limit=100".format(tags, rating)
             async with aiohttp.ClientSession() as session:
                 async with session.get('https://konachan.com/post/index.json{}'
                                                .format(temp)) as resp:
                     data = await resp.json()
                     for entry in data:
-                        #print(entry['file_url'])
                         url_list.append(entry['file_url'])
-                session.close()
+                await session.close()
             try:
                 url = url_list[random.randint(0, len(url_list))]
             except Exception:
@@ -176,9 +173,7 @@ class Image:
                 elif "questionable".lower() in rating:
                     temp = "?tags=-status%3Adeleted+-loli+-shota+{}+rating:q&limit=100".format(tags)
                 else:
-                    await context.send("Please specify a valid rating. "
-                                       "Valid ratings include questionable, explicit, and safe.")
-                    return
+                    temp = "?tags=-status%3Adeleted+-loli+-shota+{}+{}&limit=100".format(tags, rating)
             async with aiohttp.ClientSession() as session:
                 async with session.get('https://yande.re/post/index.json{}'
                                                .format(temp)) as resp:
@@ -186,7 +181,7 @@ class Image:
                     for entry in data:
                         # print(entry['file_url'])
                         url_list.append(entry['file_url'])
-                session.close()
+                await session.close()
             try:
                 url = url_list[random.randint(0, len(url_list))]
             except Exception:
