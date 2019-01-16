@@ -67,6 +67,76 @@ class Fun:
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    async def tickle(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            await ctx.send("Please specify a user.")
+            return
+        url = 'https://nekos.life/api/v2/img/tickle'
+        image = self.getImage(url)
+        embed = discord.Embed(title="{} tickled {}. They're having fun...".format(ctx.message.author.name, user.name))
+        embed.set_image(url=image)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def poke(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            await ctx.send("Please specify a user.")
+            return
+        url = 'https://nekos.life/api/v2/img/poke'
+        image = self.getImage(url)
+        embed = discord.Embed(title="{} poked {}. Yikes.".format(ctx.message.author.name, user.name))
+        embed.set_image(url=image)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def slap(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            await ctx.send("Please specify a user.")
+            return
+        url = 'https://nekos.life/api/v2/img/slap'
+        image = self.getImage(url)
+        embed = discord.Embed(title="{} slapped {}. Must've been a real baka...".format(ctx.message.author.name, user.name))
+        embed.set_image(url=image)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def cuddle(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            await ctx.send("Please specify a user.")
+            return
+        url = 'https://nekos.life/api/v2/img/cuddle'
+        image = self.getImage(url)
+        embed = discord.Embed(title="{} cuddled {}. How comforting.".format(ctx.message.author.name, user.name))
+        embed.set_image(url=image)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def pat(self, ctx):
+        try:
+            user = ctx.message.mentions[0]
+        except Exception:
+            await ctx.send("Please specify a user.")
+            return
+        url = 'https://nekos.life/api/v2/img/pat'
+        image = self.getImage(url)
+        embed = discord.Embed(title="{} patted {}. That's nice.".format(ctx.message.author.name, user.name))
+        embed.set_image(url=image)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def urban(self, ctx, *, term):
         if not ctx.message.channel.is_nsfw():
             await ctx.send("Due to the fact that some definitions are not appropriate, this command can only be used in NSFW channels.")
