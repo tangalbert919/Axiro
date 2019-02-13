@@ -142,11 +142,6 @@ class WeirdnessBot(commands.AutoShardedBot):
         embed.set_thumbnail(url=guild.icon_url)
         await channel.send(embed=embed)
 
-    async def restart_music(self):
-        del self.music_client
-        self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop,
-                                            ws_port=1337)
-
 
 client = WeirdnessBot()
 config = json.loads(open('config.json', 'r').read())
