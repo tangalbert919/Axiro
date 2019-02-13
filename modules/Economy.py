@@ -118,7 +118,7 @@ class Economy:
     @commands.cooldown(1, 300, BucketType.user)
     async def mine(self, ctx):
         sql = "SELECT money FROM users WHERE id = $1"
-        tmp = await self.bot.sd.fetchval(sql, ctx.message.author.id)
+        tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
         success = random.randint(1,10)
         if (success > 6):
             award = random.randint(20, 60)
