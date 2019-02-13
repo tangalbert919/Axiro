@@ -69,7 +69,7 @@ class Economy:
         if balance < money:
             await ctx.send("You do not have enough chickens for this gamble!")
             return
-        raw_chance = 10  # Start with 30% chance of getting anywhere.
+        raw_chance = 10  # 90% of the time, gamblers will lose their chickens.
         did_i_win = random.randint(1, 100)
         if did_i_win <= raw_chance:
             result = int(balance) + int((check / 2))
@@ -105,7 +105,7 @@ class Economy:
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
         success = random.randint(1, 10)
-        if (success > 4):
+        if success > 4:
             award = random.randint(5, 25)
             money = int(tmp) + award
             next_sql = "UPDATE users SET money = $1 WHERE id = $2"
@@ -120,7 +120,7 @@ class Economy:
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
         success = random.randint(1,10)
-        if (success > 6):
+        if success > 6:
             award = random.randint(20, 60)
             money = int(tmp) + award
             next_sql = "UPDATE users SET money = $1 WHERE id = $2"
@@ -128,6 +128,21 @@ class Economy:
             await ctx.send("You mined some minerals and traded them for {} chickens.".format(award))
         else:
             await ctx.send("You couldn't find anything valuable while mining. :frowning:")
+
+    @commands.command()
+    @commands.cooldown(1, 300, BucketType.user)
+    async def fish(self, ctx):
+        sql = "SELECT money FROM users WHERE id = $1"
+        tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
+        success = random.randint(1,10)
+        if success > 6:
+            award = random.randint(20, 60)
+            money = int(tmp) + award
+            next_sql = "UPDATE users SET money = $1 WHERE id = $2"
+            await self.bot.db.execute(next_sql, str(money), ctx.message.author.id)
+            await ctx.send("You caught some fish and sold them for {} chickens.".format(award))
+        else:
+            await ctx.send("You couldn't find anything while fishing. :frowning:")
 
 
 def setup(bot):
