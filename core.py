@@ -19,7 +19,6 @@ class WeirdnessBot(commands.AutoShardedBot):
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 
-        self.music_client = lavalink.Client(bot=self, password=self.config['lavalinkpass'], loop=self.loop, ws_port=1337)
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
 
@@ -108,7 +107,9 @@ class WeirdnessBot(commands.AutoShardedBot):
                                "You can use this command in {} hours, {} minutes, and {} seconds."
                                .format(int(h), int(m), int(s)))
         else:
-            await context.send("An error has occurred.")
+            await context.send("An error has occurred, and has been reported to the developer.")
+            c = self.get_channel(545462395296940063)
+            await c.send(exception)
 
     async def status_task(self):
         while True:

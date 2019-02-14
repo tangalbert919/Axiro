@@ -17,7 +17,7 @@ Please refer to the INSTALL.md file for instructions on how to run an instance o
 
 ## TODO:
 
-* Build the mute command.
+* ~~Build the mute command.~~
 * ~~Add this bot to discordbots.org~~
 * Get to 200 guilds.
 * Gain access to weeb.sh
