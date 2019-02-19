@@ -4,7 +4,6 @@ import json
 import os
 import asyncio
 import asyncpg
-import lavalink
 from datetime import datetime
 import random
 import dbl
@@ -22,7 +21,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.launch_time = datetime.utcnow()
         self.loop.create_task(self.status_task())
 
-        self.version_code = "Release 5 Patch 1"
+        self.version_code = "Release 6 Beta 1"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']

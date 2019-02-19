@@ -80,6 +80,7 @@ class Image:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
                               description="If you can't see the image, click the title.", url=url)
+        embed.add_field(name="Rating: ", value="{}".format(self.formatrating(data['rating'])), inline=True)
         embed.add_field(name="Known tags ({}): ".format(data['tag_count']), value="`{}`".format(data['tag_string']),
                         inline=False)
         embed.add_field(name="Original link: ", value="[Click here](https://danbooru.donmai.us/posts/{})".format(data['id']),
@@ -239,6 +240,15 @@ class Image:
         if "shota".lower() in tagone or "shota".lower() in tagtwo:
             return False
         return True
+
+    @staticmethod
+    def formatrating(tag):
+        if "s" in tag:
+            return "safe"
+        elif "e" in tag:
+            return "explicit"
+        elif "q" in tag:
+            return "questionable"
 
 
 def setup(bot):
