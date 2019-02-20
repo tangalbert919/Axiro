@@ -12,6 +12,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
     async def balance(self, ctx):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         try:
             user = ctx.message.mentions[0]
         except Exception:
@@ -30,6 +33,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
     async def pay(self, ctx, user: discord.User, payment):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         try:
             check = int(payment)
         except Exception:
@@ -59,6 +65,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
     async def gamble(self, ctx, money):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         try:
             check = int(money)
         except Exception:
@@ -83,6 +92,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 86400, BucketType.user)
     async def daily(self, ctx):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         try:
             user = ctx.message.mentions[0]
         except Exception:
@@ -102,6 +114,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 300, BucketType.user)
     async def raid(self, ctx):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
         success = random.randint(1, 10)
@@ -117,6 +132,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 300, BucketType.user)
     async def mine(self, ctx):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
         success = random.randint(1,10)
@@ -132,6 +150,9 @@ class Economy:
     @commands.command()
     @commands.cooldown(1, 300, BucketType.user)
     async def fish(self, ctx):
+        if not self.bot.usedatabase:
+            ctx.send("This command requires a running database to work.")
+            return
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
         success = random.randint(1,10)

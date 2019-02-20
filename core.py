@@ -6,8 +6,9 @@ import asyncio
 import asyncpg
 from datetime import datetime
 import random
-import dbl
 import logging
+import aiohttp
+import traceback
 
 
 class WeirdnessBot(commands.AutoShardedBot):
@@ -19,27 +20,31 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.remove_command('help')
 
         self.launch_time = datetime.utcnow()
-        self.loop.create_task(self.status_task())
 
         self.version_code = "Release 6 Beta 1"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
-        govinfo = {"user": dbuser, "password": dbpass, "database": "axiro", "host": "localhost"}
+        govinfo = {"user": dbuser, "password": dbpass, "database": "axiro", "host": "localhost", "max-size": 10}
+        self.usedatabase = True
 
         async def _init_db():
-            self.db = await asyncpg.create_pool(**govinfo)
-            await self.db.execute(
+            try:
+                self.db = await asyncpg.create_pool(**govinfo)
+                await self.db.execute(
                 "CREATE TABLE IF NOT EXISTS users (id bigint primary key, name text, discrim varchar (4), money text);")
-            await self.db.execute(
+                await self.db.execute(
                 "CREATE TABLE IF NOT EXISTS guilds (id bigint primary key, name text, prefix text);")
+            except Exception:
+                print("Database either not detected or initialized. Starting bot without database connection.")
+                self.usedatabase = False
 
         self.loop.create_task(_init_db())
 
         self.status_msg = json.loads(open('status.json', 'r').read())
+        self.loop.create_task(self.status_task())
 
         self.dbl_token = self.config['dbl_token']
-        self.dblpy = dbl.Client(self, self.dbl_token)
         self.loop.create_task(self.update_stats())
 
         for file in os.listdir("modules"):
@@ -60,14 +65,27 @@ class WeirdnessBot(commands.AutoShardedBot):
         """This function runs every 30 minutes to automatically update your server count"""
         while True:
             print('Attempting to post server count')
+            dblload = json.dumps({
+                'shard_count': self.shard_count,
+                'server_count': len(self.guilds)
+            })
+            dblheaders = {
+                'Authorization': self.dbl_token,
+                'Content-type': 'application/json'
+            }
+            dblurl = f'https://discordbots.org/api/bots/{self.user.id}/stats'
             try:
-                await self.dblpy.post_server_count()
-                print('posted server count ({})'.format(len(self.guilds)))
+                async with aiohttp.ClientSession() as session:
+                    await session.post(dblurl, data=dblload, headers=dblheaders)
+                await session.close()
+                print('Posted server count ({})'.format(len(self.guilds)))
             except Exception as e:
                 print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
             await asyncio.sleep(1800)
 
     async def on_ready(self):
+        await self.change_presence(activity=discord.Activity(name="x!help | Just started up!",
+                                                             type=discord.ActivityType.playing))
         print('Logged in as')
         print(self.user.name)
         print(self.user.id)
@@ -78,14 +96,17 @@ class WeirdnessBot(commands.AutoShardedBot):
         if message.author.bot:
             return
         if not message.author.bot:
-            sql = "SELECT * FROM users WHERE id = $1"
-            user = await self.db.fetchrow(sql, message.author.id)
-            if not user:
-                add_user = "INSERT INTO users (id, name, discrim, money) VALUES ($1, $2, $3, 0);"
-                await self.db.execute(add_user, message.author.id, message.author.name, message.author.discriminator)
-            else:
-                update_user = "UPDATE users SET name = $1, discrim = $2 WHERE id = $3"
-                await self.db.execute(update_user, message.author.name, message.author.discriminator, message.author.id)
+            if self.usedatabase:
+                sql = "SELECT * FROM users WHERE id = $1"
+                user = await self.db.fetchrow(sql, message.author.id)
+                if not user:
+                    add_user = "INSERT INTO users (id, name, discrim, money) VALUES ($1, $2, $3, 0);"
+                    await self.db.execute(add_user, message.author.id, message.author.name,
+                                          message.author.discriminator)
+                else:
+                    update_user = "UPDATE users SET name = $1, discrim = $2 WHERE id = $3"
+                    await self.db.execute(update_user, message.author.name, message.author.discriminator,
+                                          message.author.id)
         await self.process_commands(message)
 
     async def on_command_error(self, context, exception):
@@ -108,7 +129,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         else:
             await context.send("An error has occurred, and has been reported to the developer.")
             c = self.get_channel(545462395296940063)
-            await c.send(exception)
+            await c.send(f'```py\n{traceback.format_exc()}\n```')
 
     async def status_task(self):
         while True:
@@ -119,8 +140,9 @@ class WeirdnessBot(commands.AutoShardedBot):
             await asyncio.sleep(300)
 
     async def on_guild_join(self, guild):
-        sql = "INSERT INTO guilds (id, name, prefix) VALUES ($1, $2, $3)"
-        await self.db.execute(sql, guild.id, guild.name, "x!")
+        if self.usedatabase:
+            sql = "INSERT INTO guilds (id, name, prefix) VALUES ($1, $2, $3)"
+            await self.db.execute(sql, guild.id, guild.name, "x!")
         channel = self.get_channel(477206313139699722)
         embed = discord.Embed(title="Guild joined!", color=discord.Colour.blue(),
                               description="We have joined a guild, bringing us to {} guilds!".format(len(self.guilds)))
@@ -131,8 +153,9 @@ class WeirdnessBot(commands.AutoShardedBot):
         await channel.send(embed=embed)
 
     async def on_guild_remove(self, guild):
-        sql = "DELETE FROM guilds where id = $1"
-        await self.db.execute(sql, guild.id)
+        if self.usedatabase:
+            sql = "DELETE FROM guilds where id = $1"
+            await self.db.execute(sql, guild.id)
         channel = self.get_channel(477206313139699722)
         embed = discord.Embed(title="Guild lost!", color=discord.Colour.red(),
                               description="We have lost a guild, dropping us to {} guilds!".format(len(self.guilds)))
