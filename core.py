@@ -21,7 +21,7 @@ class WeirdnessBot(commands.AutoShardedBot):
 
         self.launch_time = datetime.utcnow()
 
-        self.version_code = "Release 6 Beta 1"
+        self.version_code = "Release 6 Beta"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']

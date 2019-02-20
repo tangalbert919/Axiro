@@ -83,8 +83,8 @@ class Image:
         embed.add_field(name="Rating: ", value="{}".format(self.formatrating(data['rating'])), inline=True)
         embed.add_field(name="Known tags ({}): ".format(data['tag_count']), value="`{}`".format(data['tag_string']),
                         inline=False)
-        embed.add_field(name="Original link: ", value="[Click here](https://danbooru.donmai.us/posts/{})".format(data['id']),
-                        inline=True)
+        embed.add_field(name="Original link: ", value="[Click here](https://danbooru.donmai.us/posts/{})"
+                        .format(data['id']), inline=True)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Project Danbooru.")
         await context.send(embed=embed)
@@ -93,7 +93,6 @@ class Image:
     @commands.cooldown(1, 3, BucketType.user)
     async def konachan(self, context, tags=None, rating=None):
         """Picks a random image from Konachan and displays it."""
-        url_list = []
         if context.message.channel.is_nsfw():
             if tags is None:
                 temp = "?tags=-status%3Adeleted+-loli+-shota&limit=100"
@@ -124,11 +123,10 @@ class Image:
                 async with session.get('https://konachan.com/post/index.json{}'
                                                .format(temp)) as resp:
                     data = await resp.json()
-                    for entry in data:
-                        url_list.append(entry['file_url'])
                 await session.close()
             try:
-                url = url_list[random.randint(0, len(url_list))]
+                selected = random.randint(0, len(data))
+                url = data[selected]['file_url']
             except Exception:
                 await context.send("We could not find any images with that tag.")
                 return
@@ -141,6 +139,11 @@ class Image:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Konachan!",
                               description="If you can't see the image, click the title.", url=url)
+        embed.add_field(name="Known tags: ", value="`{}`".format(data[selected]['tags']),
+                        inline=False)
+        embed.add_field(name="Original link: ",
+                        value="[Click here](https://konachan.com/post/{})".format(data[selected]['id']),
+                        inline=True)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Konachan.")
         await context.send(embed=embed)
@@ -148,7 +151,6 @@ class Image:
     @commands.command()
     @commands.cooldown(1, 3, BucketType.user)
     async def yandere(self, context, tags=None, rating=None):
-        url_list = []
         if context.message.channel.is_nsfw():
             if tags is None:
                 temp = "?tags=-status%3Adeleted+-loli+-shota&limit=100"
@@ -179,12 +181,10 @@ class Image:
                 async with session.get('https://yande.re/post/index.json{}'
                                                .format(temp)) as resp:
                     data = await resp.json()
-                    for entry in data:
-                        # print(entry['file_url'])
-                        url_list.append(entry['file_url'])
                 await session.close()
             try:
-                url = url_list[random.randint(0, len(url_list))]
+                selected = random.randint(0, len(data))
+                url = data[selected]['file_url']
             except Exception:
                 await context.send("We could not find any images with that tag.")
                 return
@@ -197,22 +197,14 @@ class Image:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Yande.re!",
                               description="If you can't see the image, click the title.", url=url)
+        embed.add_field(name="Known tags: ", value="`{}`".format(data[selected]['tags']),
+                        inline=False)
+        embed.add_field(name="Original link: ",
+                        value="[Click here](https://yande.re/post/{})".format(data[selected]['id']),
+                        inline=True)
         embed.set_image(url=url)
         embed.set_footer(text="Powered by Yande.re.")
         await context.send(embed=embed)
-
-    def repairJSON(self, temp):
-        temp = temp.replace("{\'", "{\"")
-        temp = temp.replace("\': ", "\": ")
-        temp = temp.replace("\": \'", "\": \"")
-        temp = temp.replace("\', \'", "\", \"")
-        temp = temp.replace(", \'", ", \"")
-        temp = temp.replace("\'}", "\"}")
-        temp = temp.replace("True", "\"True\"")
-        temp = temp.replace("False", "\"False\"")
-        temp = temp.replace("None", "\"None\"")
-        temp = temp[1:-1]
-        return temp
 
     @staticmethod
     def rating(integer):
@@ -227,9 +219,9 @@ class Image:
     def checktags(tagone, tagtwo):
         if "safe".lower() in tagone or "safe".lower() in tagtwo:
             return 1
-        elif "questionable".lower() in tagone or "questionable" in tagtwo:
+        elif "questionable".lower() in tagone or "questionable".lower() in tagtwo:
             return 2
-        elif "explicit".lower() in tagone or "explicit" in tagtwo:
+        elif "explicit".lower() in tagone or "explicit".lower() in tagtwo:
             return 3
         return 0
 
