@@ -25,7 +25,7 @@ class WeirdnessBot(commands.AutoShardedBot):
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
-        govinfo = {"user": dbuser, "password": dbpass, "database": "axiro", "host": "localhost", "max-size": 10}
+        govinfo = {"user": dbuser, "password": dbpass, "database": "axiro", "host": "localhost", "max_size": 10}
         self.usedatabase = True
 
         async def _init_db():
@@ -45,7 +45,6 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.loop.create_task(self.status_task())
 
         self.dbl_token = self.config['dbl_token']
-        self.loop.create_task(self.update_stats())
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
@@ -74,21 +73,22 @@ class WeirdnessBot(commands.AutoShardedBot):
                 'Content-type': 'application/json'
             }
             dblurl = f'https://discordbots.org/api/bots/{self.user.id}/stats'
-            try:
-                async with aiohttp.ClientSession() as session:
-                    await session.post(dblurl, data=dblload, headers=dblheaders)
-                await session.close()
-                print('Posted server count ({})'.format(len(self.guilds)))
-            except Exception as e:
-                print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+
+            async with aiohttp.ClientSession() as session:
+                async with session.post(dblurl, data=dblload, headers=dblheaders) as resp:
+                    data = await resp.json()
+                    if data['error']:
+                        print('The post failed. Please check your DBL key (unless you\'re testing the bot).')
+                    else:
+                         print('Posted server count ({})'.format(len(self.guilds)))
+            await session.close()
             await asyncio.sleep(1800)
 
     async def on_ready(self):
         await self.change_presence(activity=discord.Activity(name="x!help | Just started up!",
                                                              type=discord.ActivityType.playing))
-        print('Logged in as')
-        print(self.user.name)
-        print(self.user.id)
+        print('Logged in as ' + self.user.name + ' with id ' + str(self.user.id))
+        self.loop.create_task(self.update_stats())
 
     async def on_message(self, message):
         if message.author == self.user:
