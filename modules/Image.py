@@ -81,8 +81,8 @@ class Image:
         embed = discord.Embed(color=color, title="Image from Project Danbooru!",
                               description="If you can't see the image, click the title.", url=url)
         embed.add_field(name="Rating: ", value="{}".format(self.formatrating(data['rating'])), inline=True)
-        embed.add_field(name="Known tags ({}): ".format(data['tag_count']), value="`{}`".format(data['tag_string']),
-                        inline=False)
+        embed.add_field(name="Known tags ({}): ".format(data['tag_count']), value="`{}`"
+                        .format(self.taglistlength(data['tag_string'])), inline=False)
         embed.add_field(name="Original link: ", value="[Click here](https://danbooru.donmai.us/posts/{})"
                         .format(data['id']), inline=True)
         embed.set_image(url=url)
@@ -139,7 +139,7 @@ class Image:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Konachan!",
                               description="If you can't see the image, click the title.", url=url)
-        embed.add_field(name="Known tags: ", value="`{}`".format(data[selected]['tags']),
+        embed.add_field(name="Known tags: ", value="`{}`".format(self.taglistlength(data[selected]['tags'])),
                         inline=False)
         embed.add_field(name="Original link: ",
                         value="[Click here](https://konachan.com/post/{})".format(data[selected]['id']),
@@ -197,7 +197,7 @@ class Image:
             color = discord.Colour.blurple()
         embed = discord.Embed(color=color, title="Image from Yande.re!",
                               description="If you can't see the image, click the title.", url=url)
-        embed.add_field(name="Known tags: ", value="`{}`".format(data[selected]['tags']),
+        embed.add_field(name="Known tags: ", value="`{}`".format(self.taglistlength(data[selected]['tags'])),
                         inline=False)
         embed.add_field(name="Original link: ",
                         value="[Click here](https://yande.re/post/{})".format(data[selected]['id']),
@@ -241,6 +241,13 @@ class Image:
             return "explicit"
         elif "q" in tag:
             return "questionable"
+
+    @staticmethod
+    def taglistlength(taglist):
+        if len(taglist) >= 1024:
+            return taglist[:1021] + "..."
+        else:
+            return taglist
 
 
 def setup(bot):
