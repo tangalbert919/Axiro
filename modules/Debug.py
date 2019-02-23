@@ -13,38 +13,32 @@ class Debug:
         self._last_result = None
 
     @commands.command()
+    @commands.is_owner()
     async def reload(self, ctx, *, module):
         """Reloads a module."""
-        if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
-            return
         try:
             self.bot.unload_extension("modules." + module)
             self.bot.load_extension("modules." + module)
-        except Exception as e:
+        except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             await ctx.send(':ok_hand:')
 
     @commands.command()
+    @commands.is_owner()
     async def load(self, ctx, *, module):
         """Loads a new module."""
-        if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
-            return
         try:
             self.bot.load_extension(module)
-        except Exception as e:
+        except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             await ctx.send(':ok_hand:')
 
     @commands.command()
+    @commands.is_owner()
     async def unload(self, ctx, *, module):
         """Unloads a module."""
-        if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
-            return
         try:
             self.bot.unload_extension(module)
         except Exception:
@@ -53,10 +47,8 @@ class Debug:
             await ctx.send(':ok_hand:')
 
     @commands.command()
+    @commands.is_owner()
     async def say(self, ctx, *, message: str):
-        if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
-            return
         await ctx.message.delete()
         await ctx.send(message)
 
@@ -69,10 +61,8 @@ class Debug:
         return content.strip('` \n')
 
     @commands.command()
+    @commands.is_owner()
     async def eval(self, ctx, *, message: str):
-        if ctx.message.author.id != 310496481435975693:
-            await ctx.send("Only my creator can run this command.")
-            return
         env = {
             'bot': self.bot,
             'ctx': ctx,
@@ -99,7 +89,7 @@ class Debug:
         try:
             with redirect_stdout(stdout):
                 ret = await func()
-        except Exception as e:
+        except Exception:
             value = stdout.getvalue()
             await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
         else:
@@ -117,15 +107,13 @@ class Debug:
                 await ctx.send(f'```py\n{value}{ret}\n```')
 
     @commands.command()
+    @commands.is_owner()
     async def pull(self, ctx):
-        if ctx.message.author.id != 310496481435975693:
-            await ctx.send("You do not have permission to run this command.")
-        else:
-            c = subprocess.call(('git', 'pull'))
-            if c != 0:
-                await ctx.send("Updating from Git failed.")
-                return
-            await ctx.send("Successfully updated from Git.")
+        c = subprocess.call(('git', 'pull'))
+        if c != 0:
+            await ctx.send("Updating from Git failed.")
+            return
+        await ctx.send("Successfully updated from Git.")
 
 
 def setup(bot):

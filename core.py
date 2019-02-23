@@ -20,7 +20,6 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.remove_command('help')
 
         self.launch_time = datetime.utcnow()
-
         self.version_code = "Release 6 Beta"
 
         dbpass = self.config['dbpass']
@@ -44,8 +43,6 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.status_msg = json.loads(open('status.json', 'r').read())
         self.loop.create_task(self.status_task())
 
-        self.dbl_token = self.config['dbl_token']
-
         for file in os.listdir("modules"):
             if file.endswith(".py"):
                 name = file[:-3]
@@ -62,14 +59,14 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def update_stats(self):
         """This function runs every 30 minutes to automatically update your server count"""
-        while True:
+        while not self.is_closed():
             print('Attempting to post server count')
             dblload = json.dumps({
                 'shard_count': self.shard_count,
                 'server_count': len(self.guilds)
             })
             dblheaders = {
-                'Authorization': self.dbl_token,
+                'Authorization': self.config['dbl_token'],
                 'Content-type': 'application/json'
             }
             dblurl = f'https://discordbots.org/api/bots/{self.user.id}/stats'
@@ -89,6 +86,8 @@ class WeirdnessBot(commands.AutoShardedBot):
                                                              type=discord.ActivityType.playing))
         print('Logged in as ' + self.user.name + ' with id ' + str(self.user.id))
         self.loop.create_task(self.update_stats())
+        app_info = await self.application_info()
+        self.owner_id = app_info.owner.id
 
     async def on_message(self, message):
         if message.author == self.user:
@@ -126,13 +125,15 @@ class WeirdnessBot(commands.AutoShardedBot):
             await context.send("Please slow down! (Rate-limited) :watch:\n"
                                "You can use this command in {} hours, {} minutes, and {} seconds."
                                .format(int(h), int(m), int(s)))
+        elif isinstance(exception, discord.ext.commands.errors.NotOwner):
+            await context.send("You must be the owner of the bot to use this command.")
         else:
             await context.send("An error has occurred, and has been reported to the developer.")
             c = self.get_channel(545462395296940063)
             await c.send(f'```py\n{traceback.format_exc()}\n```')
 
     async def status_task(self):
-        while True:
+        while not self.is_closed():
             selected = random.randint(1, 10)
             message = "x!help | " + self.status_msg.get(str(selected))
             await self.change_presence(activity=discord.Activity(name=message,
