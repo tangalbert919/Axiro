@@ -10,6 +10,7 @@ class Debug:
 
     def __init__(self, bot):
         self.bot = bot
+        self._last_result = None
 
     @commands.command()
     async def reload(self, ctx, *, module):
@@ -34,6 +35,19 @@ class Debug:
         try:
             self.bot.load_extension(module)
         except Exception as e:
+            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+        else:
+            await ctx.send(':ok_hand:')
+
+    @commands.command()
+    async def unload(self, ctx, *, module):
+        """Unloads a module."""
+        if ctx.message.author.id != 310496481435975693:
+            await ctx.send("Only my creator can run this command.")
+            return
+        try:
+            self.bot.unload_extension(module)
+        except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             await ctx.send(':ok_hand:')
