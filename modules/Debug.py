@@ -4,6 +4,9 @@ from contextlib import redirect_stdout
 import subprocess
 import textwrap
 import traceback
+import requests
+from os import listdir
+from os.path import isfile, join
 
 
 class Debug:
@@ -114,6 +117,18 @@ class Debug:
             await ctx.send("Updating from Git failed.")
             return
         await ctx.send("Successfully updated from Git.")
+
+    @commands.command()
+    @commands.is_owner()
+    async def download(self, ctx, link):
+        file = [f for f in listdir('./modules/') if isfile(join('./modules/', f))]
+        r = requests.get(link)
+        newmod = open('./modules/{}.py'.format('module-{}'.format(len(file))), 'wb+')
+        try:
+            newmod.write(r.content)
+        except:
+            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+        await ctx.send('Downloaded new module ending in {}'.format(len(file)))
 
 
 def setup(bot):
