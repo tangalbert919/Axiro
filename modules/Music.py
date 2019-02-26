@@ -11,7 +11,7 @@ time_rx = re.compile('[0-9]+')
 url_rx = re.compile('https?:\/\/(?:www\.)?.+')
 
 
-class Music:
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.password = json.loads(open('config.json', 'r').read())

@@ -9,7 +9,7 @@ from os import listdir
 from os.path import isfile, join
 
 
-class Debug:
+class Debug(commands.Cog, command_attrs=dict(hidden=True)):
 
     def __init__(self, bot):
         self.bot = bot
@@ -32,7 +32,7 @@ class Debug:
     async def load(self, ctx, *, module):
         """Loads a new module."""
         try:
-            self.bot.load_extension(module)
+            self.bot.load_extension("modules." + module)
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
@@ -43,7 +43,7 @@ class Debug:
     async def unload(self, ctx, *, module):
         """Unloads a module."""
         try:
-            self.bot.unload_extension(module)
+            self.bot.unload_extension("modules." + module)
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:

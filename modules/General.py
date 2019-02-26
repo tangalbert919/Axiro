@@ -7,7 +7,7 @@ import json
 import sys
 
 
-class General:
+class General(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
