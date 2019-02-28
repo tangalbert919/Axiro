@@ -4,7 +4,7 @@ from discord.ext.commands.cooldowns import BucketType
 import random
 
 
-class Economy(commands.Cog):
+class Economy(commands.Cog, name="Economy"):
 
     def __init__(self, bot):
         self.bot = bot

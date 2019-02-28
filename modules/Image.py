@@ -6,7 +6,7 @@ import requests
 import aiohttp
 
 
-class Image(commands.Cog):
+class Image(commands.Cog, name="Image"):
 
     def __init__(self, bot):
         self.bot = bot

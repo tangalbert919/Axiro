@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 
 
-class Moderation(commands.Cog):
+class Moderation(commands.Cog, name="Moderation"):
 
     def __init__(self, bot):
         self.bot = bot

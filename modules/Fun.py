@@ -7,7 +7,7 @@ import aiohttp
 from lxml import html
 
 
-class Fun(commands.Cog):
+class Fun(commands.Cog, name="Fun"):
 
     def __init__(self, bot):
         self.bot = bot

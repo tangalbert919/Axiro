@@ -7,7 +7,7 @@ import aiohttp
 import random
 
 
-class Miscellaneous(commands.Cog):
+class Miscellaneous(commands.Cog, name="Miscellaneous"):
 
     def __init__(self, bot):
         self.bot = bot

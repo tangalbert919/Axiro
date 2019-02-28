@@ -7,7 +7,7 @@ import json
 import sys
 
 
-class General(commands.Cog):
+class General(commands.Cog, name="General"):
 
     def __init__(self, bot):
         self.bot = bot
@@ -19,23 +19,15 @@ class General(commands.Cog):
         if commands is None:
             embed = discord.Embed(title="I'm Axiro! This is my list of commands!",
                               description="If you need help on a specific command, use ``x!help <command>``")
-            """embed.add_field(name="General:\n", value="``help`` ``ping`` ``about`` ``user`` ``suggest`` ``report`` ``invite`` ``server`` ``github`` ``upvote``", inline=False)
-            embed.add_field(name="Economy:\n", value="``balance`` ``daily`` ``pay`` ``gamble`` ``raid``")
-            embed.add_field(name="Encryption:\n", value="``encode`` ``decode`` ``hash`` ``encipher`` ``decipher`` ``reverse``", inline=False)
-            embed.add_field(name="Fun:\n", value="``8ball`` ``ask`` ``kiss`` ``hug`` ``urban``", inline=False)
-            embed.add_field(name="Image:\n", value="``danbooru`` ``konachan`` ``neko`` ``yandere``", inline=False)
-            embed.add_field(name="Moderation:\n", value="``kick`` ``ban`` ``unban`` ``mute`` ``unmute``", inline=False)
-            embed.add_field(name="Miscellaneous:\n", value="``news`` ``uptime`` ``winner`` ``loser``", inline=False)
-            embed.add_field(name="Music:\n", value="``play`` ``skip`` ``stop`` ``now`` ``pause`` ``queue`` ``repeat`` ``volume`` ``shuffle``", inline=False)"""
-            for cog in self.bot.cogs:
-                if cog == "Debug":
-                    continue
-                cogcmds = self.bot.get_cog_commands(cog)
+            for module in self.bot.cogs:
+                cog = self.bot.get_cog(module)
+                cogcmds = cog.get_commands()
                 list = ""
                 for c in cogcmds:
                     list += f"``{c}`` "
-                embed.add_field(name=cog, value=list, inline=False)
-            embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
+                embed.add_field(name=cog.name, value=list, inline=False)
+            embed.set_footer(icon_url=beep.message.author.avatar_url,
+                             text="Requested by {}".format(beep.message.author.name))
         else:
             embed = self.commandhelp(commands)
         await beep.send(embed=embed)
@@ -56,9 +48,12 @@ class General(commands.Cog):
         embed = discord.Embed(title="About Axiro:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
         embed.add_field(name="Author: ", value="tangalbert919 (The Freaking iDroid)", inline=False)
-        embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n".format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())))
-        embed.add_field(name="Version: ", value="Axiro: **{}**\nPython: **{}**\nDiscord.py: **{}**".format(self.bot.version_code, sys.version, discord.__version__))
-        embed.set_footer(icon_url=beep.message.author.avatar_url, text="Requested by {}".format(beep.message.author.name))
+        embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n"
+                        .format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())))
+        embed.add_field(name="Version: ", value="Axiro: **{}**\nPython: **{}**\nDiscord.py: **{}**"
+                        .format(self.bot.version_code, sys.version, discord.__version__))
+        embed.set_footer(icon_url=beep.message.author.avatar_url,
+                         text="Requested by {}".format(beep.message.author.name))
         await beep.send(embed=embed)
 
     @commands.command()

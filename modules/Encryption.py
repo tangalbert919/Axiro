@@ -6,7 +6,7 @@ import binascii
 import hashlib
 
 
-class Encryption(commands.Cog):
+class Encryption(commands.Cog, name="Encryption"):
 
     def __init__(self, bot):
         self.bot = bot

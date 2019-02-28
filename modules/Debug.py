@@ -9,7 +9,7 @@ from os import listdir
 from os.path import isfile, join
 
 
-class Debug(commands.Cog, command_attrs=dict(hidden=True)):
+class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
 
     def __init__(self, bot):
         self.bot = bot
