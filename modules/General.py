@@ -25,7 +25,7 @@ class General(commands.Cog, name="General"):
                 list = ""
                 for c in cogcmds:
                     list += f"``{c}`` "
-                embed.add_field(name=cog.name, value=list, inline=False)
+                embed.add_field(name=cog, value=list, inline=False)
             embed.set_footer(icon_url=beep.message.author.avatar_url,
                              text="Requested by {}".format(beep.message.author.name))
         else:
