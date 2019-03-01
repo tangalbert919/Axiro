@@ -20,6 +20,8 @@ class General(commands.Cog, name="General"):
             embed = discord.Embed(title="I'm Axiro! This is my list of commands!",
                               description="If you need help on a specific command, use ``x!help <command>``")
             for module in self.bot.cogs:
+                if module == 'Debug':
+                    continue
                 cog = self.bot.get_cog(module)
                 cogcmds = cog.get_commands()
                 list = ""
