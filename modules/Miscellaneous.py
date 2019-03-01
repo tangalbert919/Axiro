@@ -14,6 +14,7 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def news(self, msg):
         config = json.loads(open('config.json', 'r').read())
         try:
@@ -35,6 +36,7 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def uptime(self, ctx):
         delta_uptime = datetime.utcnow() - self.bot.launch_time
         hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
@@ -44,6 +46,7 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def winner(self, ctx):
         try:
             user = ctx.message.mentions[0]
@@ -54,6 +57,7 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def loser(self, ctx):
         try:
             user = ctx.message.mentions[0]
@@ -65,6 +69,7 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
     @commands.command()
     @commands.has_permissions(manage_nicknames=True)
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def drumpf(self, ctx, user: discord.Member):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_nicknames:
             await ctx.send(":x: I do not have permission to edit nicknames.")
@@ -79,6 +84,7 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def wegothim(self, ctx):
         embed = discord.Embed(color=discord.Colour.red(), title="WE GOT HIM!")
         embed.set_image(url="https://media1.tenor.com/images/4a08ff9d3f956dd814fc8ee1cfaac592/tenor.gif?itemid=10407619")

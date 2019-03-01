@@ -8,7 +8,6 @@ from datetime import datetime
 import random
 import logging
 import aiohttp
-import traceback
 
 
 class WeirdnessBot(commands.AutoShardedBot):
@@ -127,6 +126,8 @@ class WeirdnessBot(commands.AutoShardedBot):
                                .format(int(h), int(m), int(s)))
         elif isinstance(exception, discord.ext.commands.errors.NotOwner):
             await context.send("You must be the owner of the bot to use this command.")
+        elif isinstance(exception, discord.ext.commands.errors.NoPrivateMessage):
+            await context.send("You cannot use this command in private messages.")
         else:
             await context.send("An error has occurred, and has been reported to the developer.")
             c = self.get_channel(545462395296940063)

@@ -15,6 +15,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command(name='help')
     @commands.cooldown(1, 2, BucketType.user)
+    @commands.guild_only()
     async def _help(self, beep, commands=None):
         if commands is None:
             embed = discord.Embed(title="I'm Axiro! This is my list of commands!",
@@ -36,6 +37,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def ping(self, ctx):
         t_1 = time.perf_counter()
         await ctx.trigger_typing()
@@ -46,6 +48,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command(aliases=['info'])
     @commands.cooldown(1, 2, BucketType.user)
+    @commands.guild_only()
     async def about(self, beep):
         embed = discord.Embed(title="About Axiro:", description="This bot was created to do what most "
                                     "bots should do, and then some really weird things.")
@@ -60,6 +63,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def user(self, ctx):
         try:
             target = ctx.message.mentions[0]
@@ -81,6 +85,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def invite(self, ctx):
         embed = discord.Embed(color=discord.Colour.dark_orange(), title="Are you going to invite me to your server?",
                               description="Invite me by clicking [here](https://discordapp.com/api/oauth2/authorize?client_id=458834071796187149&permissions=8&scope=bot).")
@@ -89,6 +94,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def server(self, ctx):
         embed = discord.Embed(color=discord.Colour.dark_gold(), title="So you want to join my creator's server?",
                               description="Come join the support server by clicking [here](https://discord.gg/NEpsy8h)")
@@ -97,6 +103,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def suggest(self, ctx, *, report: str):
         channel = self.bot.get_channel(460669314933063680)
         color = discord.Colour.blue()
@@ -107,6 +114,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def report(self, ctx, *, report: str):
         channel = self.bot.get_channel(460666448352641026)
         color = discord.Colour.red()
@@ -117,6 +125,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def github(self, ctx):
         embed = discord.Embed(color=discord.Colour.light_grey(), title="Are you a programmer and want to help?",
                               description="You should click [here](https://github.com/tangalbert919/WeirdnessBot) to see my repository. I am an open-source bot.")
@@ -125,6 +134,7 @@ class General(commands.Cog, name="General"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def upvote(self, ctx):
         embed = discord.Embed(color=discord.Colour.blue(), title="Come vote for Axiro!",
                               description="Do you really like using Axiro? You can upvote it by clicking [here](https://discordbots.org/bot/458834071796187149/vote)!")

@@ -11,6 +11,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def balance(self, ctx):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
@@ -32,6 +33,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def pay(self, ctx, user: discord.User, payment):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
@@ -64,6 +66,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
     async def gamble(self, ctx, money):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
@@ -91,6 +94,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 86400, BucketType.user)
+    @commands.guild_only()
     async def daily(self, ctx):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
@@ -113,6 +117,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 300, BucketType.user)
+    @commands.guild_only()
     async def raid(self, ctx):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
@@ -131,6 +136,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 300, BucketType.user)
+    @commands.guild_only()
     async def mine(self, ctx):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
@@ -149,6 +155,7 @@ class Economy(commands.Cog, name="Economy"):
 
     @commands.command()
     @commands.cooldown(1, 300, BucketType.user)
+    @commands.guild_only()
     async def fish(self, ctx):
         if not self.bot.usedatabase:
             ctx.send("This command requires a running database to work.")
