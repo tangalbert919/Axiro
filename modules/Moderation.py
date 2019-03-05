@@ -1,3 +1,4 @@
+import asyncio
 import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
@@ -67,6 +68,29 @@ class Moderation(commands.Cog, name="Moderation"):
             await ctx.send("I was unable to unmute that player.")
             return
         await ctx.send(":white_check_mark: Player {} has been unmuted.".format(user.display_name))
+
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    @commands.cooldown(1, 10, BucketType.guild)
+    @commands.guild_only()
+    async def prune(self, ctx, number: int):
+        if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_messages:
+            await ctx.send("I do not have permission to delete messages.")
+            return
+        if number > 500:
+            await ctx.send("Please specify a lower number.")
+            return
+        to_delete = []
+        async for message in ctx.message.channel.history(limit=number+1):
+            to_delete.append(message)
+        while to_delete:
+            if len(to_delete) > 1:
+                await ctx.message.channel.delete_messages(to_delete[:100])
+                to_delete = to_delete[100:]
+            else:
+                await to_delete.delete()
+                to_delete = []
+            await asyncio.sleep(1.5)
 
 
 def setup(bot):
