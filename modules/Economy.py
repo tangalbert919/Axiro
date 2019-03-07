@@ -81,6 +81,9 @@ class Economy(commands.Cog, name="Economy"):
         if balance < money:
             await ctx.send("You do not have enough chickens for this gamble!")
             return
+        if money < 0:
+            await ctx.send("Gambling a negative amount of chickens, eh? Nice try.")
+            return
         raw_chance = 10  # 90% of the time, gamblers will lose their chickens.
         did_i_win = random.randint(1, 100)
         if did_i_win <= raw_chance:
