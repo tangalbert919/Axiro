@@ -14,7 +14,7 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     def __init__(self):
         self.config = json.loads(open('config.json', 'r').read())
-        self._prefix = self.config['prefix']
+        self._prefix = self.prefixcall
         super().__init__(command_prefix=self._prefix)
         self.remove_command('help')
 
@@ -30,9 +30,9 @@ class WeirdnessBot(commands.AutoShardedBot):
             try:
                 self.db = await asyncpg.create_pool(**govinfo)
                 await self.db.execute(
-                "CREATE TABLE IF NOT EXISTS users (id bigint primary key, name text, discrim varchar (4), money text);")
+                    "CREATE TABLE IF NOT EXISTS users (id bigint primary key, name text, discrim varchar (4), money text);")
                 await self.db.execute(
-                "CREATE TABLE IF NOT EXISTS guilds (id bigint primary key, name text, prefix text);")
+                    "CREATE TABLE IF NOT EXISTS guilds (id bigint primary key, name text, prefix text);")
             except Exception:
                 print("Database either not detected or initialized. Starting bot without database connection.")
                 self.usedatabase = False
@@ -76,7 +76,7 @@ class WeirdnessBot(commands.AutoShardedBot):
                     if data['error']:
                         print('The post failed. Please check your DBL key (unless you\'re testing the bot).')
                     else:
-                         print('Posted server count ({})'.format(len(self.guilds)))
+                        print('Posted server count ({})'.format(len(self.guilds)))
             await session.close()
             await asyncio.sleep(1800)
 
@@ -109,7 +109,7 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def on_command_error(self, context, exception):
         if isinstance(exception, discord.ext.commands.errors.MissingRequiredArgument):
-            await context.send("You're missing one or more required arguments.")
+            await context.send("You're missing one or more required arguments. Refer to ``x!help <command>`` for help.")
         elif isinstance(exception, discord.ext.commands.errors.BotMissingPermissions):
             await context.send("I am missing the required permissions to perform this command successfully.")
         elif isinstance(exception, discord.ext.commands.errors.MissingPermissions):
@@ -117,7 +117,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
             pass
         elif isinstance(exception, discord.ext.commands.errors.BadArgument):
-            await context.send("You used an invalid argument.")
+            await context.send("You used an invalid argument. Refer to ``x!help <command>`` for help.")
         elif isinstance(exception, discord.ext.commands.errors.CommandOnCooldown):
             m, s = divmod(exception.retry_after, 60)
             h, m = divmod(m, 60)
@@ -144,7 +144,7 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def on_guild_join(self, guild):
         if self.usedatabase:
             sql = "INSERT INTO guilds (id, name, prefix) VALUES ($1, $2, $3)"
-            await self.db.execute(sql, guild.id, guild.name, "x!")
+            await self.db.execute(sql, guild.id, guild.name, self.config['prefix'])
         channel = self.get_channel(477206313139699722)
         embed = discord.Embed(title="Guild joined!", color=discord.Colour.blue(),
                               description="We have joined a guild, bringing us to {} guilds!".format(len(self.guilds)))
@@ -166,6 +166,18 @@ class WeirdnessBot(commands.AutoShardedBot):
         embed.add_field(name="Member count: ", value=guild.member_count)
         embed.set_thumbnail(url=guild.icon_url)
         await channel.send(embed=embed)
+
+    async def prefixcall(self, bot, ctx):
+        if ctx.guild is None:
+            return self.config['prefix']
+        if not self.usedatabase:
+            return self.config['prefix']
+        sql = "SELECT prefix FROM guilds WHERE id = $1"
+        result = bot.db.fetchval(sql, ctx.guild.id)
+        if result:
+            return result
+        else:
+            return self.config['prefix']
 
 
 client = WeirdnessBot()

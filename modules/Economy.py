@@ -76,13 +76,13 @@ class Economy(commands.Cog, name="Economy"):
         except Exception:
             await ctx.send("Please specify an actual amount.")
             return
+        if money < 0:
+            await ctx.send("Gambling a negative amount of chickens, eh? Nice try.")
+            return
         sql = "SELECT money FROM users WHERE id = $1"
         balance = await self.bot.db.fetchval(sql, ctx.message.author.id)
         if balance < money:
             await ctx.send("You do not have enough chickens for this gamble!")
-            return
-        if money < 0:
-            await ctx.send("Gambling a negative amount of chickens, eh? Nice try.")
             return
         raw_chance = 10  # 90% of the time, gamblers will lose their chickens.
         did_i_win = random.randint(1, 100)
