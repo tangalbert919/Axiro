@@ -5,12 +5,14 @@ import random
 import requests
 import aiohttp
 from lxml import html
+import json
 
 
 class Fun(commands.Cog, name="Fun"):
 
     def __init__(self, bot):
         self.bot = bot
+        self.quote = json.load(open('quotes.json', 'r').read())
 
     @commands.command()
     @commands.guild_only()
@@ -191,6 +193,13 @@ class Fun(commands.Cog, name="Fun"):
         tree = html.fromstring(page.content)
         facts = tree.xpath('//p/text()')
         await ctx.send(facts[random.randint(0, len(facts))])
+
+    @commands.command()
+    @commands.cooldown(1, 3, BucketType.user)
+    @commands.guild_only()
+    async def randomquote(self, ctx):
+        quote = self.quote[random.randint(0, 10)]
+        await ctx.send(quote)
 
     def getImage(self, url):
         response = requests.get(url)
