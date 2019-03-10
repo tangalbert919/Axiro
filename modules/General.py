@@ -28,7 +28,7 @@ class General(commands.Cog, name="General"):
                 list = ""
                 for c in cogcmds:
                     list += f"``{c}`` "
-                embed.add_field(name=cog, value=list, inline=False)
+                embed.add_field(name=module, value=list, inline=False)
             embed.set_footer(icon_url=beep.message.author.avatar_url,
                              text="Requested by {}".format(beep.message.author.name))
         else:
@@ -73,7 +73,7 @@ class General(commands.Cog, name="General"):
         roles = []
         for x in target.roles:
             roles.append(x.name)
-            knownroles = "\n".join(roles)
+        knownroles = "\n".join(roles)
         embed = discord.Embed(title="Information successfully collected!", description="Here's what we know about {} "
                                     "(also known as {})".format(target.name, target.display_name))
         embed.add_field(name="User ID: ", value=str(target.id), inline=False)

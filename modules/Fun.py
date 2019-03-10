@@ -12,7 +12,7 @@ class Fun(commands.Cog, name="Fun"):
 
     def __init__(self, bot):
         self.bot = bot
-        self.quote = json.load(open('quotes.json', 'r').read())
+        self.quotes = json.load(open('quotes.json', 'r').read())
 
     @commands.command()
     @commands.guild_only()
@@ -198,7 +198,7 @@ class Fun(commands.Cog, name="Fun"):
     @commands.cooldown(1, 3, BucketType.user)
     @commands.guild_only()
     async def randomquote(self, ctx):
-        quote = self.quote[random.randint(0, 10)]
+        quote = self.quotes[random.randint(0, 10)]
         await ctx.send(quote)
 
     def getImage(self, url):
