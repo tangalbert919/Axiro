@@ -73,9 +73,12 @@ class WeirdnessBot(commands.AutoShardedBot):
             async with aiohttp.ClientSession() as session:
                 async with session.post(dblurl, data=dblload, headers=dblheaders) as resp:
                     data = await resp.json()
-                    if data['error']:
-                        print('The post failed. Please check your DBL key (unless you\'re testing the bot).')
-                    else:
+                    try:
+                        if data['error']:
+                            print('The post failed. Please check your DBL key (unless you\'re testing the bot).')
+                        else:
+                            print('Posted server count ({})'.format(len(self.guilds)))
+                    except Exception:
                         print('Posted server count ({})'.format(len(self.guilds)))
             await session.close()
             await asyncio.sleep(1800)
