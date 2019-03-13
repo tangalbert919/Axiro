@@ -12,7 +12,7 @@ class Fun(commands.Cog, name="Fun"):
 
     def __init__(self, bot):
         self.bot = bot
-        self.quotes = json.load(open('quotes.json', 'r').read())
+        self.quotes = json.loads(open('quotes.json', 'r').read())
 
     @commands.command()
     @commands.guild_only()

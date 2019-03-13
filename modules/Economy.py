@@ -14,7 +14,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def balance(self, ctx):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         try:
             user = ctx.message.mentions[0]
@@ -36,7 +36,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def pay(self, ctx, user: discord.User, payment):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         try:
             check = int(payment)
@@ -69,7 +69,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def gamble(self, ctx, money):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         try:
             check = int(money)
@@ -81,7 +81,7 @@ class Economy(commands.Cog, name="Economy"):
             return
         sql = "SELECT money FROM users WHERE id = $1"
         balance = await self.bot.db.fetchval(sql, ctx.message.author.id)
-        if balance < check:
+        if balance < money:
             await ctx.send("You do not have enough chickens for this gamble!")
             return
         raw_chance = 10  # 90% of the time, gamblers will lose their chickens.
@@ -100,7 +100,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def daily(self, ctx):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         try:
             user = ctx.message.mentions[0]
@@ -123,7 +123,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def raid(self, ctx):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
@@ -142,7 +142,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def mine(self, ctx):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
@@ -161,7 +161,7 @@ class Economy(commands.Cog, name="Economy"):
     @commands.guild_only()
     async def fish(self, ctx):
         if not self.bot.usedatabase:
-            ctx.send("This command requires a running database to work.")
+            await ctx.send("This command requires a running database to work.")
             return
         sql = "SELECT money FROM users WHERE id = $1"
         tmp = await self.bot.db.fetchval(sql, ctx.message.author.id)
