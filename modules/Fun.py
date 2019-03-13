@@ -198,7 +198,7 @@ class Fun(commands.Cog, name="Fun"):
     @commands.cooldown(1, 3, BucketType.user)
     @commands.guild_only()
     async def randomquote(self, ctx):
-        quote = self.quotes[random.randint(0, 10)]
+        quote = self.quotes[str(random.randint(0, 10))]
         await ctx.send(quote)
 
     def getImage(self, url):
