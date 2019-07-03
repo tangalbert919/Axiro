@@ -5,16 +5,14 @@ this is not for the faint of heart, and as such, you must know what you're doing
 
 ## Prerequisites
 
-Before you begin, you need to have Python 3.6 or above installed. Linux distros (such as Ubuntu, Arch Linux, Linux Mint, Zorin) already
+Before you begin, you must have Python 3.6 or above installed. Linux distros (such as Ubuntu, Arch Linux, Linux Mint, Zorin) already
 have this (it may require an update), but if you have macOS, you need to install it [here](https://www.python.org/downloads/).
 
 Pip is required for this, and by default, it's already installed into Python for you. If not, go [here](https://pip.pypa.io/en/stable/installing/) 
 to install it.
 
-Now, with all of that being said, you will need to use Pip to install the following packages:
+Now, with all of that being said, you need to install the `discord` package. Then you need to install these packages:
 
-* yarl
-* aiohttp
 * lavalink
 * asyncpg
 * requests
@@ -25,10 +23,6 @@ To install them, run `python3 -m pip install -U --user <package>`.
 If you are on Linux, you need to install libffi-dev (or libffi-devel for some distros) for installing the Discord rewrite,
 as one of the dependencies (PyNaCl) needs that library for voice support to work. You have to use your distro's package
 management tool for that.
-
-Once you have that library installed, you can run this command:
-
-`python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/rewrite.zip#egg=discord.py[voice]`
 
 ## API Tokens
 
@@ -43,15 +37,15 @@ You absolutely **must** acquire these keys yourself. I am not getting them for y
 
 ## Initializing database
 
-You need to install PostgreSQL if you want full functionality of the bot. You must create the database called "axiro"
-yourself. The bot will handle the rest for you.
+This is entirely optional, but if you plan on having the bot use a database, you need to download PostgreSQL and
+create a database called "axiro". The bot will setup the database for you.
 
 ## How to get this bot running
 
 1. Place all API Tokens in where they should go in config.json. That file needs to be created.
 2. Install the requirements listed above.
 3. Download the Lavalink.jar file (use the dev builds if you want working audio), and run it.
-4. `python3 core.py`
+4. Depending on your platform, run either `python3 core.py` or `py core.py`.
 
 ## The config.json
 
