@@ -57,6 +57,7 @@ create a database called "axiro". The bot will setup the database for you.
     "dbpass": "Database password",
     "dbuser": "Database username",
     "dbl_token": "DiscordBots.org token",
-    "prefix": "x!"
+    "prefix": "x!",
+	"lavaport": "1337",
 }
 ```

@@ -8,6 +8,7 @@ from datetime import datetime
 import random
 import logging
 import aiohttp
+import traceback
 
 
 class WeirdnessBot(commands.AutoShardedBot):
@@ -45,10 +46,12 @@ class WeirdnessBot(commands.AutoShardedBot):
         for file in os.listdir("modules"):
             if file.endswith(".py"):
                 name = file[:-3]
-                try:
-                    self.load_extension(f"modules.{name}")
-                except Exception:
-                    print(f"The {name} module failed to load. Please repair it and load it.")
+                if not "Music" in name: # We need to load the music module after the bot is ready.
+                    try:
+                        self.load_extension(f"modules.{name}")
+                    except Exception:
+                        print(f"The {name} module failed to load. Please repair it and load it.")
+                        traceback.print_exc()
 
         logger = logging.getLogger('discord')
         logger.setLevel(logging.INFO)
@@ -90,6 +93,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.loop.create_task(self.update_stats())
         app_info = await self.application_info()
         self.owner_id = app_info.owner.id
+        self.load_extension("modules.Music") # Now we can load the music module.
 
     async def on_message(self, message):
         if message.author == self.user:
