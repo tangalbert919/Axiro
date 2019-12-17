@@ -19,7 +19,7 @@ class General(commands.Cog, name="General"):
     async def _help(self, beep, commands=None):
         if commands is None:
             embed = discord.Embed(title="I'm Axiro! This is my list of commands!",
-                              description="If you need help on a specific command, use ``x!help <command>``")
+                              description="If you need help on a specific command, use ``Xhelp <command>``")
             for module in self.bot.cogs:
                 if module == 'Debug':
                     continue
@@ -50,12 +50,12 @@ class General(commands.Cog, name="General"):
     @commands.cooldown(1, 2, BucketType.user)
     @commands.guild_only()
     async def about(self, beep):
-        embed = discord.Embed(title="About Axiro:", description="This bot was created to do what most "
-                                    "bots should do, and then some really weird things.")
-        embed.add_field(name="Author: ", value="tangalbert919 (The Freaking iDroid)", inline=False)
+        embed = discord.Embed(title="About AxiroALT:", description="This bot was created to do what most "
+                                    "bots should do, and then some really weird things + Some Unix Additons.")
+        embed.add_field(name="Author: ", value=" Origional Creator tangalbert919 (The Freaking iDroid) cloned by Austcool-Walker (絶望-ウアカー アストクール#0717)", inline=False)
         embed.add_field(name="Stats: ", value="Guilds: **{}**\nUnique Players: **{}**\n"
                         .format(len(self.bot.guilds),sum(1 for _ in self.bot.get_all_members())))
-        embed.add_field(name="Version: ", value="Axiro: **{}**\nPython: **{}**\nDiscord.py: **{}**"
+        embed.add_field(name="Version: ", value="AxiroALT: **{}**\nPython: **{}**\nDiscord.py: **{}**"
                         .format(self.bot.version_code, sys.version, discord.__version__))
         embed.set_footer(icon_url=beep.message.author.avatar_url,
                          text="Requested by {}".format(beep.message.author.name))

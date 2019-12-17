@@ -1,4 +1,4 @@
-# Axiro
+# Axiro-ALT Note this is a modified fork or The Weirdness Mix (TWM) discord bot. This fork is modified to fit The Overcomplicated Weirdness Discord server.
 
 Axiro is a discord bot, designed to be weird and fun at the same time, as proven from this [Reddit thread](https://www.reddit.com/r/softwaregore/comments/ayfcbe/and_you_thought_student_debt_was_bad_try_discord/).
 

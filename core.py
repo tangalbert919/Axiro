@@ -11,7 +11,7 @@ import aiohttp
 import traceback
 
 
-class WeirdnessBot(commands.AutoShardedBot):
+class WeirdnessBotOW(commands.AutoShardedBot):
 
     def __init__(self):
         self.config = json.loads(open('config.json', 'r').read())
@@ -20,7 +20,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.remove_command('help')
 
         self.launch_time = datetime.utcnow()
-        self.version_code = "Release 6"
+        self.version_code = "Release 6.1 based OW Internal Alpha"
 
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
@@ -87,7 +87,7 @@ class WeirdnessBot(commands.AutoShardedBot):
             await asyncio.sleep(1800)
 
     async def on_ready(self):
-        await self.change_presence(activity=discord.Activity(name="x!help | Just started up!",
+        await self.change_presence(activity=discord.Activity(name="Xhelp | Just started up!",
                                                              type=discord.ActivityType.playing))
         print('Logged in as ' + self.user.name + ' with id ' + str(self.user.id))
         self.loop.create_task(self.update_stats())
@@ -116,7 +116,7 @@ class WeirdnessBot(commands.AutoShardedBot):
 
     async def on_command_error(self, context, exception):
         if isinstance(exception, discord.ext.commands.errors.MissingRequiredArgument):
-            await context.send("You're missing one or more required arguments. Refer to ``x!help <command>`` for help.")
+            await context.send("You're missing one or more required arguments. Refer to ``Xhelp <command>`` for help.")
         elif isinstance(exception, discord.ext.commands.errors.BotMissingPermissions):
             await context.send("I am missing the required permissions to perform this command successfully.")
         elif isinstance(exception, discord.ext.commands.errors.MissingPermissions):
@@ -124,7 +124,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         elif isinstance(exception, discord.ext.commands.errors.CommandNotFound):
             pass
         elif isinstance(exception, discord.ext.commands.errors.BadArgument):
-            await context.send("You used an invalid argument. Refer to ``x!help <command>`` for help.")
+            await context.send("You used an invalid argument. Refer to ``Xhelp <command>`` for help.")
         elif isinstance(exception, discord.ext.commands.errors.CommandOnCooldown):
             m, s = divmod(exception.retry_after, 60)
             h, m = divmod(m, 60)
@@ -143,7 +143,7 @@ class WeirdnessBot(commands.AutoShardedBot):
     async def status_task(self):
         while not self.is_closed():
             selected = random.randint(1, 10)
-            message = "x!help | " + self.status_msg.get(str(selected))
+            message = "Xhelp | " + self.status_msg.get(str(selected))
             await self.change_presence(activity=discord.Activity(name=message,
                                                                  type=discord.ActivityType.playing))
             await asyncio.sleep(300)
@@ -187,6 +187,6 @@ class WeirdnessBot(commands.AutoShardedBot):
             return self.config['prefix']
 
 
-client = WeirdnessBot()
+client = WeirdnessBotOW()
 config = json.loads(open('config.json', 'r').read())
 client.run(config.get('discordtoken'))
