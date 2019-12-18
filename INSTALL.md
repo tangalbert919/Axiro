@@ -20,7 +20,7 @@ Now, with all of that being said, you need to install the `discord` package. The
 
 To install them, run `python3 -m pip install -U --user <package>`.
 
-For easy install you can run Run `pip3 install -r requirements.txt` to install all dependencies.
+For easy install you can run `pip3 install -r requirements.txt` to install all dependencies.
 
 If you are on Linux, you need to install libffi-dev (or libffi-devel for some distros) for installing the Discord rewrite,
 as one of the dependencies (PyNaCl) needs that library for voice support to work. You have to use your distro's package
