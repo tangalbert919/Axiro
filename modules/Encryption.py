@@ -37,8 +37,14 @@ class Encryption(commands.Cog, name="Encryption"):
             hash = hashlib.md5(message.encode('utf-8')).hexdigest()
         elif "sha1".lower() in target:
             hash = hashlib.sha1(message.encode('utf-8')).hexdigest()
+        elif "sha224".lower() in target:
+            hash = hashlib.sha224(message.encode('utf-8')).hexdigest()
         elif "sha256".lower() in target:
             hash = hashlib.sha256(message.encode('utf-8')).hexdigest()
+        elif "sha384".lower() in target:
+            hash = hashlib.sha384(message.encode('utf-8')).hexdigest()
+        elif "sha512".lower() in target:
+            hash = hashlib.sha512(message.encode('utf-8')).hexdigest()
         else:
             await ctx.send('That is not a valid target.')
             return
