@@ -47,7 +47,7 @@ create a database called "axiro". The bot will setup the database for you.
 1. Place all API Tokens in where they should go in config.json. That file needs to be created.
 2. Install the requirements listed above.
 3. Download the Lavalink.jar file (use the dev builds if you want working audio), and run it.
-4. if on macOS cd into Axiro folder and download Lavalink.jar https://github.com/Cog-Creators/Lavalink-Jars/releases/download/3.2.1_846/Lavalink.jar and also download jdk8 from https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg.  Note: (windows may also need this fix if this fix didn't work on windows open an issue on the https://github.com/Axiro-Bot/Axiro/issues) if on linux download Lavalink.jar from the main Lavalink github then you can skip this step and go to step 5.
+4. If on macOS cd into Axiro folder and download Lavalink.jar https://github.com/Cog-Creators/Lavalink-Jars/releases/download/3.2.1_846/Lavalink.jar and also download jdk8 from https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg.  Note: (windows may also need this fix if this fix didn't work on windows open an issue on the https://github.com/Axiro-Bot/Axiro/issues) if on linux download Lavalink.jar from the main Lavalink github then you can skip this step and go to step 5.
 5. run `java -jar Lavalink.jar` from the Axiro folder then open a second tab in the Axiro folder.
 6. Depending on your platform, run either `python3 core.py` or `py core.py`.
 
