@@ -1,15 +1,12 @@
 # INSTALL.md
 
-If you are reading this document, it means you absolutely want to run an instance of this bot yourself. Do note that
-this is not for the faint of heart, and as such, you must know what you're doing.
+If you are reading this document, it means you absolutely want to run an instance of this bot yourself. Do note that this is not for the faint of heart, and as such, you must know what you're doing.
 
 ## Prerequisites
 
-Before you begin, you must have Python 3.6 or above installed. Linux distros (such as Ubuntu, Arch Linux, Linux Mint, Zorin) already
-have this (it may require an update), but if you have macOS, you need to install it [here](https://www.python.org/downloads/).
+Before you begin, you must have Python 3.6 or above installed. Linux distros (such as Ubuntu, Arch Linux, Linux Mint, Zorin) already have this (it may require an update), but if you have macOS, you need to install it [here](https://www.python.org/downloads/).
 
-Pip is required for this, and by default, it's already installed into Python for you. If not, go [here](https://pip.pypa.io/en/stable/installing/) 
-to install it.
+Pip is required for this, and by default, it's already installed into Python for you. If not, go [here](https://pip.pypa.io/en/stable/installing/) to install it.
 
 Now, with all of that being said, you need to install the `discord` package. Then you need to install these packages:
 
@@ -18,13 +15,11 @@ Now, with all of that being said, you need to install the `discord` package. The
 * requests
 * lxml
 
-To install them, run `python3 -m pip install -U --user <package>`.
+To install them, run `python3 -m pip install -U --user <package>`, replacing `<package>` with each of the packages listed.
 
-For easy install you can run `pip3 install -r requirements.txt` to install all dependencies.
+Alternatively, you can also run `pip install -r requirements.txt --user` to install all of them at once.
 
-If you are on Linux, you need to install libffi-dev (or libffi-devel for some distros) for installing the Discord rewrite,
-as one of the dependencies (PyNaCl) needs that library for voice support to work. You have to use your distro's package
-management tool for that.
+If you are on Linux, you need to install `libffi-dev` (or `libffi-devel` for some distros) for installing the Discord rewrite, as one of the dependencies (PyNaCl) needs that library for voice support to work. You have to use your distro's package management tool for this.
 
 ## API Tokens
 
@@ -44,12 +39,18 @@ create a database called "axiro". The bot will setup the database for you.
 
 ## How to get this bot running
 
-1. Place all API Tokens in where they should go in config.json. That file needs to be created.
+1. Place all API Tokens in where they should go in `config.json`. That file needs to be created.
 2. Install the requirements listed above.
-3. Download the Lavalink.jar file (use the dev builds if you want working audio), and run it.
-4. If on macOS cd into Axiro folder and download Lavalink.jar https://github.com/Cog-Creators/Lavalink-Jars/releases/download/3.2.1_846/Lavalink.jar and also download jdk8 from https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jdk_x64_mac_hotspot_8u232b09.pkg.  Note: (windows may also need this fix if this fix didn't work on windows open an issue on the https://github.com/Axiro-Bot/Axiro/issues) if on linux download Lavalink.jar from the main Lavalink github then you can skip this step and go to step 5.
-5. run `java -jar Lavalink.jar` from the Axiro folder then open a second tab in the Axiro folder.
-6. Depending on your platform, run either `python3 core.py` or `py core.py`.
+3. If you want the music module to work, follow the instructions in the section below called "Getting the Music module to work" before moving on to the next step.
+4. Run `python core.py`. Substitute `python` with `python3` or `py` if `python` does not work.
+
+## Getting the Music module to work
+
+Note: As of this writing, Java 11 or newer is required for Lavalink to work. It can be downloaded [here](https://www.oracle.com/technetwork/java/javase/overview/index.html).
+
+1. Download the latest build of Lavalink [here](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1).
+2. Create the document `application.yml` in the same directory as your Lavalink build. You can use [this example](https://github.com/Frederikam/Lavalink/blob/master/LavalinkServer/application.yml.example).
+3. Open a Terminal (or PowerShell if on Windows) in that directory, and run `java -jar Lavalink.jar`.
 
 ## The config.json
 
@@ -62,6 +63,6 @@ create a database called "axiro". The bot will setup the database for you.
     "dbuser": "Database username",
     "dbl_token": "DiscordBots.org token",
     "prefix": "x!",
-	"lavaport": "1337",
+	"lavaport": "2333",
 }
 ```
