@@ -3,3 +3,4 @@ __pycache__
 config.json
 discord.log
 .vs
+.DS_Store
