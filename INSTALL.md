@@ -46,9 +46,11 @@ create a database called "axiro". The bot will setup the database for you.
 
 ## Getting the Music module to work
 
-Note: As of this writing, Java 11 or newer is required for Lavalink to work. It can be downloaded [here](https://www.oracle.com/technetwork/java/javase/overview/index.html).
+Note 1: As of this writing, Java 11 or newer is required for Lavalink to work. It can be downloaded [here](https://www.oracle.com/technetwork/java/javase/overview/index.html).
 
-1. Download the latest build of Lavalink [here](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1).
+Note 2: If you're on macOS, you will need to download Java 8 from [Oracle](https://www.oracle.com/technetwork/java/javase/overview/index.html) (requires account) or [AdoptOpenJDK](https://adoptopenjdk.net/) (no account needed) instead, for reasons that will become clear in step 1.
+
+1. If you are on Windows or Linux, download the latest build of Lavalink [here](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1). Mac users will need to download [this build](https://github.com/Cog-Creators/Lavalink-Jars/releases/download/3.2.1_846/Lavalink.jar) due to [this issue](https://github.com/Frederikam/Lavalink/issues/180). Java 9 and above will not work for that specific build.
 2. Create the document `application.yml` in the same directory as your Lavalink build. You can use [this example](https://github.com/Frederikam/Lavalink/blob/master/LavalinkServer/application.yml.example).
 3. Open a Terminal (or PowerShell if on Windows) in that directory, and run `java -jar Lavalink.jar`.
 
@@ -63,6 +65,6 @@ Note: As of this writing, Java 11 or newer is required for Lavalink to work. It 
     "dbuser": "Database username",
     "dbl_token": "DiscordBots.org token",
     "prefix": "x!",
-	"lavaport": "2333",
+    "lavaport": "2333",
 }
 ```
