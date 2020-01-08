@@ -90,6 +90,12 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
         embed.set_image(url="https://media1.tenor.com/images/4a08ff9d3f956dd814fc8ee1cfaac592/tenor.gif?itemid=10407619")
         await ctx.send(embed=embed)
 
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
+    async def chrome(self, ctx):
+        await ctx.send('The current version of Chrome is ' + self.bot.chrome_version)
+
     def repairJSON(self, temp):
         temp = temp.replace("{\'", "{\"")
         temp = temp.replace("\': ", "\": ")

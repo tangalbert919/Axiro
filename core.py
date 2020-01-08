@@ -43,6 +43,9 @@ class WeirdnessBot(commands.AutoShardedBot):
         self.status_msg = json.loads(open('status.json', 'r').read())
         self.loop.create_task(self.status_task())
 
+        self.chrome_version = '0'
+        self.loop.create_task(self.fetch_omaha())
+
         for file in os.listdir("modules"):
             if file.endswith(".py"):
                 name = file[:-3]
@@ -185,6 +188,15 @@ class WeirdnessBot(commands.AutoShardedBot):
             return result
         else:
             return self.config['prefix']
+
+    async def fetch_omaha(self):
+        # This function is from my Omaha Watch bot. It has been scaled down for obvious reasons.
+        while not self.is_closed():
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://omahaproxy.appspot.com/all.json?os=win') as resp:
+                    data = await resp.json()
+                await session.close()
+            self.chrome_version = data[0]['versions'][4]['version']
 
 
 client = WeirdnessBot()
