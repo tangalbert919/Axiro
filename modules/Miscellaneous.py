@@ -96,18 +96,6 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
     async def chrome(self, ctx):
         await ctx.send('The current version of Chrome is ' + self.bot.chrome_version)
 
-    def repairJSON(self, temp):
-        temp = temp.replace("{\'", "{\"")
-        temp = temp.replace("\': ", "\": ")
-        temp = temp.replace("\": \'", "\": \"")
-        temp = temp.replace("\', \'", "\", \"")
-        temp = temp.replace(", \'", ", \"")
-        temp = temp.replace("\'}", "\"}")
-        temp = temp.replace("True", "\"True\"")
-        temp = temp.replace("False", "\"False\"")
-        temp = temp.replace("None", "\"None\"")
-        #temp = temp[1:-1]
-        return temp
 
 def setup(bot):
     bot.add_cog(Miscellaneous(bot))

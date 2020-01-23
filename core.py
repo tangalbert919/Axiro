@@ -141,7 +141,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         else:
             await context.send("An error has occurred, and has been reported to the developer.")
             c = self.get_channel(545462395296940063)
-            await c.send(f'```py\n{exception}\n```')
+            await c.send(f'Error in command {context.command}:\n```py\n{exception}\n```')
 
     async def status_task(self):
         while not self.is_closed():
