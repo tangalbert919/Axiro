@@ -113,7 +113,7 @@ class WeirdnessBot(commands.AutoShardedBot):
                                           message.author.discriminator)
                 else:
                     check_blacklist = "SELECT blacklist FROM users WHERE id = $1"
-                    temp = await self.db.fetchrow(check_blacklist, message.author.id)
+                    temp = await self.db.fetchval(check_blacklist, message.author.id)
                     blacklist_value = int(temp)
                     if blacklist_value == 1:
                         return
