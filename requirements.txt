@@ -4,3 +4,4 @@ asyncpg==0.15.0
 requests
 lxml
 discord
+discord.py

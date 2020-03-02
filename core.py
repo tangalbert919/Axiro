@@ -31,7 +31,7 @@ class WeirdnessBot(commands.AutoShardedBot):
             try:
                 self.db = await asyncpg.create_pool(**govinfo)
                 await self.db.execute(
-                    "CREATE TABLE IF NOT EXISTS users (id bigint primary key, name text, discrim varchar (4), money text);")
+                    "CREATE TABLE IF NOT EXISTS users (id bigint primary key, name text, discrim varchar (4), money text, blacklist text);")
                 await self.db.execute(
                     "CREATE TABLE IF NOT EXISTS guilds (id bigint primary key, name text, prefix text);")
             except Exception:
@@ -108,10 +108,15 @@ class WeirdnessBot(commands.AutoShardedBot):
                 sql = "SELECT * FROM users WHERE id = $1"
                 user = await self.db.fetchrow(sql, message.author.id)
                 if not user:
-                    add_user = "INSERT INTO users (id, name, discrim, money) VALUES ($1, $2, $3, 0);"
+                    add_user = "INSERT INTO users (id, name, discrim, money, blacklist) VALUES ($1, $2, $3, 0, 0);"
                     await self.db.execute(add_user, message.author.id, message.author.name,
                                           message.author.discriminator)
                 else:
+                    check_blacklist = "SELECT blacklist FROM users WHERE id = $1"
+                    temp = await self.db.fetchrow(check_blacklist, message.author.id)
+                    blacklist_value = int(temp)
+                    if blacklist_value == 1:
+                        return
                     update_user = "UPDATE users SET name = $1, discrim = $2 WHERE id = $3"
                     await self.db.execute(update_user, message.author.name, message.author.discriminator,
                                           message.author.id)
@@ -197,6 +202,7 @@ class WeirdnessBot(commands.AutoShardedBot):
                     data = await resp.json()
                 await session.close()
             self.chrome_version = data[0]['versions'][4]['version']
+            await asyncio.sleep(1800)
 
 
 client = WeirdnessBot()

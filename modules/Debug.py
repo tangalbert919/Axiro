@@ -130,6 +130,29 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         await ctx.send('Downloaded new module ending in {}'.format(len(file)))
 
+    @commands.command()
+    @commands.is_owner()
+    async def blacklist(self, ctx, id=None):
+        if not self.bot.usedatabase:
+            await ctx.send("This command requires a running database to work.")
+            return
+        elif id is None:
+            await ctx.send("You need a user ID.")
+            return
+        check_blacklist = "SELECT blacklist FROM users WHERE id = $1"
+        temp = await self.bot.db.fetchval(check_blacklist, id)
+        if not temp:
+            await ctx.send("This user is not in the database.")
+            return
+        blacklist_value = int(temp)
+        new_value = 0 if blacklist_value != 0 else 1
+        sql = "UPDATE users SET blacklist = $1 where id = $2"
+        await self.bot.db.execute(sql, str(new_value), id)
+        if new_value == 0:
+            await ctx.send("User has been removed from the blacklist.")
+        else:
+            await ctx.send("User has been added to the blacklist.")
+
 
 def setup(bot):
     bot.add_cog(Debug(bot))
