@@ -140,14 +140,14 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
             await ctx.send("You need a user ID.")
             return
         check_blacklist = "SELECT blacklist FROM users WHERE id = $1"
-        temp = await self.bot.db.fetchval(check_blacklist, id)
+        temp = await self.bot.db.fetchval(check_blacklist, int(id))
         if not temp:
             await ctx.send("This user is not in the database.")
             return
         blacklist_value = int(temp)
         new_value = 0 if blacklist_value != 0 else 1
         sql = "UPDATE users SET blacklist = $1 where id = $2"
-        await self.bot.db.execute(sql, str(new_value), id)
+        await self.bot.db.execute(sql, str(new_value), int(id))
         if new_value == 0:
             await ctx.send("User has been removed from the blacklist.")
         else:
