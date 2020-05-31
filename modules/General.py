@@ -13,6 +13,31 @@ class General(commands.Cog, name="General"):
         self.bot = bot
         self.information = json.loads(open('help.json', 'r').read())
 
+    @staticmethod
+    def _newImage(width, height, color):
+        return Image.new("L", (width, height), color)
+
+    @staticmethod
+    def _getRoles(roles):
+        string = ''
+        for role in roles[::-1]:
+            if not role.is_default():
+                string += f'{role.mention}, '
+        if string is '':
+            return 'None'
+        else:
+            return string[:-2]
+
+    @staticmethod
+    def _getEmojis(emojis):
+        string = ''
+        for emoji in emojis:
+            string += str(emoji)
+        if string is '':
+            return 'None'
+        else:
+            return string[:1000] #The maximum allowed charcter amount for embed fields
+
     @commands.command(name='help')
     @commands.cooldown(1, 2, BucketType.user)
     @commands.guild_only()
@@ -45,6 +70,16 @@ class General(commands.Cog, name="General"):
         time_delta = round((t_2 - t_1) * 1000)
         responses = ['Pong!', 'Ack!', 'Whoa!', 'Pang!', 'How am I doing?']
         await ctx.send("{} ``Time: {}ms``".format(random.choice(responses), time_delta))
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
+    async def time(self, ctx):
+        now = datetime.datetime.now()
+        msg = ("Current date and time : ")
+        timeline = (now.strftime("%Y.%m.%d %H:%M:%S"))
+        await ctx.send('**`{}`**'.format(msg))
+        await ctx.send('**`{}`**'.format(timeline))
 
     @commands.command(aliases=['info'])
     @commands.cooldown(1, 2, BucketType.user)
@@ -81,6 +116,56 @@ class General(commands.Cog, name="General"):
         embed.add_field(name="Joined Discord on: ", value=target.created_at, inline=False)
         embed.set_thumbnail(url=target.avatar_url)
         embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author.name))
+        await ctx.send(embed=embed)
+
+    @commands.command(pass_context=True)
+    @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
+    async def avatar(self, ctx, *users:discord.User):
+        """Returns the input users avatar."""
+        if len(users) == 0:
+            users = [ctx.message.author]
+        for user in users:
+            await ctx.send("`{0}`'s avatar is: {1}".format(user, user.avatar_url))
+
+    @commands.command(pass_context=True, aliases=['guild', 'membercount'])
+    @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
+    async def serverinfo(self, ctx):
+        '''Returns information about the current Discord Guild'''
+        emojis = self._getEmojis(ctx.guild.emojis)
+        #print(emojis)
+        roles = self._getRoles(ctx.guild.roles)
+        embed = discord.Embed(color=0xf1c40f) #Golden
+        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_footer(text='Emojis may be missing')
+        embed.add_field(name='Name', value=ctx.guild.name, inline=True)
+        embed.add_field(name='ID', value=ctx.guild.id, inline=True)
+        embed.add_field(name='Owner', value=ctx.guild.owner, inline=True)
+        embed.add_field(name='Region', value=ctx.guild.region, inline=True)
+        embed.add_field(name='Members', value=ctx.guild.member_count, inline=True)
+        embed.add_field(name='Created on', value=ctx.guild.created_at.strftime('%d.%m.%Y'), inline=True)
+        if ctx.guild.system_channel:
+            embed.add_field(name='Standard Channel', value=f'#{ctx.guild.system_channel}', inline=True)
+        embed.add_field(name='AFK Voice Timeout', value=f'{int(ctx.guild.afk_timeout / 60)} min', inline=True)
+        embed.add_field(name='Guild Shard', value=ctx.guild.shard_id, inline=True)
+        embed.add_field(name='Rolls', value=roles, inline=True)
+        embed.add_field(name='Custom Emojis', value=emojis, inline=True)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
+    async def host(self, ctx):
+        embed = discord.Embed(color=0xff00ec, title="Host Information.",
+                                description="Here is what we know about the machine hosting the bot.")
+        embed.add_field(name='Platform', value=platform.platform(), inline=True)
+        embed.add_field(name='OS Type', value=os.name, inline=True)
+        embed.add_field(name='OS Release', value=platform.release(), inline=True)
+        embed.add_field(name='OS Version', value=platform.version(), inline=True)
+        embed.add_field(name='Hostname', value=platform.node(), inline=True)
+        embed.add_field(name='CPU Architecture', value=platform.machine(), inline=True)
+        embed.add_field(name='Operating System', value=platform.system(), inline=True)
         await ctx.send(embed=embed)
 
     @commands.command()
