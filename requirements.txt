@@ -1,6 +1,6 @@
 lavalink
-aiohttp==3.5.0
-asyncpg==0.15.0
+aiohttp
+asyncpg
 requests
 lxml
 discord

@@ -60,7 +60,7 @@ class Miscellaneous(commands.Cog, name='Miscellaneous'):
         except Exception:
             memberlist = ctx.message.guild.members
             user = memberlist[random.randint(0, len(memberlist))]
-        await ctx.send('Sorry, {user.name}! You\'re a loser!')
+        await ctx.send(f'Sorry, {user.name}! You\'re a loser!')
 
     @commands.command()
     @commands.has_permissions(manage_nicknames=True)

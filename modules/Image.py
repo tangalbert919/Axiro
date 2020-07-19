@@ -109,7 +109,7 @@ class Image(commands.Cog, name='Image'):
             else: # It's a tag and not a rating.
                 temp = f'?tags=-status%3Adeleted+-loli+-shota+{tags}+{rating}&limit=100'
         async with aiohttp.ClientSession() as session:
-            async with session.get(f'https://konachan.com/post/index.json{temp}' as resp:
+            async with session.get(f'https://konachan.com/post/index.json{temp}') as resp:
                 data = await resp.json()
             await session.close()
         try:
