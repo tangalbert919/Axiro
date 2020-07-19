@@ -51,7 +51,7 @@ class General(commands.Cog, name='General'):
                                               f'Unique Players: **{sum(1 for _ in self.bot.get_all_members())}**\n')
         embed.add_field(name='Version: ', value=f'Axiro: **{self.bot.version_code}**\nPython: **{sys.version}**\n'
                                                 f'Discord.py: **{discord.__version__}**')
-        embed.set_footer(icon_url=beep.message.author.avatar_url,
+        embed.set_footer(icon_url=ctx.message.author.avatar_url,
                          text=f'Requested by {ctx.message.author.name}')
         await ctx.send(embed=embed)
 
@@ -61,16 +61,17 @@ class General(commands.Cog, name='General'):
     async def user(self, ctx, user: discord.Member=None):
         if user is None:
             await ctx.send('User not found or specified. Collecting information about sender...')
+            user = ctx.message.author
         roles = []
         for x in user.roles:
             roles.append(x.name)
         knownroles = '\n'.join(roles)
         embed = discord.Embed(title='Information successfully collected!', 
                               description=f'Here\'s what we know about {user.name} (also known as {user.display_name})')
-        embed.add_field(name='User ID: ', value=str(target.id), inline=False)
+        embed.add_field(name='User ID: ', value=str(user.id), inline=False)
         embed.add_field(name='Current Roles: ', value=knownroles, inline=False)
         embed.add_field(name='Joined Discord on: ', value=target.created_at, inline=False)
-        embed.set_thumbnail(url=target.avatar_url)
+        embed.set_thumbnail(url=user.avatar_url)
         embed.set_footer(icon_url=ctx.message.author.avatar_url, text=f'Requested by {ctx.message.author.name}')
         await ctx.send(embed=embed)
 
@@ -128,6 +129,16 @@ class General(commands.Cog, name='General'):
         embed = discord.Embed(color=discord.Colour.blue(), title='Come vote for Axiro!',
                               description='Do you really like using Axiro? You can upvote it by clicking [here](https://discordbots.org/bot/458834071796187149/vote)!')
         embed.set_footer(icon_url=ctx.message.author.avatar_url, text=f'Requested by {ctx.message.author.name}')
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    @commands.guild_only()
+    async def avatar(self, ctx, user: discord.Member=None):
+        if user is None:
+            user = ctx.message.author
+        embed = discord.Embed(color=discord.Colour.gold(), title=f'{user.name}\'s avatar:')
+        embed.set_image(url=user.avatar_url)
         await ctx.send(embed=embed)
 
     def commandhelp(self, command):
