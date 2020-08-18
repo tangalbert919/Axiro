@@ -10,7 +10,7 @@ from os.path import isfile, join
 from discord.ext.commands import Bot, Greedy
 from discord import User
 
-class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
+class Debug(commands.Cog, command_attrs=dict(hidden=True), name='Debug'):
 
     def __init__(self, bot):
         self.bot = bot
@@ -21,8 +21,8 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
     async def reload(self, ctx, *, module):
         """Reloads a module."""
         try:
-            self.bot.unload_extension("modules." + module)
-            self.bot.load_extension("modules." + module)
+            self.bot.unload_extension('modules.' + module)
+            self.bot.load_extension('modules.' + module)
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
@@ -33,7 +33,7 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
     async def load(self, ctx, *, module):
         """Loads a new module."""
         try:
-            self.bot.load_extension("modules." + module)
+            self.bot.load_extension('modules.' + module)
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
@@ -44,7 +44,7 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
     async def unload(self, ctx, *, module):
         """Unloads a module."""
         try:
-            self.bot.unload_extension("modules." + module)
+            self.bot.unload_extension('modules.' + module)
         except Exception:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
@@ -115,21 +115,21 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
     async def pull(self, ctx):
         c = subprocess.call(('git', 'pull'))
         if c != 0:
-            await ctx.send("Updating from Git failed.")
+            await ctx.send('Updating from Git failed.')
             return
-        await ctx.send("Successfully updated from Git.")
+        await ctx.send('Successfully updated from Git.')
 
     @commands.command()
     @commands.is_owner()
     async def download(self, ctx, link):
         file = [f for f in listdir('./modules/') if isfile(join('./modules/', f))]
         r = requests.get(link)
-        newmod = open('./modules/{}.py'.format('module-{}'.format(len(file))), 'wb+')
+        newmod = open(f'./modules/module-{len(file)}.py', 'wb+')
         try:
             newmod.write(r.content)
         except:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
-        await ctx.send('Downloaded new module ending in {}'.format(len(file)))
+        await ctx.send('Downloaded new module ending in {len(file)}')
 
     @commands.command()
     @commands.is_owner()
@@ -475,24 +475,24 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name="Debug"):
     @commands.is_owner()
     async def blacklist(self, ctx, id=None):
         if not self.bot.usedatabase:
-            await ctx.send("This command requires a running database to work.")
+            await ctx.send('This command requires a running database to work.')
             return
         elif id is None:
-            await ctx.send("You need a user ID.")
+            await ctx.send('You need a user ID.')
             return
-        check_blacklist = "SELECT blacklist FROM users WHERE id = $1"
+        check_blacklist = 'SELECT blacklist FROM users WHERE id = $1'
         temp = await self.bot.db.fetchval(check_blacklist, int(id))
         if not temp:
-            await ctx.send("This user is not in the database.")
+            await ctx.send('This user is not in the database.')
             return
         blacklist_value = int(temp)
         new_value = 0 if blacklist_value != 0 else 1
-        sql = "UPDATE users SET blacklist = $1 where id = $2"
+        sql = 'UPDATE users SET blacklist = $1 where id = $2'
         await self.bot.db.execute(sql, str(new_value), int(id))
         if new_value == 0:
-            await ctx.send("User has been removed from the blacklist.")
+            await ctx.send('User has been removed from the blacklist.')
         else:
-            await ctx.send("User has been added to the blacklist.")
+            await ctx.send('User has been added to the blacklist.')
 
 
 def setup(bot):
