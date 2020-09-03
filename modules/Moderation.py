@@ -15,35 +15,37 @@ class Moderation(commands.Cog, name='Moderation'):
     @commands.guild_only()
     async def kick(self, ctx, user: discord.User, *, reason: str):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).kick_members:
-            await ctx.send(':x: I do not have permission to kick players.')
-            return
+            return await ctx.send(':x: I do not have permission to kick players.')
         try:
             await ctx.message.guild.kick(user, reason=reason)
         except Exception:
-            await ctx.send(':x: Player kick failed.')
-            return
+            return await ctx.send(':x: Player kick failed.')
         await ctx.send(f':white_check_mark: Player {user.name} has been kicked from the server.')
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
-    async def ban(self, ctx, user: int = None, *, reason=None):
-        '''Bans a member with a reason (MOD ONLY)
-        The user ID must be specified, name + discriminator is not enough
-        example:
-        -----------
-        :ban 102815825781596160
-        '''
-        if user is None:
-            return await ctx.send("Please provide the user's ID to ban him.")
-        elif len(str(user)) > 18 or len(str(user)) < 18:
-            return await ctx.send("Please provide a valid user's ID")
+    async def ban(self, ctx, user, *, reason=None):
+        if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).ban_members:
+            return await ctx.send(':x: I do not have permission to ban players.')
         try:
-            await ctx.guild.ban(discord.Object(user), reason=reason)
-            await ctx.send(":white_check_mark: Successfully banned the user: <@{}>.".format(user))
+            user = ctx.message.mentions[0]
+        except IndexError: # Mentioned user is not present in the server.
+            pass
+
+        # If an ID was specified, get a User object with it.
+        try:
+            user = await self.bot.fetch_user(user)
+        except:
+            return await ctx.send('Either the player mentioned is not present in the server, or their ID is incorrect.')
+
+        # Now attempt to ban them.
+        try:
+            await ctx.guild.ban(user, reason=reason)
+            await ctx.send(f':white_check_mark: <@{user.id}> is now banned.')
         except (discord.Forbidden, discord.HTTPException):
-            await ctx.send(":negative_squared_cross_mark: ban failed! or No user specified!")
+            await ctx.send(':negative_squared_cross_mark: I was unable to ban that player.')
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
@@ -51,13 +53,11 @@ class Moderation(commands.Cog, name='Moderation'):
     @commands.guild_only()
     async def mute(self, ctx, user: discord.User):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_roles:
-            await ctx.send(':x: I do not have permission to manage roles.')
-            return
+            return await ctx.send(':x: I do not have permission to manage roles.')
         try:
             await ctx.message.channel.category.set_permissions(user, send_messages=False, add_reactions=False)
         except Exception:
-            await ctx.send('I was unable to mute that player.')
-            return
+            return await ctx.send('I was unable to mute that player.')
         await ctx.send(f':white_check_mark: Player {user.name} has been muted.')
 
     @commands.command()
@@ -66,13 +66,11 @@ class Moderation(commands.Cog, name='Moderation'):
     @commands.guild_only()
     async def unmute(self, ctx, user: discord.User):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_roles:
-            await ctx.send(':x: I do not have permission to manage roles.')
-            return
+            return await ctx.send(':x: I do not have permission to manage roles.')
         try:
             await ctx.message.channel.category.set_permissions(user, overwrite=None)
         except Exception:
-            await ctx.send('I was unable to unmute that player.')
-            return
+            return await ctx.send('I was unable to unmute that player.')
         await ctx.send(f':white_check_mark: Player {user.name} has been unmuted.')
 
     @commands.command()
@@ -80,19 +78,23 @@ class Moderation(commands.Cog, name='Moderation'):
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
     async def unban(self, ctx, user: int = None, *, reason=None):
-        """Unban a person from the guild"""
+        if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).ban_members:
+             return await ctx.send(':x: I do not have permission to unban players.')
         if user is None:
-            return await ctx.send("Please provide the user's ID to unban him.")
-        elif len(str(user)) > 18 or len(str(user)) < 18:
-            return await ctx.send("Please provide a valid user's ID")
+            return await ctx.send('Please provide the user\'s ID to unban them.')
+        else:
+            try:
+                user = await self.bot.fetch_user(user)
+            except:
+                return await ctx.send('I cannot find the user with that ID. Perhaps it is incorrect?')
         try:
-            await ctx.guild.unban(discord.Object(user), reason=reason)
-            await ctx.send(":white_check_mark: Successfully unbanned the user: <@{}>.".format(user))
+            await ctx.guild.unban(user, reason=reason)
+            await ctx.send(f':white_check_mark: Successfully unbanned the user: <@{user.id}>.')
         except (discord.Forbidden, discord.HTTPException):
-            await ctx.send(":negative_squared_cross_mark: Unban failed! or No user specified!")
+            await ctx.send(':negative_squared_cross_mark: I was unable to unban that player.')
     
-    @commands.command()
-    @commands.has_permissions(kick_members = True)
+    @commands.command(aliases=['banlist'])
+    @commands.has_permissions(kick_members = True, ban_members = True)
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
     async def bans(self, ctx):
@@ -116,45 +118,23 @@ class Moderation(commands.Cog, name='Moderation'):
             await ctx.send('**:negative_squared_cross_mark:** There are no banned users!')
 
     @commands.command()
-    @commands.cooldown(1, 10, BucketType.guild)
-    @commands.guild_only()
-    async def hierarchy(self, ctx):
-        '''Lists the role hierarchy of the current server'''
-        msg = f'Role hierarchy for servers **{ctx.guild}**:\n\n'
-        roleDict = {}
-
-        for role in ctx.guild.roles:
-            if role.is_default():
-                roleDict[role.position] = 'everyone'
-            else:
-                roleDict[role.position] = role.name
-
-        for role in sorted(roleDict.items(), reverse=True):
-            msg += role[1] + '\n'
-        await ctx.send(msg)
-
-    @commands.command()
     @commands.has_permissions(manage_messages=True)
     @commands.cooldown(1, 10, BucketType.guild)
     @commands.guild_only()
     async def prune(self, ctx, number: int):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_messages:
-            await ctx.send('I do not have permission to delete messages.')
-            return
-        if number > 500:
-            await ctx.send('Please specify a lower number.')
-            return
+            return await ctx.send('I do not have permission to delete messages.')
         to_delete = []
         async for message in ctx.message.channel.history(limit=number+1):
             to_delete.append(message)
         while to_delete:
             if len(to_delete) > 1:
-                await ctx.message.channel.delete_messages(to_delete[:100])
-                to_delete = to_delete[100:]
+                await ctx.message.channel.delete_messages(to_delete[:50])
+                to_delete = to_delete[50:]
             else:
                 await to_delete.delete()
                 to_delete = []
-            await asyncio.sleep(1.5)
+            await asyncio.sleep(5)
 
 
 def setup(bot):

@@ -9,7 +9,7 @@
   "encryption": "This is the encryption section.",
   "encode": "Encrypts your message. \n\n``x!encode <target> <message>`` - Encrypts the message using the target specified. Current targets include base64 and binary.",
   "decode": "Decrypts your message. \n\n``x!decode <target> <message>`` - Decrypts the message using the target specified. Only base64 is supported.",
-  "hash": "Hashes your message. Not reversible. \n\n``x!hash <target> <message>`` - Hashes the message using the target specified. Current targets include md5, sha1, and sha256.",
+  "hash": "Hashes your message. Not reversible. \n\n``x!hash <target> <message>`` - Hashes the message using the target specified. Most common hashes will work with this command.",
   "encipher": "Enciphers your message. \n\n``x!encipher <target> <message>`` - Enciphers the message using the target specified. Only supports caesar.",
   "decipher": "Deciphers your message. \n\n``x!decpiher <target> <message>`` - Deciphers the message using the target specified. Only supports caesar.",
   "reverse": "Reverses your message. \n\n``x!reverse <message>`` - Reverses your message.",
@@ -49,9 +49,11 @@
 
   "moderation": "This is the moderation section.",
   "kick": "Kicks the specified user. My pointy boots are on. \n\n``x!kick <player>`` - Self-explanatory.",
-  "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player>`` - Self-explanatory.",
+  "ban": "Bans the specified user. Watch for Thor. \n\n``x!ban <player> [reason]`` - You can mention the player or specify their ID.",
   "mute": "Mutes the specified user. \n\n``x!mute <player>`` - Self-explanatory.",
   "unmute": "Unmutes the specified user. \n\n``x!unmute <player>`` - Self-explanatory.",
+  "unban": "Unbans the specified user. I guess they were given a second chance at getting their head cut off. \n\n``x!unban <player>`` - You must have their player ID for this to work.",
+  "bans": "Check the list of people who got smited by Thor. \n\n``x!bans`` - You need to be able to kick and ban players to see this list.",
   "prune": "Deletes a specified number of messages. Great for removing drama, and even better for enforcing censorship. \n\n``x!prune <# of messages to delete>`` - Please do not put in absurdly high numbers.",
 
   "economy": "This is the economy section.",
