@@ -37,8 +37,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def kiss(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/kiss'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} has kissed {user.name}. Weird...')
@@ -50,8 +49,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def hug(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/hug'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} hugged {user.name}. How comforting.')
@@ -63,8 +61,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def tickle(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/tickle'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} tickled {user.name}. They\'re having fun...')
@@ -76,8 +73,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def poke(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/poke'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} poked {user.name}. Yikes.')
@@ -89,8 +85,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def slap(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/slap'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} slapped {user.name}. Must\'ve been a real baka...')
@@ -102,8 +97,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def cuddle(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/cuddle'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} cuddled {user.name}. How comforting.')
@@ -115,8 +109,7 @@ class Fun(commands.Cog, name='Fun'):
     @commands.guild_only()
     async def pat(self, ctx, user: discord.User=None):
         if user is None:
-            await ctx.send('Please specify a user.')
-            return
+            return await ctx.send('Please specify a user.')
         url = 'https://nekos.life/api/v2/img/pat'
         image = self.getImage(url)
         embed = discord.Embed(title=f'{ctx.message.author.name} patted {user.name}. That\'s nice.')
@@ -134,8 +127,7 @@ class Fun(commands.Cog, name='Fun'):
                     entry = await entry.json()
                     entry = entry.get('list')[0]
         except Exception:
-            await ctx.send('That term could not be found on Urban Dictionary.')
-            return
+            return await ctx.send('That term could not be found on Urban Dictionary.')
         word = entry.get('word')
         definition = str(entry.get('definition'))
         example = str(entry.get('example'))

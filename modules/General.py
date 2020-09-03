@@ -68,7 +68,7 @@ class General(commands.Cog, name='General'):
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
-    async def user(self, ctx, user: discord.Member=None):
+    async def user(self, ctx, user: discord.User=None):
         if user is None:
             await ctx.send('User not found or specified. Collecting information about sender...')
             user = ctx.message.author
@@ -88,7 +88,7 @@ class General(commands.Cog, name='General'):
     @commands.command(pass_context=True)
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
-    async def avatar(self, ctx, user : discord.User=None):
+    async def avatar(self, ctx, user: discord.User=None):
         if user is None:
             user = ctx.message.author
         embed = discord.Embed(title='{users}\'s avatar:')
@@ -154,7 +154,7 @@ class General(commands.Cog, name='General'):
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
-    async def avatar(self, ctx, user: discord.Member=None):
+    async def avatar(self, ctx, user: discord.User=None):
         if user is None:
             user = ctx.message.author
         embed = discord.Embed(color=discord.Colour.gold(), title=f'{user.name}\'s avatar:')

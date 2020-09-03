@@ -66,7 +66,7 @@ class Miscellaneous(commands.Cog, name='Miscellaneous'):
     @commands.has_permissions(manage_nicknames=True)
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
-    async def drumpf(self, ctx, user: discord.Member):
+    async def drumpf(self, ctx, user: discord.User):
         if not ctx.message.channel.permissions_for(ctx.message.author.guild.me).manage_nicknames:
             await ctx.send(':x: I do not have permission to edit nicknames.')
             return

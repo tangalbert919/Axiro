@@ -18,8 +18,7 @@ class Encryption(commands.Cog, name='Encryption'):
         elif 'binary'.lower() in target:
             crypto = ' '.join(format(ord(x), 'b') for x in message)
         else:
-            await ctx.send('That is not a valid target.')
-            return
+            return await ctx.send('That is not a valid target.')
         embed = discord.Embed(title='Encryption complete.', color=discord.Colour.dark_blue(),
                               description=f'Here\'s your new message in {target}.')
         embed.add_field(name='Before: ', value=f'{message}', inline=False)
@@ -30,21 +29,10 @@ class Encryption(commands.Cog, name='Encryption'):
     @commands.cooldown(1, 5, BucketType.user)
     @commands.guild_only()
     async def hash(self, ctx, target, *, message: str):
-        if 'md5'.lower() in target:
-            hash = hashlib.md5(message.encode('utf-8')).hexdigest()
-        elif 'sha1'.lower() in target:
-            hash = hashlib.sha1(message.encode('utf-8')).hexdigest()
-        elif 'sha224'.lower() in target:
-            hash = hashlib.sha224(message.encode('utf-8')).hexdigest()
-        elif 'sha256'.lower() in target:
-            hash = hashlib.sha256(message.encode('utf-8')).hexdigest()
-        elif 'sha384'.lower() in target:
-            hash = hashlib.sha384(message.encode('utf-8')).hexdigest()
-        elif "sha512".lower() in target:
-            hash = hashlib.sha512(message.encode('utf-8')).hexdigest()
-        else:
-            await ctx.send('That is not a valid target.')
-            return
+        try:
+            hash = getattr(hashlib, target)(message.encode('utf-8')).hexdigest()
+        except:
+            return await ctx.send('That is not a valid target.')
         embed = discord.Embed(title='Hash complete.', color=discord.Colour.dark_blue(),
                               description=f'Here\'s your new message in {message}.')
         embed.add_field(name='Before: ', value=f'{message}', inline=False)
@@ -63,11 +51,9 @@ class Encryption(commands.Cog, name='Encryption'):
             # decoded = ''.join(chr(int(message[i*8:i*8+8],2)) for i in range(len(message)//8))
             #decoded = binascii.b2a_qp(message)
             #await ctx.send(decoded)
-            await ctx.send('Binary decryption is currently not ready.')
-            return
+            return await ctx.send('Binary decryption is currently not ready.')
         else:
-            await ctx.send('That is not a valid target.')
-            return
+            return await ctx.send('That is not a valid target.')
         embed = discord.Embed(title='Decryption complete.', color=discord.Colour.dark_red(),
                               description=f'Here\'s your new message from {target}.')
         embed.add_field(name='Before: ', value=f'{message}', inline=False)
@@ -116,6 +102,7 @@ class Encryption(commands.Cog, name='Encryption'):
     async def reverse(self, ctx, *, message: str):
         new_msg = message[::-1]
         await ctx.send(new_msg)
+
 
 def setup(bot):
     bot.add_cog(Encryption(bot))

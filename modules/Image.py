@@ -38,13 +38,11 @@ class Image(commands.Cog, name='Image'):
             if secondtag is None:
                 rating = self.checktags(tags, '')
                 if not self.nololitag(tags, ''):
-                    await ctx.send('We can\'t show this as it violates Discord ToS.')
-                    return
+                    return await ctx.send('We can\'t show this as it violates Discord ToS.')
             else:
                 rating = self.checktags(tags, secondtag)
                 if not self.nololitag(tags, secondtag):
-                    await ctx.send('We can\'t show this as it violates Discord ToS.')
-                    return
+                    return await ctx.send('We can\'t show this as it violates Discord ToS.')
             # One tag
             if secondtag is None:
                 if rating == 0:
@@ -67,8 +65,7 @@ class Image(commands.Cog, name='Image'):
         try:
             url = data['file_url']
         except Exception:
-            await ctx.send('We could not find any images with that tag.')
-            return
+            return await ctx.send('We could not find any images with that tag.')
         embed = discord.Embed(color=ctx.message.guild.me.color, title='Image from Project Danbooru!',
                               description='If you can\'t see the image, click the title.', url=url)
         embed.add_field(name='Rating: ', value=f'{self.formatrating(data["rating"])}', inline=True)
@@ -95,8 +92,7 @@ class Image(commands.Cog, name='Image'):
         elif 'questionable'.lower() in tags:
             temp = '?tags=-status%3Adeleted+-loli+-shota+rating:q&limit=100'
         elif ('loli'.lower() or 'shota'.lower()) in tags:
-            await ctx.send('We can\'t show this as it violates Discord ToS.')
-            return
+            return await ctx.send('We can\'t show this as it violates Discord ToS.')
         else:
             if rating is None:
                 temp = f'?tags=-status%3Adeleted+-loli+-shota+{tags}&limit=100'
@@ -116,8 +112,7 @@ class Image(commands.Cog, name='Image'):
             selected = random.randint(0, len(data))
             url = data[selected]['file_url']
         except Exception:
-            await ctx.send('We could not find any images with that tag.')
-            return
+            return await ctx.send('We could not find any images with that tag.')
         embed = discord.Embed(color=ctx.message.guild.me.color, title='Image from Konachan!',
                               description='If you can\'t see the image, click the title.', url=url)
         embed.add_field(name='Known tags: ', value=f'`{data[selected]["tags"]}`',
@@ -144,8 +139,7 @@ class Image(commands.Cog, name='Image'):
         elif 'questionable'.lower() in tags:
             temp = '?tags=-status%3Adeleted+-loli+-shota+rating:q&limit=100'
         elif ('loli'.lower() or 'shota'.lower()) in tags:
-            await ctx.send('We can\'t show this as it violates Discord ToS.')
-            return
+            return await ctx.send('We can\'t show this as it violates Discord ToS.')
         else:
             if rating is None:
                 temp = f'?tags=-status%3Adeleted+-loli+-shota+{tags}&limit=100'
@@ -165,8 +159,7 @@ class Image(commands.Cog, name='Image'):
             selected = random.randint(0, len(data))
             url = data[selected]['file_url']
         except Exception:
-            await ctx.send('We could not find any images with that tag.')
-            return
+            return await ctx.send('We could not find any images with that tag.')
         embed = discord.Embed(color=ctx.message.guild.me.color, title='Image from Yande.re!',
                               description='If you can\'t see the image, click the title.', url=url)
         embed.add_field(name='Known tags: ', value=f'`{data[selected]["tags"]}`',
