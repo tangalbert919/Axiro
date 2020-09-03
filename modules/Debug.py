@@ -131,7 +131,7 @@ class Debug(commands.Cog, command_attrs=dict(hidden=True), name='Debug'):
                     f.flush()
         await ctx.send(':white_check_mark: Downloaded file from **`{}`** saved to **`{}`**'.format(url, path))
 
-    @commands.command(aliases=['quit'], hidden=True)
+    @commands.command(aliases=['quit'])
     @commands.is_owner()    
     async def shutdown(self, ctx):
         await ctx.send('Shutting down Axiro.')
