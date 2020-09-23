@@ -10,7 +10,7 @@ from os.path import isfile, join
 from discord.ext.commands import Bot, Greedy
 from discord import User
 
-class Debug(commands.Cog, command_attrs=dict(hidden=True), name='Debug'):
+class Debug(commands.Cog, command_attrs=dict(hidden=True)):
 
     def __init__(self, bot):
         self.bot = bot

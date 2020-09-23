@@ -17,12 +17,15 @@ class General(commands.Cog, name='General'):
             embed = discord.Embed(title='I\'m Axiro! This is my list of commands!',
                               description='If you need help on a specific command, use ``x!help <command>``')
             for module in self.bot.cogs:
-                cog = self.bot.get_cog(module)
-                cogcmds = cog.get_commands()
-                list = ''
-                for c in cogcmds:
-                    list += f'``{c}`` '
-                embed.add_field(name=module, value=list, inline=False)
+                if module == 'Debug':
+                    pass
+                else:
+                    cog = self.bot.get_cog(module)
+                    cogcmds = cog.get_commands()
+                    list = ''
+                    for c in cogcmds:
+                        list += f'``{c}`` '
+                    embed.add_field(name=module, value=list, inline=False)
             embed.set_footer(icon_url=ctx.message.author.avatar_url,
                              text=f'Requested by {ctx.message.author.name}')
         else:
