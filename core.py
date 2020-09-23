@@ -3,7 +3,7 @@ from discord.ext import commands
 from datetime import datetime
 
 
-class WeirdnessBot(commands.AutoShardedBot):
+class Axiro(commands.AutoShardedBot):
 
     def __init__(self):
         # Load configuration.
@@ -20,7 +20,7 @@ class WeirdnessBot(commands.AutoShardedBot):
         dbpass = self.config['dbpass']
         dbuser = self.config['dbuser']
         govinfo = {'user': dbuser, 'password': dbpass, 'database': 'axiro', 'host': 'localhost', 'max_size': 10}
-        self.usedatabase = True
+        self.usedatabase = self.config['usedatabase']
 
         async def _init_db():
             try:
@@ -33,7 +33,8 @@ class WeirdnessBot(commands.AutoShardedBot):
                 print('Database either not detected or initialized. Starting bot without database connection.')
                 self.usedatabase = False
 
-        self.loop.create_task(_init_db())
+        if self.usedatabase is True:
+            self.loop.create_task(_init_db())
 
         # Load status JSON, which will be used in looped task started in on_ready().
         self.status_msg = json.loads(open('status.json', 'r').read())
@@ -73,7 +74,7 @@ class WeirdnessBot(commands.AutoShardedBot):
                 'Authorization': self.config['dbl_token'],
                 'Content-type': 'application/json'
             }
-            dblurl = f'https://discordbots.org/api/bots/{self.user.id}/stats'
+            dblurl = f'https://top.gg/api/bots/{self.user.id}/stats'
 
             async with aiohttp.ClientSession() as session:
                 async with session.post(dblurl, data=dblload, headers=dblheaders) as resp:
@@ -211,6 +212,6 @@ class WeirdnessBot(commands.AutoShardedBot):
             await asyncio.sleep(1800)
 
 
-client = WeirdnessBot()
+client = Axiro()
 config = json.loads(open('config.json', 'r').read())
 client.run(config.get('discordtoken'))

@@ -61,10 +61,11 @@ Note 2: If you're on macOS, you will need to download Java 8 from [Oracle](https
     "discordtoken": "discordapp.com API token",
     "newsapitoken": "newsapi token",
     "lavalinkpass": "Lavalink password",
+    "usedatabase": false,
     "dbpass": "Database password",
     "dbuser": "Database username",
-    "dbl_token": "DiscordBots.org token",
+    "dbl_token": "Top.gg token",
     "prefix": "x!",
-    "lavaport": "2333",
+    "lavaport": 2333
 }
 ```
