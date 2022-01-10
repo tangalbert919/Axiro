@@ -8,12 +8,7 @@ You can join the official server [here](https://discord.gg/NEpsy8h), or invite t
 
 ## Features:
 
-* Basic encryption, decryption, and hash.
-* Typical anime stuff.
-* An economy run on chickens.
-* Music capabilities
-* Access the news.
-* Do what admins need to do (kick, ban, etc.)
+* TODO.
 
 ## Installation:
 
@@ -21,11 +16,12 @@ You can join the official server [here](https://discord.gg/NEpsy8h), or invite t
 
 ## TODO:
 
+* Complete the rewrite.
 * ~~Build the mute command.~~
 * ~~Add this bot to discordbots.org~~
-* Get to 200 guilds.
+* ~~Get to 200 guilds.~~
 * ~~Gain access to weeb.sh~~
 * ~~Use aiohttp for Konachan~~
 * ~~Build music module.~~
-* Add more weird stuff.
-* Complete the Encryption module.
+* ~~Add more weird stuff.~~
+* ~~Complete the Encryption module.~~
