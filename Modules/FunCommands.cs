@@ -18,5 +18,34 @@ namespace Axiro.Modules
         {
             _handler = handler;
         }
+
+        [SlashCommand("8ball", "Ask the magic 8-ball anything!")]
+        public async Task EightBall(string question)
+        {
+            // TODO: Create 8-ball enum?
+            await RespondAsync("Coming soon");
+        }
+
+        [Group("random", "Random command")]
+        public class RandomCommand : InteractionModuleBase<SocketInteractionContext>
+        {
+            [SlashCommand("number", "Get a random number")]
+            public async Task Number()
+            {
+                Random rand = new();
+                await RespondAsync(rand.Next().ToString());
+            }
+            [SlashCommand("fact", "Get a random fact.")]
+            public async Task Fact()
+            {
+                await RespondAsync("Coming soon");
+            }
+
+            [SlashCommand("quote", "Get a random quote.")]
+            public async Task Quote()
+            {
+                await RespondAsync("Coming soon");
+            }
+        }
     }
 }
