@@ -18,5 +18,16 @@ namespace Axiro.Modules
         {
             _handler = handler;
         }
+
+        [SlashCommand("encode", "Encodes the message")]
+        public async Task Encode(string hash, string message)
+        {
+            string result = "";
+            if (hash.ToLower().Equals("base64"))
+                result = Convert.ToBase64String(Encoding.UTF8.GetBytes(message));
+            else
+                await RespondAsync("This hash is currently unavailable");
+            await RespondAsync(result);
+        }
     }
 }
