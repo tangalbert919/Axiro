@@ -2,9 +2,6 @@
 using Discord;
 using Discord.Interactions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Axiro.Modules
@@ -54,7 +51,7 @@ namespace Axiro.Modules
 
         // TODO: Find a way to get current roles.
         [SlashCommand("user", "Get information about a user.")]
-        public async Task User(IUser user)
+        public async Task User(IGuildUser user)
         {
             EmbedBuilder builder = new();
             builder.Title = "Information successfully collected!";
@@ -118,7 +115,10 @@ namespace Axiro.Modules
         [SlashCommand("upvote", "Upvote this bot!")]
         public async Task Upvote()
         {
-            await RespondAsync("Coming soon");
+            EmbedBuilder builder = new();
+            builder.Title = "Vote for Axiro";
+            builder.Description = "Do you really like using Axiro? You can upvote it by clicking [here](https://top.gg/bot/458834071796187149/vote)!";
+            await SendEmbed(builder.Build());
         }
         
         public async Task SendEmbed(Embed embed)
