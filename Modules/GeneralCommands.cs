@@ -38,7 +38,7 @@ namespace Axiro.Modules
             EmbedBuilder builder = new();
             builder.Title = "About Axiro";
             builder.Description = "This bot was created to do weird things.";
-            builder.AddField("Author: ", "tangalbert919 (The Freaking iDroid");
+            builder.AddField("Author: ", "tangalbert919 (The Freaking iDroid)");
             builder.AddField("Stats: ", "Coming soon");
             builder.AddField("Version: ",
 #if DEBUG
@@ -46,7 +46,7 @@ namespace Axiro.Modules
 #else
                 "Version 7");
 #endif
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         // TODO: Find a way to get current roles.
@@ -60,7 +60,7 @@ namespace Axiro.Modules
             builder.AddField("Current roles: ", "coming soon");
             builder.AddField("Joined Discord on: ", user.CreatedAt);
             builder.ThumbnailUrl = user.GetAvatarUrl();
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("avatar", "Get the user avatar")]
@@ -70,7 +70,7 @@ namespace Axiro.Modules
             builder.Color = Color.Red;
             builder.ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 1024);
             builder.Title = $"Here is {user.Username}'s avatar.";
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("invite", "Get the invite link for the bot")]
@@ -79,7 +79,7 @@ namespace Axiro.Modules
             EmbedBuilder builder = new();
             builder.Title = "You want to invite me to your server?";
             builder.Description = "Invite me by clicking [here](https://discordapp.com/api/oauth2/authorize?client_id=458834071796187149&permissions=8&scope=bot).";
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("server", "Join Axiro's support server")]
@@ -88,19 +88,35 @@ namespace Axiro.Modules
             EmbedBuilder builder = new();
             builder.Title = "You want to join my support server?";
             builder.Description = "Join by clicking [here](https://discord.gg/NEpsy8h).";
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("suggest", "Send a suggestion!")]
         public async Task Suggestion(string suggestion)
         {
-            await RespondAsync("Coming soon");
+            EmbedBuilder builder = new();
+            builder.Title = "Suggestion received!";
+            builder.Description = $"We got a suggestion from {Context.User.Username}!";
+            builder.AddField("Suggestion", suggestion);
+            Embed[] embed = new Embed[1];
+            embed[0] = builder.Build();
+            await Context.Client.GetGuild(457696464475258881).GetTextChannel(460669314933063680)
+                .SendMessageAsync(embeds: embed);
+            await RespondAsync("Suggestion sent");
         }
 
         [SlashCommand("report", "Report a bug!")]
         public async Task Report(string report)
         {
-            await RespondAsync("Coming soon");
+            EmbedBuilder builder = new();
+            builder.Title = "Report received!";
+            builder.Description = $"We got a report from {Context.User.Username}!";
+            builder.AddField("Suggestion", report);
+            Embed[] embed = new Embed[1];
+            embed[0] = builder.Build();
+            await Context.Client.GetGuild(457696464475258881).GetTextChannel(460666448352641026)
+                .SendMessageAsync(embeds: embed);
+            await RespondAsync("Report sent");
         }
 
         [SlashCommand("github", "Get GitHub link!")]
@@ -109,7 +125,7 @@ namespace Axiro.Modules
             EmbedBuilder builder = new();
             builder.Title = "Are you a programmer and want to help?";
             builder.Description = "Click [here](https://github.com/tangalbert919/Axiro) to see my repository.";
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("upvote", "Upvote this bot!")]
@@ -118,12 +134,7 @@ namespace Axiro.Modules
             EmbedBuilder builder = new();
             builder.Title = "Vote for Axiro";
             builder.Description = "Do you really like using Axiro? You can upvote it by clicking [here](https://top.gg/bot/458834071796187149/vote)!";
-            await SendEmbed(builder.Build());
-        }
-        
-        public async Task SendEmbed(Embed embed)
-        {
-            await RespondAsync(null, null, false, false, null, null, null, embed);
+            await RespondAsync(embed: builder.Build());
         }
     }
 }
