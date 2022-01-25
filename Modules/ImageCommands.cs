@@ -37,7 +37,7 @@ namespace Axiro.Modules
             builder.Title = "From nekos.life";
             builder.ImageUrl = result.url;
             builder.Footer = new EmbedFooterBuilder().WithText("Requested by " + Context.User.Username);
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         // TODO: Find some image boards that aren't anime.
@@ -57,7 +57,7 @@ namespace Axiro.Modules
             builder.Title = "From Project Danbooru";
             builder.ImageUrl = result.RootElement.GetProperty("file_url").GetString();
             builder.Footer = new EmbedFooterBuilder().WithText("Requested by " + Context.User.Username);
-            await SendEmbed(builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("konachan", "Get an image from Konachan")]
@@ -76,11 +76,6 @@ namespace Axiro.Modules
         public async Task Yandere([Summary(description: "Search with this tag")] string tag = null)
         {
             await RespondAsync("Coming soon");
-        }
-
-        public async Task SendEmbed(Embed embed)
-        {
-            await RespondAsync(null, null, false, false, null, null, null, embed);
         }
     }
 }
