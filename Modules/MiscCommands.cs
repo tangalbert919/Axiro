@@ -4,7 +4,6 @@ using Discord.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Axiro.Modules
@@ -74,7 +73,7 @@ namespace Axiro.Modules
             builder.Color = Color.Red;
             builder.Title = "WE GOT HIM!";
             builder.ImageUrl = "https://media1.tenor.com/images/4a08ff9d3f956dd814fc8ee1cfaac592/tenor.gif?itemid=10407619";
-            await RespondAsync(null, null, false, false, null, null, null, builder.Build());
+            await RespondAsync(embed: builder.Build());
         }
 
         [SlashCommand("chrome", "For some reason, Chrome.")]
