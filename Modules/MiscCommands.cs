@@ -4,6 +4,8 @@ using Discord.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Axiro.Modules
@@ -82,7 +84,29 @@ namespace Axiro.Modules
         [SlashCommand("chrome", "For some reason, Chrome.")]
         public async Task Chrome()
         {
-            await RespondAsync("Cannot get current version of Chrome at this time.");
+            HttpClient client = new();
+
+            JsonDocument json = JsonDocument.ParseAsync(
+                client.GetStreamAsync("https://omahaproxy.appspot.com/all.json?os=win").Result).Result;
+            //Console.WriteLine(json.RootElement.ToString());
+
+            /**
+             * The received JSON is an array of length 1, which is just unnecessary. The first 15 characters
+             * just specify what OS we specified, so get rid of that and replace it with an opening curly bracket.
+             */
+            string temp = json.RootElement.ToString();
+            temp = "{" + temp[15..^1];
+
+            JsonDocument result = JsonDocument.Parse(temp);
+            //Console.WriteLine(result.RootElement.ToString());
+            //Console.WriteLine(result.RootElement.GetProperty("versions"));
+            JsonElement[] array = result.RootElement.GetProperty("versions").EnumerateArray().ToArray();
+            //Console.WriteLine(array.Length);
+            // 0 is Canary_asan, 1 is Canary, 2 is dev, 3 is beta, 4 is stable.
+            // TODO: Allow option to choose between Chrome branches.
+            //Console.WriteLine(array[4].ToString());
+            string version = array[4].GetProperty("current_version").GetString();
+            await RespondAsync("The current version of Chrome is " + version);
         }
 
         [SlashCommand("piglatin", "Translate something to pig latin.")]
