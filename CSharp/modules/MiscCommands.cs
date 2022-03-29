@@ -91,7 +91,7 @@ namespace Axiro.Modules
             //Console.WriteLine(json.RootElement.ToString());
 
             /**
-             * The received JSON is an array of length 1, which is just unnecessary. The first 15 characters
+             * The received JSON needs to be reformatted slightly before we can use it. The first 15 characters
              * just specify what OS we specified, so get rid of that and replace it with an opening curly bracket.
              */
             string temp = json.RootElement.ToString();
