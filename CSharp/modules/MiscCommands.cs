@@ -3,6 +3,7 @@ using Discord;
 using Discord.Interactions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -34,7 +35,10 @@ namespace Axiro.Modules
         [SlashCommand("uptime", "Get bot uptime")]
         public async Task Uptime()
         {
-            await RespondAsync("Coming soon");
+            DateTime start = Process.GetCurrentProcess().StartTime;
+
+            TimeSpan elapsed = DateTime.Now - start;
+            await RespondAsync("Uptime: " + elapsed.ToString());
         }
 
         [SlashCommand("winner", "Declare someone a winner")]
@@ -74,10 +78,12 @@ namespace Axiro.Modules
         [SlashCommand("wegothim", "WE GOT HIM!")]
         public async Task WeGotHim()
         {
-            EmbedBuilder builder = new();
-            builder.Color = Color.Red;
-            builder.Title = "WE GOT HIM!";
-            builder.ImageUrl = "https://media1.tenor.com/images/4a08ff9d3f956dd814fc8ee1cfaac592/tenor.gif?itemid=10407619";
+            EmbedBuilder builder = new()
+            {
+                Color = Color.Red,
+                Title = "WE GOT HIM!",
+                ImageUrl = "https://media1.tenor.com/images/4a08ff9d3f956dd814fc8ee1cfaac592/tenor.gif?itemid=10407619"
+            };
             await RespondAsync(embed: builder.Build());
         }
 
