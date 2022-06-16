@@ -23,7 +23,7 @@ namespace Axiro.Modules
 
         private class NekoAPI
         {
-            public string url { get; set; }
+            public string Url { get; set; }
         }
 
         [SlashCommand("neko", "Get a neko image")]
@@ -33,10 +33,12 @@ namespace Axiro.Modules
             StreamReader reader = new(await client.GetStreamAsync("https://nekos.life/api/v2/img/neko"));
 
             NekoAPI result = JsonConvert.DeserializeObject<NekoAPI>(reader.ReadToEnd());
-            EmbedBuilder builder = new();
-            builder.Title = "From nekos.life";
-            builder.ImageUrl = result.url;
-            builder.Footer = new EmbedFooterBuilder().WithText("Requested by " + Context.User.Username);
+            EmbedBuilder builder = new()
+            {
+                Title = "From nekos.life",
+                ImageUrl = result.Url,
+                Footer = new EmbedFooterBuilder().WithText("Requested by " + Context.User.Username)
+            };
             await RespondAsync(embed: builder.Build());
         }
 
@@ -53,10 +55,12 @@ namespace Axiro.Modules
             Console.WriteLine(result.RootElement);
             Console.WriteLine(result.RootElement.GetProperty("id").GetUInt32());
 #endif
-            EmbedBuilder builder = new();
-            builder.Title = "From Project Danbooru";
-            builder.ImageUrl = result.RootElement.GetProperty("file_url").GetString();
-            builder.Footer = new EmbedFooterBuilder().WithText("Requested by " + Context.User.Username);
+            EmbedBuilder builder = new()
+            {
+                Title = "From Project Danbooru",
+                ImageUrl = result.RootElement.GetProperty("file_url").GetString(),
+                Footer = new EmbedFooterBuilder().WithText("Requested by " + Context.User.Username)
+            };
             await RespondAsync(embed: builder.Build());
         }
 
