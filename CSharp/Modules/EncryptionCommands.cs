@@ -23,6 +23,8 @@ namespace Axiro.Modules
             string result;
             if (hash.ToLower().Equals("base64"))
                 result = Convert.ToBase64String(Encoding.UTF8.GetBytes(message));
+            else if (hash.ToLower().Equals("hex"))
+                result = Convert.ToHexString(Encoding.UTF8.GetBytes(message));
             else
             {
                 await RespondAsync("This hash is currently unavailable");
